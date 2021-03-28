@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
-import { ContactSchema } from '../models/crmModel'
+const mongoose = require('mongoose');
+const { ContactSchema } = require('../models/crmModel')
 
 const Contact = mongoose.model('Contact', ContactSchema);
 
-export const addNewContact = (req, res) => {
+exports.addNewContact = (req, res) => {
     let newContact = new Contact(req.body);
     newContact.save((err, contact) => {
         if (err) {
@@ -13,8 +13,7 @@ export const addNewContact = (req, res) => {
     })
 }
 
-export const getContcats = (req, res) => {
-
+exports.getContcats = (req, res) => {
     Contact.find({}, (err, contact) => {
         if (err) {
             res.send(err);

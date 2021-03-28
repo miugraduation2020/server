@@ -1,11 +1,12 @@
-import express from 'express';
-import routes from './src/routes/crmRoutes';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
+const userRoutes = require('./src/routes/userRoutes');
+const crmRoutes = require('./src/routes/crmRoutes');
 
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = 4000;
+const PORT = 3000;
 
 //mongoose connection
 mongoose.Promise = global.Promise;
@@ -18,9 +19,8 @@ mongoose.connect('mongodb+srv://jana:OkxJD6oe4J2RLGd2@cluster0.2pnqd.mongodb.net
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
-
-routes(app);
+userRoutes(app);
+crmRoutes(app);
 
 app.get('/', (req, res) => {
     res.send(`Node and express server running on port ${PORT}`)
