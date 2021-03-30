@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
 //mongoose connection
 mongoose.Promise = global.Promise;

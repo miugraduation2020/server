@@ -1,4 +1,9 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const { Int32 } = require("mongodb");
+
+
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -41,7 +46,6 @@ const UserSchema = new Schema({
 
 });
 
-mongoose.model("User", UserSchema);
 
 UserSchema.pre("save", function (next) {
     const user = this;
@@ -79,3 +83,4 @@ UserSchema.methods.comparePassword = function (enteredPassword) {
         });
     });
 };
+mongoose.model("User", UserSchema);

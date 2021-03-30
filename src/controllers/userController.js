@@ -1,17 +1,14 @@
 const mongoose = require('mongoose');
+const jwt = require("jsonwebtoken");
 const { UserSchema } = require('../models/userModel')
+const dotenv = require("dotenv");
+dotenv.config();
 
 const User = mongoose.model('User', UserSchema);
 
 exports.addUser = async (req, res) => {
 
-    // let newUser = new User(req.body);
-    // newUser.save((err, user) => {
-    //     if (err) {
-    //         res.send(err);
-    //     }
-    //     res.json(user);
-    // })
+
 
     const {
         email,
@@ -62,7 +59,7 @@ exports.addUser = async (req, res) => {
             return res.status(406).send({ errors });
         }
 
-        //   const token = jwt.sign(email, "abcd1234");
+        const token = jwt.sign(email, "abcd1234");
 
         const user = new User({
             email,
