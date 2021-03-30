@@ -1,21 +1,24 @@
-import mongoose from 'mongoose';
-
-
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-export const ImageSchema = new Schema({
-    imageID: Schema.Types.ObjectId,
-    uploadDate: {
-        type: Date,
-        required: 'Enter upload date'
-    },
-    imgPath: {
+const ImageSchema = new Schema({
+    imgPath:{
         type: String,
-        required: 'Enter Last Name'
+        required: true
     },
-    patientID: {
+    imgNameDB:{
+        type:String,
+        required: true
+    },
+    uploadDate:{
+        type: Date,
+        required:true
+    },
+    patientID:{
         type: Number,
-        required: 'Enter Email'
-    },
-    
-});
+        required:true
+    }
+
+})
+
+module.exports = mongoose.model("Image", ImageSchema);
