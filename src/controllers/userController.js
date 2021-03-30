@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
-const sendEmail = require("send-email");
 const { UserSchema } = require('../models/userModel');
 const { PathologistSchema } = require('../models/pathologistModel');
 const dotenv = require("dotenv");
 dotenv.config();
 
+const sendEmail = require("send-email");
 const User = mongoose.model('User', UserSchema);
 const Pathologist = mongoose.model('Pathologist', PathologistSchema);
 // const Patient = mongoose.model('Patient', UserSchema);
@@ -97,10 +97,10 @@ exports.addUser = async (req, res) => {
             subject: "Please confirm your email address",
             html: `<div>
                 <h2>Hi there!</h2>
-                <h3>Please verify your email by entering the code below to be able to use our systm.</h3>
+                <h3>Please verify your email by entering the code below to be able to use our system.</h3>
                 <h3>${code}</h3>
               </div>`,
-            from: "BCD.biobsylabs@gmail.com",
+            from: "miu.graduation2020@gmail.com",
         });
 
         res.send({ user });
@@ -158,7 +158,7 @@ exports.forgotPassword = async (req, res) => {
       <h3>Please verify your email by entering the code below to be able to reset your password.</h3>
       <h3>${code}</h3>
     </div>`,
-        from: "BCD.biobsylabs@gmail.com",
+        from: "miu.graduation2020@gmail.com",
     });
 
     const user = User.find({ email });

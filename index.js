@@ -2,12 +2,12 @@
 
 const userRoutes = require('./src/routes/userRoutes');
 const crmRoutes = require('./src/routes/crmRoutes');
-const {router} = require('./src/routes/imageRouts');
+const { router } = require('./src/routes/imageRouts');
 
 
 // Database 
 
-const {url, mongoose, con} = require("./src/db")
+const { url, mongoose, con } = require("./src/db")
 
 // Express / Middleware / Port
 const express = require('express');
