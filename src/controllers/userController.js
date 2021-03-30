@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const sendEmail = require("send-email");
 const { UserSchema } = require('../models/userModel');
+const { PathologistSchema } = require('../models/pathologistModel');
 const dotenv = require("dotenv");
 dotenv.config();
 
 const User = mongoose.model('User', UserSchema);
+const Pathologist = mongoose.model('Pathologist', PathologistSchema);
+// const Patient = mongoose.model('Patient', UserSchema);
+
 
 exports.addUser = async (req, res) => {
     const {
@@ -73,8 +77,20 @@ exports.addUser = async (req, res) => {
             code,
             token,
         });
+        const pathologist = new Pathologist({
+            userId: user._id
+        });
 
-        await user.save();
+        await user.save().then(user => {
+            console.log('The user ' + user._id + ' has been added.');
+            if (user.type == "pathologist") {
+                pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.'))
+            }
+
+        },
+
+
+        );
 
         sendEmail({
             to: user.email,
