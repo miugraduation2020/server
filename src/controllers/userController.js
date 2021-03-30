@@ -196,3 +196,24 @@ exports.changePassword = async (req, res) => {
 
     res.send({ response: "Password renewed successfully!" });
 };
+
+exports.getUsersData = async (req, res) => {
+    const { email } = req.body;
+    const u = await User.findOne({ email: "jaa13d245@live.com" });
+    if (!u) {
+        return res
+            .status(406)
+            .send({ error: "User does not exists" });
+    }
+    const user = new User({
+        email: u.email,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        phoneNumber: u.phoneNumber,
+        address: u.address,
+        dateOfBirth: u.dateOfBirth,
+        gender: u.gender,
+    })
+    res.send(user);
+}
+
