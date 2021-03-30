@@ -3,6 +3,7 @@
 const userRoutes = require('./src/routes/userRoutes');
 const crmRoutes = require('./src/routes/crmRoutes');
 const {router} = require('./src/routes/imageRouts');
+const FAQRoutes = require('./src/routes/FAQRoutes');
 
 
 // Database 
@@ -27,6 +28,7 @@ app.use(cors());
 
 // Routes
 userRoutes(app);
+FAQRoutes(app);
 crmRoutes(app);
 app.use('/img', router);
 
