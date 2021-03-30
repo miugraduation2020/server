@@ -1,15 +1,12 @@
-const { addUser } = require('../controllers/userController')
+const { addUser, signIn, verifyEmail, forgotPassword, changePassword } = require('../controllers/userController')
 
 const routes = (app) => {
     app.route('/user')
-        .post(addUser)
-    app.route('/user/:ID')
-        .put((req, res) =>
-            res.send('Put request SUCCESS')
-        )
-        .delete((req, res) =>
-            res.send('delete request SUCCESS')
-        )
+        .post(addUser);
+    app.route("/user/signIn").post(signIn);
+    app.route("/user/verify-email").post(verifyEmail);
+    app.route("/user/forgot-password").post(forgotPassword);
+    app.route("/user/change-password").patch(changePassword);
 }
 
 module.exports = routes;
