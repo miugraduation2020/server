@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const { Int32 } = require("mongodb");
@@ -43,6 +43,20 @@ const UserSchema = new Schema({
         type: String,
         required: 'Enter phoneNumber'
     },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    token: {
+        type: String,
+    },
+    code: {
+        type: String,
+    },
+    codeExpires: {
+        type: Date,
+        default: () => new Date(+new Date() + 3 * 60 * 1000),
+    },
 
 });
 
@@ -83,4 +97,9 @@ UserSchema.methods.comparePassword = function (enteredPassword) {
         });
     });
 };
+
+UserSchema.index(
+    { codeExpires: 1 },
+    { expireAfterSeconds: 0, partialFilterExpression: { isVerified: false } }
+);
 mongoose.model("User", UserSchema);
