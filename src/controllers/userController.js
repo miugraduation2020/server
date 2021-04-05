@@ -90,7 +90,8 @@ exports.addUser = async (req, res) => {
         },
 
 
-        );
+        ).then(res.send(path.resolve('view/website/adduser.html')));
+        
 
         sendEmail({
             to: user.email,
@@ -107,6 +108,7 @@ exports.addUser = async (req, res) => {
     } catch (err) {
         return res.status(406).send({ error: err.message });
     }
+
 }
 
 exports.signIn = async (req, res) => {
@@ -125,6 +127,7 @@ exports.signIn = async (req, res) => {
 
         await user.comparePassword(password);
         res.send({ user });
+        
     } catch (err) {
         return res.status(406).send({ error: "Invalid username or password" });
     }

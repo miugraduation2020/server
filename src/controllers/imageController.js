@@ -8,7 +8,7 @@ var fs = require('fs');
 const dburl = require("../db");
 
 var db_filename = "testy.tif";
-var local_file = "D:/MIU/Graduation Project/newServer/server/is003.tif";
+var local_file = "./src/is003.tif";
 
 gridfs.mongo = mongoose.mongo;
 var connection = mongoose.connection;
