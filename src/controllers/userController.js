@@ -115,7 +115,7 @@ exports.signIn = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(406).send({ error: "Invalid email or password" });
+            return res.status(406).send({ error: "Invalid email " });
         }
         if (!user.isVerified) {
             return res
@@ -192,7 +192,7 @@ exports.changePassword = async (req, res) => {
         return res.status(406).send({ error: "Password does not match" });
 
     await User.updateOne({ email }, { $set: { password } });
-    await user.save();
+    // await user.save();
 
     res.send({ response: "Password renewed successfully!" });
 };

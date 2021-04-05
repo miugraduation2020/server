@@ -82,6 +82,7 @@ UserSchema.pre("save", function (next) {
     });
 });
 
+
 UserSchema.methods.comparePassword = function (enteredPassword) {
     const user = this;
 

@@ -2,14 +2,17 @@ const express = require('express');
 const router = express.Router();
 const { mongoose, url, con } = require("../db");
 const img = require('../controllers/imageController');
+
 var gridfs = require('gridfs-stream');
 gridfs.mongo = mongoose.mongo;
 var connection = mongoose.connection;
 var gfs;
 var fs = require('fs');
+
+
 connection.on('error', console.error.bind(console, 'connection error:'));
 connection.once('open', function () {
-   exports.gfs = gridfs(connection.db);
+    exports.gfs = gridfs(connection.db);
 
     router.get('/write',
         img.writeimg

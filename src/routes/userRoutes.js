@@ -3,7 +3,7 @@ const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersDa
 const routes = (app) => {
     app.route('/user')
         .post(addUser);
-    app.route("/user/signIn").post(signIn);
+    app.route("/user/sign-in").post(signIn);
     app.route("/user/verify-email").post(verifyEmail);
     app.route("/user/forgot-password").post(forgotPassword);
     app.route("/user/change-password").patch(changePassword);
