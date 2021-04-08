@@ -8,22 +8,26 @@ dotenv.config();
 const sendEmail = require("send-email");
 const User = mongoose.model('User', UserSchema);
 const Pathologist = mongoose.model('Pathologist', PathologistSchema);
-// const Patient = mongoose.model('Patient', UserSchema);
+//const Patient = mongoose.model('Patient', UserSchema);
+const path = require('path');
 
+
+           
 
 exports.addUser = async (req, res) => {
-    const {
-        email,
-        firstName,
-        lastName,
-        phoneNumber,
-        password,
-        confPassword,
-        type,
-        address,
-        dateOfBirth,
-        gender
-    } = req.body;
+
+
+    const email = req.body.email;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const phoneNumber = req.body.phoneNumber;
+    const password = req.body.password;
+    const confPassword = req.body.confPassword;
+    const type = req.body.type;
+    const address = req.body.address;
+    const dateOfBirth = req.body.dateOfBirth;
+    const gender = req.body.gender;
+
     const code = Math.floor(1000 + Math.random() * 9000);
     const errors = { email: [], password: [], confPassword: [] };
     const user = await User.findOne({ email });
@@ -82,16 +86,18 @@ exports.addUser = async (req, res) => {
         });
 
         await user.save().then(user => {
-            console.log('The user ' + user._id + ' has been added.');
+            console.log('The user ' + user._id + ' has been added.')
+            res.sendFile(__dirname + './view/AddUser.html')
+            
+
             if (user.type == "pathologist") {
-                pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.'))
+                pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.')).then(res.sendFile(__dirname + './view/AddUser.html'))
+
             }
 
         },
+        )
 
-
-        ).then(res.send(path.resolve('view/website/adduser.html')));
-        
 
         sendEmail({
             to: user.email,
@@ -106,7 +112,7 @@ exports.addUser = async (req, res) => {
 
         res.send({ user });
     } catch (err) {
-        return res.status(406).send({ error: err.message });
+        console.log(`${res.status(406).send({ error: err.message })}`) ;
     }
 
 }
@@ -117,17 +123,17 @@ exports.signIn = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(406).send({ error: "Invalid email " });
+            console.log(`${ res.status(406).send({ error: "Invalid email " })}`);
         }
         if (!user.isVerified) {
-            return res
+            console.log(`${ res
                 .status(406)
-                .send({ error: "User not verified - Please verify your email" });
+                .send({ error: "User not verified - Please verify your email" })}`);
         }
 
         await user.comparePassword(password);
         res.send({ user });
-        
+
     } catch (err) {
         return res.status(406).send({ error: "Invalid username or password" });
     }

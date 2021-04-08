@@ -1,6 +1,6 @@
 // Imported Route Files
 
-const userRoutes = require('./src/routes/userRoutes');
+const { urouter, routes } = require('./src/routes/userRoutes');
 const crmRoutes = require('./src/routes/crmRoutes');
 const { router } = require('./src/routes/imageRouts');
 const FAQRoutes = require('./src/routes/FAQRoutes');
@@ -28,18 +28,19 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Routes
-userRoutes(app);
+routes(app);
 FAQRoutes(app);
 crmRoutes(app);
 app.use('/img', router);
+app.use(urouter);
 
 // app.get('/', (req, res) => {
 //     res.send(`Node and express server running on port ${PORT}`)
 // });
-app.use(express.static(path.join(__dirname, './view/website')))
+app.use(express.static(path.join(__dirname, 'src/view')))
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './view/website/'));
+    res.sendFile(path.join(__dirname, 'src/view'));
 });
 
 app.listen(PORT, () => {
