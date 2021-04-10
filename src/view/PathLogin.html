@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
     <!-- Main css -->
     <link rel="stylesheet" href="css/styleReg.css">
 </head>
+
 <body>
 
     <div class="main">
@@ -21,23 +23,25 @@
             <!-- <img src="images/signup-bg.jpg" alt=""> -->
             <div class="container">
                 <div class="signup-content">
-                    <form method="POST" id="signup-form" class="signup-form">
+                    <form method="POST" id="signup-form" class="signup-form" action="pathSignIn">
                         <h2 class="form-title">Hello There!</h2>
-                        
+
                         <div class="form-group">
-                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                            <input type="email" required class="form-input" name="email" id="email"
+                                placeholder="Your Email" />
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <input type="text" required class="form-input" name="password" id="password"
+                                placeholder="Password" />
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
-                        
+
                         <div class="form-group">
                             <a href="pathProfile.html" style="color: transparent;">Profile</a>
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign in"/>
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign in" />
                         </div>
                     </form>
-                  
+
                 </div>
             </div>
         </section>
@@ -54,5 +58,8 @@
     <script src="js/app-style-switcher.js"></script>
     <!--Wave Effects -->
     <script src="js/waves.js"></script>
+    <script src="../controllers/userController.js"></script>
+    <script src="../routes/userRoutes.js"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>

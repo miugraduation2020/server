@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
+const express = require("express");
+const session = require('express-session');
 const { UserSchema } = require('../models/userModel');
 const { PathologistSchema } = require('../models/pathologistModel');
-const dotenv = require("dotenv");
-dotenv.config();
-
 const sendEmail = require("send-email");
 const User = mongoose.model('User', UserSchema);
 const Pathologist = mongoose.model('Pathologist', PathologistSchema);
-//const Patient = mongoose.model('Patient', UserSchema);
 const path = require('path');
+const dotenv = require("dotenv");
+const { con } = require('../db');
+dotenv.config();
+var sess;
 
-
-           
 
 exports.addUser = async (req, res) => {
 
@@ -66,7 +66,7 @@ exports.addUser = async (req, res) => {
             return res.status(406).send({ errors });
         }
 
-        const token = jwt.sign(email, "abcd1234");
+        // const token = jwt.sign(email, "abcd1234");
 
         const user = new User({
             email,
@@ -79,7 +79,7 @@ exports.addUser = async (req, res) => {
             dateOfBirth,
             gender,
             code,
-            token,
+            // token,
         });
         const pathologist = new Pathologist({
             userId: user._id
@@ -87,8 +87,8 @@ exports.addUser = async (req, res) => {
 
         await user.save().then(user => {
             console.log('The user ' + user._id + ' has been added.')
-            res.sendFile(__dirname + './view/AddUser.html')
-            
+            res.sendFile(__dirname + 'src/view/AddUser.html')
+
 
             if (user.type == "pathologist") {
                 pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.')).then(res.sendFile(__dirname + './view/AddUser.html'))
@@ -99,40 +99,47 @@ exports.addUser = async (req, res) => {
         )
 
 
-        sendEmail({
-            to: user.email,
-            subject: "Please confirm your email address",
-            html: `<div>
-                <h2>Hi there!</h2>
-                <h3>Please verify your email by entering the code below to be able to use our system.</h3>
-                <h3>${code}</h3>
-              </div>`,
-            from: "miu.graduation2020@gmail.com",
-        });
+        // sendEmail({
+        //     to: user.email,
+        //     subject: "Please confirm your email address",
+        //     html: `<div>
+        //         <h2>Hi there!</h2>
+        //         <h3>Please verify your email by entering the code below to be able to use our system.</h3>
+        //         <h3>${code}</h3>
+        //       </div>`,
+        //     from: "miu.graduation2020@gmail.com",
+        // });
 
         res.send({ user });
     } catch (err) {
-        console.log(`${res.status(406).send({ error: err.message })}`) ;
+        console.log(`${res.status(406).send({ error: err.message })}`);
     }
 
 }
 
 exports.signIn = async (req, res) => {
-    const { email, password } = req.body;
+
+    const email = req.body.email;
+    const password = req.body.password;
     try {
         const user = await User.findOne({ email });
 
         if (!user) {
-            console.log(`${ res.status(406).send({ error: "Invalid email " })}`);
+            console.log(`${res.status(406).send({ error: "Invalid email" })}`);
         }
-        if (!user.isVerified) {
-            console.log(`${ res
+        else if (!user.isVerified) {
+            console.log(`${res
                 .status(406)
                 .send({ error: "User not verified - Please verify your email" })}`);
         }
 
         await user.comparePassword(password);
-        res.send({ user });
+        res.send({ user })
+        res.render('./dashboard',{firstName:firstname})
+        sess = req.session;
+        sess.email = req.body.email;
+        res.end('done');
+        console.log("user logged in and seasion created");
 
     } catch (err) {
         return res.status(406).send({ error: "Invalid username or password" });
@@ -224,5 +231,24 @@ exports.getUsersData = async (req, res) => {
         gender: u.gender,
     })
     res.send(user);
+}
+
+exports.getLoggedInUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        res.json(user);
+    } catch (e) {
+        res.send({ message: "Error in Fetching user" });
+    }
+}
+
+exports.updateUI = async (req, res) => {
+    sess = req.session;
+    const email = sess.email;
+    const user = await User.find({ email })
+    console.log(user)
+
+    document.getElementById("userNAME").innerHTML = user.firstName;
+
 }
 

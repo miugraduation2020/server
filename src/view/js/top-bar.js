@@ -58,7 +58,7 @@ nav.innerHTML=`<nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <li>
             <a class="profile-pic" href="#">
                 <img src="plugins/images/users/3.png" alt="user-img" width="36"
-                    class="img-circle"><span class="text-white font-medium">Admin</span></a>
+                    class="img-circle"><span class="text-white font-medium" id="userNAME"></span></a>
         </li>
         <!-- ============================================================== -->
         <!-- User profile and search -->

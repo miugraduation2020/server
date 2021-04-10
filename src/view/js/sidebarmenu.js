@@ -71,8 +71,8 @@ nav.innerHTML=`<div class="scroll-sidebar">
             </a>
         </li>
         <li class="text-center p-20 upgrade-btn">
-            <a href="https://www.wrappixel.com/templates/ampleadmin/"
-                class="btn btn-block btn-danger text-white" target="_blank">
+            <a
+                class="btn btn-block btn-danger text-white"   type="script" href="/logout" >
                 Logout</a>
         </li>
     </ul>
