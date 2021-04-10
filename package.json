@@ -26,6 +26,7 @@
     "smtp-connection": "^4.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.14",
     "babel-cli": "^6.18.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1"
