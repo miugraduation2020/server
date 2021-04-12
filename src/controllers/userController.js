@@ -9,13 +9,13 @@ const User = mongoose.model('User', UserSchema);
 const Pathologist = mongoose.model('Pathologist', PathologistSchema);
 const path = require('path');
 const dotenv = require("dotenv");
-const { con } = require('../db');
+
 dotenv.config();
 var sess;
 
+/*Add New User*/
 
 exports.addUser = async (req, res) => {
-
 
     const email = req.body.email;
     const firstName = req.body.firstName;
@@ -31,6 +31,7 @@ exports.addUser = async (req, res) => {
     const code = Math.floor(1000 + Math.random() * 9000);
     const errors = { email: [], password: [], confPassword: [] };
     const user = await User.findOne({ email });
+
     //Check if user exists
     if (user) {
         errors.email.push("User already exists");
@@ -117,6 +118,8 @@ exports.addUser = async (req, res) => {
 
 }
 
+/*Sign In*/
+
 exports.signIn = async (req, res) => {
 
     const email = req.body.email;
@@ -135,16 +138,15 @@ exports.signIn = async (req, res) => {
 
         await user.comparePassword(password);
         res.send({ user })
-        res.render('./dashboard',{firstName:firstname})
-        sess = req.session;
-        sess.email = req.body.email;
-        res.end('done');
-        console.log("user logged in and seasion created");
-
+        console.log({ user });
+        this.getUsersData;
     } catch (err) {
         return res.status(406).send({ error: "Invalid username or password" });
     }
 };
+
+/*Email Varification*/
+
 exports.verifyEmail = async (req, res) => {
     const { email, code } = req.body;
 
@@ -162,6 +164,9 @@ exports.verifyEmail = async (req, res) => {
         res.send({ response: "Success!" });
     });
 };
+
+/*Forget Password*/
+
 exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
     const code = Math.floor(1000 + Math.random() * 9000);
@@ -187,6 +192,9 @@ exports.forgotPassword = async (req, res) => {
 
     res.send({ response: "Success" });
 };
+
+/*Change Password*/
+
 exports.changePassword = async (req, res) => {
     const { email, password, confPassword } = req.body;
 
@@ -214,8 +222,11 @@ exports.changePassword = async (req, res) => {
 };
 
 exports.getUsersData = async (req, res) => {
-    const { email } = req.body;
-    const u = await User.findOne({ email: "jaa13d245@live.com" });
+
+    sess = req.session;
+    const email = sess.email;
+
+    const u = await User.findOne({ email });
     if (!u) {
         return res
             .status(406)
@@ -225,30 +236,63 @@ exports.getUsersData = async (req, res) => {
         email: u.email,
         firstName: u.firstName,
         lastName: u.lastName,
+        password:u.password,
         phoneNumber: u.phoneNumber,
         address: u.address,
         dateOfBirth: u.dateOfBirth,
         gender: u.gender,
     })
     res.send(user);
-}
-
-exports.getLoggedInUser = async (req, res) => {
-    try {
-        const user = await User.findById(req.user.id);
-        res.json(user);
-    } catch (e) {
-        res.send({ message: "Error in Fetching user" });
-    }
-}
-
-exports.updateUI = async (req, res) => {
-    sess = req.session;
-    const email = sess.email;
-    const user = await User.find({ email })
     console.log(user)
-
-    document.getElementById("userNAME").innerHTML = user.firstName;
-
 }
+
+/*Get All Users*/
+
+exports.getUsers = async (req, res) => {
+
+
+    const u = await User.find();
+    if (!u) {
+        return res
+            .status(406)
+            .send({ error: "Empty Collection" });
+    }
+   
+    res.send(u);
+    console.log(user)
+}
+
+/*Get All Pathologists*/
+
+exports.getPathologists = async (req, res) => {
+
+
+    const u = await User.find().where('type').equals('pathologist');
+    if (!u) {
+        return res
+            .status(406)
+            .send({ error: "No Pathologists Yet" });
+    }
+   
+    res.send(u);
+    console.log(user)
+}
+
+/*Get All Patients*/
+
+exports.getPatients = async (req, res) => {
+
+
+    const u = await User.find().where('type').equals('patient');
+    if (!u) {
+        return res
+            .status(406)
+            .send({ error: "No Pathologists Yet" });
+    }
+   
+    res.send(u);
+    console.log(user)
+}
+
+
 
