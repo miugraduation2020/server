@@ -115,13 +115,9 @@ exports.addUser = async (req, res) => {
         //     from: "miu.graduation2020@gmail.com",
         // });
 
-        res.redirect('/dashboard')
+        res.render('dashboard')
 
-<<<<<<< HEAD
-        res.redirect('/dashboard')
 
-=======
->>>>>>> ad76bb9c7a876060c0a38e588232d6e002adb6b4
     } catch (err) {
         console.log(`${res.status(406).send({ error: err.message })}`);
     }
@@ -149,7 +145,6 @@ exports.signIn = async (req, res) => {
             await user.comparePassword(password);
         } catch (error) {
             errors.password.push("Invalid password");
-<<<<<<< HEAD
         }
         if (errors.email.length ||
             errors.password.length
@@ -158,16 +153,6 @@ exports.signIn = async (req, res) => {
         } else {
             res.send({ user });
         }
-=======
-        }
-        if (errors.email.length ||
-            errors.password.length
-        ) {
-            return res.render('PatientsLogin', { errors: errors })
-        } else {
-            res.send({ user });
-        }
->>>>>>> ad76bb9c7a876060c0a38e588232d6e002adb6b4
     } catch (err) {
 
         console.log(`${res.status(406).send({ error: err.message })}`);
