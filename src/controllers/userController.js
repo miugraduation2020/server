@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
+const express = require("express");
+const session = require('express-session');
 const { UserSchema } = require('../models/userModel');
 const { PathologistSchema } = require('../models/pathologistModel');
-const dotenv = require("dotenv");
-dotenv.config();
-
 const sendEmail = require("send-email");
 const User = mongoose.model('User', UserSchema);
 const Pathologist = mongoose.model('Pathologist', PathologistSchema);
-//const Patient = mongoose.model('Patient', UserSchema);
 const path = require('path');
+const dotenv = require("dotenv");
 
+dotenv.config();
+var sess;
 
 
 
@@ -30,6 +31,7 @@ exports.addUser = async (req, res) => {
     const errors = { email: [], password: [], confPassword: [] };
     const emailError = [];
     const user = await User.findOne({ email });
+
     //Check if user exists
     if (user) {
         errors.email.push("User already exists");
@@ -69,7 +71,7 @@ exports.addUser = async (req, res) => {
             });
         }
 
-        const token = jwt.sign(email, "abcd1234");
+        // const token = jwt.sign(email, "abcd1234");
 
         const user = new User({
             email,
@@ -82,7 +84,7 @@ exports.addUser = async (req, res) => {
             dateOfBirth,
             gender,
             code,
-            token,
+            // token,
         });
         const pathologist = new Pathologist({
             userId: user._id
@@ -102,16 +104,16 @@ exports.addUser = async (req, res) => {
         )
 
 
-        sendEmail({
-            to: user.email,
-            subject: "Please confirm your email address",
-            html: `<div>
-                <h2>Hi there!</h2>
-                <h3>Please verify your email by entering the code below to be able to use our system.</h3>
-                <h3>${code}</h3>
-              </div>`,
-            from: "miu.graduation2020@gmail.com",
-        });
+        // sendEmail({
+        //     to: user.email,
+        //     subject: "Please confirm your email address",
+        //     html: `<div>
+        //         <h2>Hi there!</h2>
+        //         <h3>Please verify your email by entering the code below to be able to use our system.</h3>
+        //         <h3>${code}</h3>
+        //       </div>`,
+        //     from: "miu.graduation2020@gmail.com",
+        // });
 
         res.redirect('/dashboard')
 
@@ -120,6 +122,8 @@ exports.addUser = async (req, res) => {
     }
 
 }
+
+/*Sign In*/
 
 exports.signIn = async (req, res) => {
     const { email, password } = req.body;
@@ -154,6 +158,9 @@ exports.signIn = async (req, res) => {
 
     }
 };
+
+/*Email Varification*/
+
 exports.verifyEmail = async (req, res) => {
     const { email, code } = req.body;
 
@@ -171,6 +178,9 @@ exports.verifyEmail = async (req, res) => {
         res.send({ response: "Success!" });
     });
 };
+
+/*Forget Password*/
+
 exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
     const code = Math.floor(1000 + Math.random() * 9000);
@@ -196,6 +206,9 @@ exports.forgotPassword = async (req, res) => {
 
     res.send({ response: "Success" });
 };
+
+/*Change Password*/
+
 exports.changePassword = async (req, res) => {
     const { email, password, confPassword } = req.body;
 
@@ -223,8 +236,11 @@ exports.changePassword = async (req, res) => {
 };
 
 exports.getUsersData = async (req, res) => {
-    const { email } = req.body;
-    const u = await User.findOne({ email: "jaa13d245@live.com" });
+
+    sess = req.session;
+    const email = sess.email;
+
+    const u = await User.findOne({ email });
     if (!u) {
         return res
             .status(406)
@@ -234,11 +250,63 @@ exports.getUsersData = async (req, res) => {
         email: u.email,
         firstName: u.firstName,
         lastName: u.lastName,
+        password: u.password,
         phoneNumber: u.phoneNumber,
         address: u.address,
         dateOfBirth: u.dateOfBirth,
         gender: u.gender,
     })
     res.send(user);
+    console.log(user)
 }
+
+/*Get All Users*/
+
+exports.getUsers = async (req, res) => {
+
+
+    const u = await User.find();
+    if (!u) {
+        return res
+            .status(406)
+            .send({ error: "Empty Collection" });
+    }
+
+    res.send(u);
+    console.log(user)
+}
+
+/*Get All Pathologists*/
+
+exports.getPathologists = async (req, res) => {
+
+
+    const u = await User.find().where('type').equals('pathologist');
+    if (!u) {
+        return res
+            .status(406)
+            .send({ error: "No Pathologists Yet" });
+    }
+
+    res.send(u);
+    console.log(user)
+}
+
+/*Get All Patients*/
+
+exports.getPatients = async (req, res) => {
+
+
+    const u = await User.find().where('type').equals('patient');
+    if (!u) {
+        return res
+            .status(406)
+            .send({ error: "No Pathologists Yet" });
+    }
+
+    res.send(u);
+    console.log(user)
+}
+
+
 

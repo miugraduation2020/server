@@ -18,6 +18,8 @@ const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const session = require('express-session');
+
 
 const app = express();
 const PORT = 4000;
@@ -25,9 +27,11 @@ const PORT = 4000;
 //mongoose connection
 mongoose.Promise = global.Promise;
 
+// Session 
+app.use(session({ secret: 'soktom boktom', saveUninitialized: false, resave: true }));
 
 //bodyParser setup
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 app.locals.siteName = 'BCD';
