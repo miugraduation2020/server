@@ -1,9 +1,11 @@
 // Imported Route Files
 
-const { urouter, routes } = require('./src/routes/userRoutes');
-const crmRoutes = require('./src/routes/crmRoutes');
 const { router } = require('./src/routes/imageRouts');
 const FAQRoutes = require('./src/routes/FAQRoutes');
+const userRouter = require('./src/routes/userRoute');
+const pageRouter = require('./src/routes/pagesRoutes')
+
+
 
 
 // Database 
@@ -12,6 +14,7 @@ const { url, mongoose, con } = require("./src/db")
 
 // Express / Middleware / Port
 const express = require('express');
+const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
@@ -22,25 +25,42 @@ const PORT = 4000;
 //mongoose connection
 mongoose.Promise = global.Promise;
 
+
 //bodyParser setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+app.locals.siteName = 'BCD';
 
 // Routes
-routes(app);
 FAQRoutes(app);
-crmRoutes(app);
 app.use('/img', router);
-app.use(urouter);
 
-// app.get('/', (req, res) => {
-//     res.send(`Node and express server running on port ${PORT}`)
-// });
+// app.use(urouter);
+
+
+const viewsPath = path.join(__dirname, 'src/view');
+const partialsPath = path.join(__dirname, 'src/view');
+
+
+
+//defining the engine and changing path from views to src/view
+
+app.set('view engine', 'hbs');
+app.set('views', viewsPath);
+hbs.registerPartials(partialsPath)
 app.use(express.static(path.join(__dirname, 'src/view')))
 
+//our main page 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src/view'));
+    res.render('index')
+});
+
+app.use(userRouter);
+app.use(pageRouter);
+//Handling 404 page not found
+app.get('*', (req, res) => {
+    res.render('404')
 });
 
 app.listen(PORT, () => {
