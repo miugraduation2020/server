@@ -1,10 +1,10 @@
-var nav= document.querySelector("header");
-nav.innerHTML=`<nav class="navbar top-navbar navbar-expand-md navbar-dark">
+var nav = document.querySelector("header");
+nav.innerHTML = `<nav class="navbar top-navbar navbar-expand-md navbar-dark">
 <div class="navbar-header" data-logobg="skin6">
     <!-- ============================================================== -->
     <!-- Logo -->
     <!-- ============================================================== -->
-    <a class="navbar-brand" href="Screens/Admin/dashboard.html">
+    <a class="navbar-brand" href="#">
         <!-- Logo icon -->
         <b class="logo-icon">
             <!-- Dark Logo icon -->

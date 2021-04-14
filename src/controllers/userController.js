@@ -12,11 +12,9 @@ const Pathologist = mongoose.model('Pathologist', PathologistSchema);
 const path = require('path');
 
 
-           
+
 
 exports.addUser = async (req, res) => {
-
-
     const email = req.body.email;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
@@ -30,10 +28,12 @@ exports.addUser = async (req, res) => {
 
     const code = Math.floor(1000 + Math.random() * 9000);
     const errors = { email: [], password: [], confPassword: [] };
+    const emailError = [];
     const user = await User.findOne({ email });
     //Check if user exists
     if (user) {
         errors.email.push("User already exists");
+        emailError.push("User already exists");
     }
     try {
         //Password Validation
@@ -63,7 +63,10 @@ exports.addUser = async (req, res) => {
             errors.password.length ||
             errors.confPassword.length
         ) {
-            return res.status(406).send({ errors });
+
+            return res.render('AddUser', {
+                errors: errors
+            });
         }
 
         const token = jwt.sign(email, "abcd1234");
@@ -88,7 +91,7 @@ exports.addUser = async (req, res) => {
         await user.save().then(user => {
             console.log('The user ' + user._id + ' has been added.')
             res.sendFile(__dirname + './view/AddUser.html')
-            
+
 
             if (user.type == "pathologist") {
                 pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.')).then(res.sendFile(__dirname + './view/AddUser.html'))
@@ -110,32 +113,45 @@ exports.addUser = async (req, res) => {
             from: "miu.graduation2020@gmail.com",
         });
 
-        res.send({ user });
+        res.redirect('/dashboard')
+
     } catch (err) {
-        console.log(`${res.status(406).send({ error: err.message })}`) ;
+        console.log(`${res.status(406).send({ error: err.message })}`);
     }
 
 }
 
 exports.signIn = async (req, res) => {
     const { email, password } = req.body;
+    const errors = { email: [], password: [] };
     try {
         const user = await User.findOne({ email });
 
         if (!user) {
-            console.log(`${ res.status(406).send({ error: "Invalid email " })}`);
+            errors.email.push("Invalid email");
+            // console.log(`${res.status(406).send({ error: "Invalid email" })}`);
+        } else if (!user.isVerified) {
+            errors.email.push("User not verified - Please verify your email");
+            // console.log(`${res
+            //     .status(406)
+            //     .send({ error: "User not verified - Please verify your email" })}`);
         }
-        if (!user.isVerified) {
-            console.log(`${ res
-                .status(406)
-                .send({ error: "User not verified - Please verify your email" })}`);
+        try {
+            await user.comparePassword(password);
+        } catch (error) {
+            errors.password.push("Invalid password");
         }
-
-        await user.comparePassword(password);
-        res.send({ user });
-
+        if (errors.email.length ||
+            errors.password.length
+        ) {
+            return res.render('PatientsLogin', { errors: errors })
+        } else {
+            res.send({ user });
+        }
     } catch (err) {
-        return res.status(406).send({ error: "Invalid username or password" });
+
+        console.log(`${res.status(406).send({ error: err.message })}`);
+
     }
 };
 exports.verifyEmail = async (req, res) => {
