@@ -71,7 +71,7 @@ exports.addUser = async (req, res) => {
             });
         }
 
-        // const token = jwt.sign(email, "abcd1234");
+         const token = jwt.sign(email, "abcd1234");
 
         const user = new User({
             email,
@@ -84,7 +84,7 @@ exports.addUser = async (req, res) => {
             dateOfBirth,
             gender,
             code,
-            // token,
+             token,
         });
         const pathologist = new Pathologist({
             userId: user._id
@@ -92,11 +92,12 @@ exports.addUser = async (req, res) => {
 
         await user.save().then(user => {
             console.log('The user ' + user._id + ' has been added.')
-            res.sendFile(__dirname + './view/AddUser.html')
+            // res.sendFile(__dirname + './view/AddUser.html')
 
 
             if (user.type == "pathologist") {
-                pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.')).then(res.sendFile(__dirname + './view/AddUser.html'))
+                pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.'))
+                //.then(res.sendFile(__dirname + './view/AddUser.html'))
 
             }
 
@@ -104,16 +105,16 @@ exports.addUser = async (req, res) => {
         )
 
 
-        // sendEmail({
-        //     to: user.email,
-        //     subject: "Please confirm your email address",
-        //     html: `<div>
-        //         <h2>Hi there!</h2>
-        //         <h3>Please verify your email by entering the code below to be able to use our system.</h3>
-        //         <h3>${code}</h3>
-        //       </div>`,
-        //     from: "miu.graduation2020@gmail.com",
-        // });
+        sendEmail({
+            to: user.email,
+            subject: "Please confirm your email address",
+            html: `<div>
+                <h2>Hi there!</h2>
+                <h3>Please verify your email by entering the code below to be able to use our system.</h3>
+                <h3>${code}</h3>
+              </div>`,
+            from: "miu.graduation2020@gmail.com",
+        });
 
         res.render('dashboard')
 
@@ -235,7 +236,7 @@ exports.changePassword = async (req, res) => {
 
     res.send({ response: "Password renewed successfully!" });
 };
-
+/*Get Current User*/
 exports.getUsersData = async (req, res) => {
 
     sess = req.session;
@@ -248,6 +249,7 @@ exports.getUsersData = async (req, res) => {
             .send({ error: "User does not exists" });
     }
     const user = new User({
+        id: u._id,
         email: u.email,
         firstName: u.firstName,
         lastName: u.lastName,

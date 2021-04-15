@@ -70,5 +70,3 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Node and express server running on port ${PORT}`)
 });
-
-
