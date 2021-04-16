@@ -1,24 +1,29 @@
-import mongoose from 'mongoose';
-
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-export const ReportSchema = new Schema({
+const ReportSchema = new Schema({
     reportID: Schema.Types.ObjectId,
     genDate: {
         type: Date,
         required: 'Enter Report Generation date'
     },
     patientID: {
-        type: Number,
+        type: String,
         required: 'Enter Last Name'
     },
     pathologistID: {
-        type: Number,
+        type: String,
         required: 'Enter Email'
     },
-    TumorID: {
+    tumorID: {
         type:Number,
-        required:'',
+        required:true,
+    },
+    imageID:{
+        type:String,
+        required:true,
     }
 });
+
+mongoose.model("Report", ReportSchema);
