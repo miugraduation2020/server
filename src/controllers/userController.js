@@ -67,7 +67,18 @@ exports.addUser = async (req, res) => {
         ) {
 
             return res.render('AddUser', {
-                errors: errors
+                errors: errors,
+                inputEmail: email,
+                inputFName: firstName,
+                inputLName: lastName,
+                inputPhoneNumber: phoneNumber,
+                inputPassword: password,
+                inputConfPassword: confPassword,
+                inputType: type,
+                inputAddress: address,
+                inputDOB: dateOfBirth,
+                inputGender: gender,
+
             });
         }
 
@@ -104,16 +115,16 @@ exports.addUser = async (req, res) => {
         )
 
 
-        // sendEmail({
-        //     to: user.email,
-        //     subject: "Please confirm your email address",
-        //     html: `<div>
-        //         <h2>Hi there!</h2>
-        //         <h3>Please verify your email by entering the code below to be able to use our system.</h3>
-        //         <h3>${code}</h3>
-        //       </div>`,
-        //     from: "miu.graduation2020@gmail.com",
-        // });
+        sendEmail({
+            to: user.email,
+            subject: "Please confirm your email address",
+            html: `<div>
+                <h2>Hi there!</h2>
+                <h3>Please verify your email by entering the code below to be able to use our system.</h3>
+                <h3>${code}</h3>
+              </div>`,
+            from: "miu.graduation2020@gmail.com",
+        });
 
         res.render('dashboard')
 
@@ -129,6 +140,7 @@ exports.addUser = async (req, res) => {
 exports.signIn = async (req, res) => {
     const { email, password } = req.body;
     const errors = { email: [], password: [] };
+    // const input = { email: [], password: [] }
     try {
         const user = await User.findOne({ email });
 
@@ -149,7 +161,7 @@ exports.signIn = async (req, res) => {
         if (errors.email.length ||
             errors.password.length
         ) {
-            return res.render('PatientsLogin', { errors: errors })
+            return res.render('PatientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
         } else {
             res.send({ user });
         }
@@ -163,27 +175,30 @@ exports.signIn = async (req, res) => {
 /*Email Varification*/
 
 exports.verifyEmail = async (req, res) => {
-    const { email, code } = req.body;
+    const { email, code, screen } = req.body;
 
     User.findOne({ email }, function (err, user) {
         if (!user) {
             return res
-                .status(406)
-                .send({ error: "Unable to find user with this email" });
+                .status(406).render('verifyEmail', { error: "Unable to find user with this email", inputEmail: email });
         }
         if (code !== user.code) {
-            return res.status(406).send({ error: "Wrong code entered" });
+            return res.status(406).render('verifyEmail', { error2: "Wrong code entered", inputEmail: email });
         }
         user.isVerified = true;
         user.save();
-        res.send({ response: "Success!" });
+        if (screen == "forgotPassword") {
+            res.render('changePassword', { email: email })
+        } else {
+            res.send({ response: "Success!" });
+        }
     });
 };
 
 /*Forget Password*/
 
 exports.forgotPassword = async (req, res) => {
-    const { email } = req.body;
+    const { email, screen } = req.body;
     const code = Math.floor(1000 + Math.random() * 9000);
 
     sendEmail({
@@ -196,23 +211,29 @@ exports.forgotPassword = async (req, res) => {
     </div>`,
         from: "miu.graduation2020@gmail.com",
     });
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res
+                .status(406)
+                .render('forgotPassword', { error: "Email not registered on the system" });
+        } else {
 
-    const user = User.find({ email });
-    if (!user)
-        return res
-            .status(406)
-            .send({ error: "Email not registered on the system" });
+            await User.updateOne({ email }, { $set: { code } });
+            res.render('verifyEmail', { screen: screen });
+        }
+    } catch (err) {
 
-    await User.updateOne({ email }, { $set: { code } });
+        console.log(`${res.status(406).send({ error: err.message })}`);
 
-    res.send({ response: "Success" });
+    }
 };
 
 /*Change Password*/
 
 exports.changePassword = async (req, res) => {
     const { email, password, confPassword } = req.body;
-
+    const errors = { password: [], confPassword: [] };
     const user = await User.findOne({ email });
     if (!user) {
         return res
@@ -220,18 +241,38 @@ exports.changePassword = async (req, res) => {
             .send({ error: "User does not exists" });
     }
     if (!password) return res.status(406).send({ error: "Enter password" });
-    else if (password.length < 6)
+    else if (password.length < 6) { errors.password.push("Password must be at least 6 characters"); }
+
+
+    if (!confPassword) {
+        errors.confPassword.push("Enter password confirmation");
+
+    }
+    if (password !== confPassword) {
+        errors.confPassword.push("Password does not match");
+    }
+    if (
+        errors.password.length ||
+        errors.confPassword.length
+    ) {
         return res
-            .status(406)
-            .send({ error: "Password must be at least 6 characters" });
+            .status(406).render('changePassword', {
+                email: email,
+                inputPassword: password,
+                inputConfPassword: confPassword,
+                errors: errors
 
-    if (!confPassword)
-        return res.status(406).send({ error: "Enter password confirmation" });
-    else if (password !== confPassword)
-        return res.status(406).send({ error: "Password does not match" });
+            })
+    }
 
-    await User.updateOne({ email }, { $set: { password } });
-    // await user.save();
+    try {
+        await User.updateOne({ email }, { $set: { password } });
+        await user.save();
+        res.redirect('../')
+    } catch (error) {
+        console.log(`${res.status(406).send({ error: err.message })}`);
+    }
+
 
     res.send({ response: "Password renewed successfully!" });
 };

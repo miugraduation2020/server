@@ -11,7 +11,7 @@ router.post('/add-user', addUser)
 router.post('/user/sign-in', signIn);
 router.post('/user/verify-email', verifyEmail);
 router.post('/user/forgot-password', forgotPassword);
-router.patch('/user/change-password', changePassword);
+router.post('/user/change-password', changePassword);
 router.get('/user/getUser', getUsersData);
 
 

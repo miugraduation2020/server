@@ -111,10 +111,11 @@
                                                 <label class="col-sm-12">Select Type</label>
                                                 <div class="col-sm-12 border-bottom">
                                                     <select class="form-control p-0 border-0" name="type"
-                                                        id='new-userrole' <%=user[i].type; %>
+                                                        value="{{inputType}}" id='new-userrole' <%=user[i].type; %>
                                                         <option>Admin</option>
                                                         <option>Pathologist</option>
                                                         <option>Patient</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -123,7 +124,7 @@
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <input required type="text" placeholder="Johnathan "
                                                         class="form-control p-0 border-0" name='firstName'
-                                                        id='full-name' <%=user[i].firstName; %>
+                                                        value="{{inputFName}}" id='full-name' <%=user[i].firstName; %>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-4">
@@ -131,7 +132,7 @@
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <input type="text" placeholder="doe "
                                                         class="form-control p-0 border-0" name='lastName' id='last-name'
-                                                        <%=user[i].lastName; %>
+                                                        value="{{inputLName}}" <%=user[i].lastName; %>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-4">
@@ -139,15 +140,15 @@
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <span style="color: red;">{{errors.email}}</span>
                                                     <input type="email" placeholder="johnathan@admin.com"
-                                                        class="form-control p-0 border-0" name="email" id="new-email"
-                                                        <%=user[i].email; %>
+                                                        value="{{inputEmail}}" class="form-control p-0 border-0"
+                                                        name="email" id="new-email" <%=user[i].email; %>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-4">
                                                 <label class="col-md-12 p-0">Password</label>
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <span style="color: red;">{{errors.password}}</span>
-                                                    <input type="password" value="password"
+                                                    <input type="password" value="password" value="{{inputPassword}}"
                                                         class="form-control p-0 border-0" name='password'
                                                         id='new-password' <%=user[i].password; %>
                                                 </div>
@@ -157,36 +158,39 @@
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <span style="color: red;">{{errors.confPassword}}</span>
                                                     <input type="password" value="password"
-                                                        class="form-control p-0 border-0" id='confPassword'
-                                                        name="confPassword" <%=user[i].confPassword; %>
+                                                        value="{{inputConfPassword}}" class="form-control p-0 border-0"
+                                                        id='confPassword' name="confPassword" <%=user[i].confPassword;
+                                                        %>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-4">
                                                 <label class="col-md-12 p-0">Phone No</label>
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <input type="text" placeholder="123 456 7890" name="phoneNumber"
-                                                        class="form-control p-0 border-0" <%=user[i].phoneNumber; %>
+                                                        value="{{inputPhoneNumber}}" class="form-control p-0 border-0"
+                                                        <%=user[i].phoneNumber; %>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-4">
                                                 <label class="col-md-12 p-0">Date of Birth</label>
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <input type="date" placeholder="06/15/1999" name="dateOfBirth"
-                                                        class="form-control p-0 border-0" <%=user[i].dateOfBirth; %>
+                                                        value="{{inputDOB}}" class="form-control p-0 border-0"
+                                                        <%=user[i].dateOfBirth; %>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-4">
                                                 <label class="col-md-12 p-0">Address</label>
                                                 <div class="col-md-12 border-bottom p-0">
                                                     <textarea rows="3" name="address" class="form-control p-0 border-0"
-                                                        <%=user[i].address; %></textarea>
+                                                        value="{{inputAddress}}" <%=user[i].address; %></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-4">
                                                 <label class="col-sm-12"> Gender</label>
                                                 <div class="col-sm-12 border-bottom">
                                                     <select class="form-control p-0 border-0" name="gender"
-                                                        <%=user[i].gender; %>
+                                                        value="{{inputGender}}" <%=user[i].gender; %>
                                                         <option>Female</option>
                                                         <option>Male</option>
                                                     </select>

@@ -62,6 +62,17 @@ router.get('/userReportsList', (req, res) => {
     res.render('userReportsList')
 });
 
+router.get('/forgotPassword', (req, res) => {
+    res.render('forgotPassword')
+});
+
+router.get('/verifyEmail', (req, res) => {
+    res.render('verifyEmail')
+});
+
+router.get('/changePassword', (req, res) => {
+    res.render('changePassword')
+});
 router.get('/404', (req, res) => {
     res.render('404')
 });
