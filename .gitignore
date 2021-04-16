@@ -1,2 +1,4 @@
 *.env
 *node_modules/*
+node_modules/@types/node/globals.d.ts
+node_modules/@types/node/http.d.ts
