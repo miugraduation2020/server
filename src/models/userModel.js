@@ -82,6 +82,24 @@ UserSchema.pre("save", function (next) {
     });
 });
 
+UserSchema.pre("updateOne", async function (next) {
+    const password = this.getUpdate().$set.password;
+    if (!password) {
+        return next();
+    }
+    try {
+        const salt = 10
+        const hash = bcrypt.hashSync(password, salt);
+        this.getUpdate().$set.password = hash;
+        next();
+    } catch (error) {
+        return next(error);
+    }
+
+    this._update.password = await bcrypt.hash(this._update.password, 10)
+
+});
+
 
 UserSchema.methods.comparePassword = function (enteredPassword) {
     const user = this;

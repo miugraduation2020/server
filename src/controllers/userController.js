@@ -9,6 +9,7 @@ const User = mongoose.model('User', UserSchema);
 const Pathologist = mongoose.model('Pathologist', PathologistSchema);
 const path = require('path');
 const dotenv = require("dotenv");
+const bcrypt = require('bcrypt');
 
 dotenv.config();
 var sess;
@@ -82,7 +83,7 @@ exports.addUser = async (req, res) => {
             });
         }
 
-         const token = jwt.sign(email, "abcd1234");
+        const token = jwt.sign(email, "abcd1234");
 
         const user = new User({
             email,
@@ -95,7 +96,7 @@ exports.addUser = async (req, res) => {
             dateOfBirth,
             gender,
             code,
-             token,
+            token,
         });
         const pathologist = new Pathologist({
             userId: user._id
@@ -235,6 +236,12 @@ exports.forgotPassword = async (req, res) => {
 exports.changePassword = async (req, res) => {
     const { email, password, confPassword } = req.body;
     const errors = { password: [], confPassword: [] };
+    const saltRounds = 10;
+    //let foundUser = await userModel.findOneAndUpdate(
+    //  { email: recievedEmail, password: hashedPassword },
+    //  { $set: { lastLogin: new Date() }, $push: { myEvents: authEvent } }
+    // );
+
     const user = await User.findOne({ email });
     if (!user) {
         return res
@@ -265,13 +272,14 @@ exports.changePassword = async (req, res) => {
 
             })
     }
-
     try {
+
         await User.updateOne({ email }, { $set: { password } });
-        await user.save();
-        res.redirect('../')
+
+        // res.redirect('../')
+        // res.send(user);
     } catch (error) {
-        console.log(`${res.status(406).send({ error: err.message })}`);
+        console.log(`${res.status(406).send({ error: error.message })}`);
     }
 
 
