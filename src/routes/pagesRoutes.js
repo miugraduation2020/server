@@ -73,6 +73,12 @@ router.get('/verifyEmail', (req, res) => {
 router.get('/changePassword', (req, res) => {
     res.render('changePassword')
 });
+router.get('/adminTumor', (req, res) => {
+    res.render('adminTumor')
+});
+router.get('/addTumor', (req, res) => {
+    res.render('addTumor')
+});
 router.get('/404', (req, res) => {
     res.render('404')
 });

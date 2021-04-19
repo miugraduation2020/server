@@ -3,6 +3,7 @@
 const { router } = require('./src/routes/imageRouts');
 const FAQRoutes = require('./src/routes/FAQRoutes');
 const userRouter = require('./src/routes/userRoute');
+const tumorRouter = require('./src/routes/tumorRoutes');
 const pageRouter = require('./src/routes/pagesRoutes')
 
 
@@ -61,7 +62,9 @@ app.get('/', (req, res) => {
 });
 
 app.use(userRouter);
+app.use(tumorRouter);
 app.use(pageRouter);
+
 //Handling 404 page not found
 app.get('*', (req, res) => {
     res.render('404')

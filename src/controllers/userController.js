@@ -166,6 +166,7 @@ exports.signIn = async (req, res) => {
             return res.render('PatientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
         } else {
             res.send({ user });
+            console.log(user.lastName)
         }
     } catch (err) {
 
