@@ -1,11 +1,13 @@
 const express = require('express');
-const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData } = require('../controllers/userController');
+const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData, getPatients,getPathologists } = require('../controllers/userController');
 const router = new express.Router()
 
 
 router.get('/user', (req, res) => {
     res.render('addUser')
 });
+router.get('/adminPatientsList',getPatients);
+router.get('/adminPathologistsList',getPathologists);
 
 router.post('/add-user', addUser)
 router.post('/user/sign-in', signIn);

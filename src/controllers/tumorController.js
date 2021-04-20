@@ -58,22 +58,22 @@ exports.addTumor = async (req, res) => {
 }
 
 exports.getAllTumor = async (req, res) => {
-    const all = await Tumor.find();
-    console.log(all[0].tumorName);
+//     const all = await Tumor.find();
+//     console.log(all[0].tumorName);
 
-  const html = all.forEach(element => {
-      ` <tr>
-       <td>{{${element.tumorClassNumber}}}</td>
-       <td>{{${element.tumorName}}}</td>
-       <td>{{${element.tumorDescription}}}</td>
-       <td style="text-align:center;" >  <i  class=" far fa-edit
-           "></i> </td>
-       <td style="text-align:center;" >  <i  class=" far fa-trash-alt
-           "></i> </td>
-   </tr>`
+//   const html = all.forEach(element => {
+//       ` <tr>
+//        <td>{{${element.tumorClassNumber}}}</td>
+//        <td>{{${element.tumorName}}}</td>
+//        <td>{{${element.tumorDescription}}}</td>
+//        <td style="text-align:center;" >  <i  class=" far fa-edit
+//            "></i> </td>
+//        <td style="text-align:center;" >  <i  class=" far fa-trash-alt
+//            "></i> </td>
+//    </tr>`
         
-    });
-    console.log(html)
+//     });
+//     console.log(html)
 
 }
 

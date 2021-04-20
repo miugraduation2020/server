@@ -79,6 +79,12 @@ router.get('/adminTumor', (req, res) => {
 router.get('/addTumor', (req, res) => {
     res.render('addTumor')
 });
+router.get('/adminPatientsList', (req, res) => {
+    res.render('adminPatientsList')
+});
+router.get('/adminPathologistsList', (req, res) => {
+    res.render('adminPathologistsList')
+});
 router.get('/404', (req, res) => {
     res.render('404')
 });

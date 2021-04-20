@@ -11,6 +11,10 @@ const PathologistSchema = new Schema({
     reportsGenerated: {
         type: Number,
         default: 0
+    },
+    assignedPatients: {
+        type: Array,
+
     }
 })
 mongoose.model("Pathologist", PathologistSchema);

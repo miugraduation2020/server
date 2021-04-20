@@ -130,7 +130,6 @@ exports.addUser = async (req, res) => {
 
         res.render('dashboard')
 
-
     } catch (err) {
         console.log(`${res.status(406).send({ error: err.message })}`);
     }
@@ -334,31 +333,21 @@ exports.getUsers = async (req, res) => {
 exports.getPathologists = async (req, res) => {
 
 
-    const u = await User.find().where('type').equals('pathologist');
-    if (!u) {
-        return res
-            .status(406)
-            .send({ error: "No Pathologists Yet" });
-    }
+    const allPath = await User.find().where('type').equals('Pathologist');
+    console.log(allPath[0]);
 
-    res.send(u);
-    console.log(user)
+   return res.render("adminPathologistsList", {pathologists:allPath});
 }
 
 /*Get All Patients*/
 
 exports.getPatients = async (req, res) => {
 
+    const allPate = await User.find().where('type').equals('Patient');
+    console.log(allPate[0]);
 
-    const u = await User.find().where('type').equals('patient');
-    if (!u) {
-        return res
-            .status(406)
-            .send({ error: "No Pathologists Yet" });
-    }
+   return res.render("adminPatientsList", {pateints:allPate});
 
-    res.send(u);
-    console.log(user)
 }
 
 
