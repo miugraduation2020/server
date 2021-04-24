@@ -13,7 +13,7 @@ const PathologistSchema = new Schema({
     },
     assignedPatients: {
         type: Array,
-
+        
 
 
     }

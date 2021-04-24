@@ -32,9 +32,10 @@ exports.getPathologistsPatients = async (req, res) => {
 exports.assignPatients = async (req, res) => {
     const newPatients = []
     const pathologist = req.body.pathologistID;
-    await Pathologist.updateOne({ 'userId': pathologist }, { $push: { assignedPatients: newPatients } })
-    console.log("done1")
     const pp = req.body.patientsToAssign;
+
+    await Pathologist.updateOne({ 'userId': pathologist }, { $push: { assignedPatients: pp } })
+    console.log("done1")
     if (pp.length > 0) {
         newPatients.push(pp)
         for (let index = 0; index < newPatients.length; index++) {
@@ -49,13 +50,8 @@ exports.assignPatients = async (req, res) => {
     }
     console.log(newPatients);
     console.log(pathologist)
-
-
-
-
-
-    this.getPathologistsPatients;
 }
+
 
 async function assigning(patEmail) {
     await User.updateOne({ email: patEmail }, { $set: { isAssigned: true } })
@@ -71,8 +67,8 @@ async function getAssignedPatient(patients) {
     }
     console.log('2.5:' + patientData);
     return patientData;
-
 }
+
 
 async function getUnassigned() {
     const patients = await User.find().where('isAssigned').equals("false");
