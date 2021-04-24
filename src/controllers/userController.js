@@ -103,12 +103,10 @@ exports.addUser = async (req, res) => {
 
         await user.save().then(user => {
             console.log('The user ' + user._id + ' has been added.')
-            // res.sendFile(__dirname + './view/AddUser.html')
 
 
-            if (user.type == "pathologist") {
+            if (user.type == "Pathologist") {
                 pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.'))
-                //.then(res.sendFile(__dirname + './view/AddUser.html'))
 
             }
 

@@ -50,6 +50,8 @@ exports.assignPatients = async (req, res) => {
     }
     console.log(newPatients);
     console.log(pathologist)
+
+    return res.render('assigningConfirmation',{pathologist:pathologist,newPatients:pathologist})
 }
 
 
