@@ -1,8 +1,10 @@
 const express = require('express');
 const router = new express.Router()
+const session = require('express-session');
+const { redirectIndex } = require('../controllers/sessionController')
 
 
-router.get('/addUser', (req, res) => {
+router.get('/addUser', redirectIndex, (req, res) => {
     res.render('addUser')
 });
 

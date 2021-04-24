@@ -8,13 +8,13 @@ nav.innerHTML = `<nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <!-- Logo icon -->
         <b class="logo-icon">
             <!-- Dark Logo icon -->
-            <img src="plugins/images/Untitled design (15).png"
+            <img src="/plugins/images/Untitled design (15).png"
             alt="logo">        </b>
         <!--End Logo icon -->
         <!-- Logo text -->
         <span class="logo-text">
             <!-- dark Logo text -->
-     <!--       <img src="plugins/images/logo-icon.png" alt="homepage" />-->
+     <!--       <img src="/plugins/images/logo-icon.png" alt="homepage" />-->
         </span>
     </a>
     <!-- ============================================================== -->
@@ -57,7 +57,7 @@ nav.innerHTML = `<nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <!-- ============================================================== -->
         <li>
             <a class="profile-pic" href="#">
-                <img src="plugins/images/users/3.png" alt="user-img" width="36"
+                <img src="/plugins/images/users/3.png" alt="user-img" width="36"
                     class="img-circle"><span class="text-white font-medium" id="userNAME"></span></a>
         </li>
         <!-- ============================================================== -->

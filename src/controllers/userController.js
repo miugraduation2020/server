@@ -161,7 +161,8 @@ exports.signIn = async (req, res) => {
         ) {
             return res.render('PatientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
         } else {
-            res.send({ user });
+            req.session.userId = user.id
+            res.render('profile', { user: user })
             console.log(user.lastName)
         }
     } catch (err) {
@@ -333,7 +334,7 @@ exports.getPathologists = async (req, res) => {
     const allPath = await User.find().where('type').equals('Pathologist');
     console.log(allPath[0]);
 
-   return res.render("adminPathologistsList", {pathologists:allPath});
+    return res.render("adminPathologistsList", { pathologists: allPath });
 }
 
 /*Get All Patients*/
@@ -343,7 +344,7 @@ exports.getPatients = async (req, res) => {
     const allPate = await User.find().where('type').equals('Patient');
     console.log(allPate[0]);
 
-   return res.render("adminPatientsList", {pateints:allPate});
+    return res.render("adminPatientsList", { pateints: allPate });
 
 }
 
