@@ -7,7 +7,6 @@ const { PathologistSchema } = require('../models/pathologistModel');
 const sendEmail = require("send-email");
 const User = mongoose.model('User', UserSchema);
 const Pathologist = mongoose.model('Pathologist', PathologistSchema);
-const path = require('path');
 const dotenv = require("dotenv");
 const bcrypt = require('bcrypt');
 
@@ -349,6 +348,8 @@ exports.getPatients = async (req, res) => {
    return res.render("adminPatientsList", {pateints:allPate});
 
 }
+
+
 
 
 

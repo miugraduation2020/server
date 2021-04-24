@@ -107,6 +107,9 @@
                                             <th class="border-top-0">Gender</th>
                                             <th class="border-top-0">Phone</th>
                                             <th class="border-top-0">DoB</th>
+                                            <th class="border-top-0">Is Assigned</th>
+                                            <th class="border-top-0">Reports</th>
+                                            <th class="border-top-0" colspan="2">Manage</th>
 
 
                                             <th class="border-top-0"></th>
@@ -121,6 +124,14 @@
                                             <td>{{this.gender}}</td>
                                             <td>{{this.phoneNumber}}</td>
                                             <td>{{this.dateOfBirth}}</td>
+                                            <td>{{this.isAssigned}}</td>
+
+                                            <td>view</td>
+
+                                            <td style="text-align:center;"> <i class=" far fa-edit
+           "></i> </td>
+                                            <td style="text-align:center;"> <i class=" far fa-trash-alt
+           "></i> </td>
                                         </tr>
                                         {{/each}}
 

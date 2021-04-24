@@ -17,6 +17,7 @@
     <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
     <!-- Custom CSS -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="src\view\scss\dropdown.scss">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -79,7 +80,6 @@
                             <ol class="breadcrumb ml-auto">
                                 <li><a href="#">Dashboard</a></li>
                             </ol>
-
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{#each pathologists}}
+                                        {{#each assigned}} 
                                         <tr>
                                             <td>{{this.firstName}}</td>
                                             <td>{{this.lastName}}</td>
@@ -127,25 +127,20 @@
                                             <td>{{this.gender}}</td>
                                             <td>{{this.phoneNumber}}</td>
                                             <td>{{this.dateOfBirth}}</td>
-                                            <td>
-                                                <form action="/adminAssign" method="POST">
-                                                <input type="text" hidden name="pathologist" value="{{this.id}}" >
-                                                <input type="submit" value="view" >
-                                                </form>
-                                            </td>
-
-                                            <td style="text-align:center;"> <i class=" far fa-edit
-           "></i> </td>
-                                            <td style="text-align:center;"> <i class=" far fa-trash-alt
-           "></i> </td>
+                                            <td style="text-align:center;"> <i class=" far fa-edit"></i> </td>
+                                            <td style="text-align:center;"> <i class=" far fa-trash-alt"></i> </td>
                                         </tr>
                                         {{/each}}
 
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
+
                     </div>
+
+
                 </div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -160,6 +155,37 @@
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="/adminAssign/assignNew" method="POST">
+                            <select multiple data-placeholder="Assign Patients" name="patientsToAssign">
+                                {{#each unassigned}}
+                                <option>{{this.email}}</option>
+                                {{/each}}
+                            </select><br>
+                            <input hidden name='pathologistID' value="{{pathologistID}}">
+                            <input type="submit" class="btn btn-success text-white" value="Assign">
+                        </form>
+                    </div>
+
+
+
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
             <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- footer -->
@@ -193,6 +219,8 @@
     <script src="js/custom.js"></script>
     <!--Header -->
     <script src="js/top-bar.js"></script>
+    <!--Multiple Select -->
+    <script src="js/multi-select.js"></script>
 </body>
 
 </html>

@@ -16,5 +16,4 @@ router.post('/user/forgot-password', forgotPassword);
 router.post('/user/change-password', changePassword);
 router.get('/user/getUser', getUsersData);
 
-
 module.exports = router

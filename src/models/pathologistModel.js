@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const PathologistSchema = new Schema({
@@ -14,6 +13,8 @@ const PathologistSchema = new Schema({
     },
     assignedPatients: {
         type: Array,
+
+
 
     }
 })
