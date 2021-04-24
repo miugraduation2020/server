@@ -5,5 +5,5 @@ const router = new express.Router()
 
 
 router.post('/addTumor', addTumor)
-router.post('/adminTumor',getAllTumor)
+router.get('/adminTumor',getAllTumor)
 module.exports = router

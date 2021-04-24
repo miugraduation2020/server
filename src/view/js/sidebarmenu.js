@@ -57,12 +57,19 @@ nav.innerHTML = `<div class="scroll-sidebar">
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="blank"
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="adminFAQ"
                 aria-expanded="false">
                 <i class="fa fa-comments" aria-hidden="true"></i>
-                <span class="hide-menu">Messages</span>
+                <span class="hide-menu">FAQ</span>
             </a>
         </li>
+        <li class="sidebar-item">
+        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="adminTumor"
+            aria-expanded="false">
+            <i class="fa fa-comments" aria-hidden="true"></i>
+            <span class="hide-menu">Tumor</span>
+        </a>
+    </li>
         <li class="sidebar-item">
             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="404"
                 aria-expanded="false">
