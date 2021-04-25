@@ -150,6 +150,7 @@ exports.signIn = async (req, res) => {
             // console.log(`${res
             //     .status(406)
             //     .send({ error: "User not verified - Please verify your email" })}`);
+            res.redirect('../verifyEmail')
         }
         try {
             await user.comparePassword(password);
@@ -161,8 +162,18 @@ exports.signIn = async (req, res) => {
         ) {
             return res.render('PatientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
         } else {
-            req.session.userId = user.id
-            res.render('profile', { user: user })
+            req.session.user = user
+            // req.session.userType = user.type
+            if (user.type == 'Patient') {
+                res.render('patientProfile', { user: user })
+            }
+            else if (user.type == 'Pathologist') {
+                res.render('pathProfile', { user: user })
+            }
+            else {
+                res.render('profile', { user: user })
+            }
+
             console.log(user.lastName)
         }
     } catch (err) {
@@ -190,7 +201,7 @@ exports.verifyEmail = async (req, res) => {
         if (screen == "forgotPassword") {
             res.render('changePassword', { email: email })
         } else {
-            res.send({ response: "Success!" });
+            res.redirect('../patientsLogin');
         }
     });
 };

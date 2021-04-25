@@ -1,14 +1,14 @@
 const express = require('express');
 const router = new express.Router()
 const session = require('express-session');
-const { redirectIndex } = require('../controllers/sessionController')
+const { redirectIndex, redirectProfile } = require('../controllers/sessionController')
 
 
 router.get('/addUser', redirectIndex, (req, res) => {
     res.render('addUser')
 });
 
-router.get('/ALogin', (req, res) => {
+router.get('/ALogin', redirectIndex, (req, res) => {
     res.render('ALogin')
 });
 
@@ -24,47 +24,47 @@ router.get('/dashboard', (req, res) => {
     res.render('dashboard')
 });
 
-router.get('/profile', (req, res) => {
+router.get('/profile', redirectIndex, (req, res) => {
     res.render('profile')
 });
 
-router.get('/patientsA', (req, res) => {
+router.get('/patientsA', redirectIndex, (req, res) => {
     res.render('patientsA')
 });
 
-router.get('/PathologistsA', (req, res) => {
+router.get('/PathologistsA', redirectIndex, (req, res) => {
     res.render('PathologistsA')
 });
 
-router.get('/ReportsList', (req, res) => {
+router.get('/ReportsList', redirectIndex, (req, res) => {
     res.render('ReportsList')
 });
 
-router.get('/patientInPath', (req, res) => {
+router.get('/patientInPath', redirectIndex, (req, res) => {
     res.render('patientInPath')
 });
 
-router.get('/patientProfile', (req, res) => {
+router.get('/patientProfile', redirectIndex, (req, res) => {
     res.render('patientProfile')
 });
 
-router.get('/generateReport', (req, res) => {
+router.get('/generateReport', redirectIndex, (req, res) => {
     res.render('generateReport')
 });
 
-router.get('/pathProfile', (req, res) => {
+router.get('/pathProfile', redirectIndex, (req, res) => {
     res.render('pathProfile')
 });
 
-router.get('/report', (req, res) => {
+router.get('/report', redirectIndex, (req, res) => {
     res.render('report')
 });
 
-router.get('/userReportsList', (req, res) => {
+router.get('/userReportsList', redirectIndex, (req, res) => {
     res.render('userReportsList')
 });
 
-router.get('/forgotPassword', (req, res) => {
+router.get('/forgotPassword', redirectIndex, (req, res) => {
     res.render('forgotPassword')
 });
 
@@ -72,25 +72,25 @@ router.get('/verifyEmail', (req, res) => {
     res.render('verifyEmail')
 });
 
-router.get('/changePassword', (req, res) => {
+router.get('/changePassword', redirectIndex, (req, res) => {
     res.render('changePassword')
 });
-router.get('/adminTumor', (req, res) => {
+router.get('/adminTumor', redirectIndex, (req, res) => {
     res.render('adminTumor')
 });
-router.get('/addTumor', (req, res) => {
+router.get('/addTumor', redirectIndex, (req, res) => {
     res.render('addTumor')
 });
-router.get('/adminPatientsList', (req, res) => {
+router.get('/adminPatientsList', redirectIndex, (req, res) => {
     res.render('adminPatientsList')
 });
-router.get('/adminPathologistsList', (req, res) => {
+router.get('/adminPathologistsList', redirectIndex, (req, res) => {
     res.render('adminPathologistsList')
 });
-router.get('/adminAssign', (req, res) => {
+router.get('/adminAssign', redirectIndex, (req, res) => {
     res.render('adminAssign')
 });
-router.get('/adminAssign/assignNew', (req, res) => {
+router.get('/adminAssign/assignNew', redirectIndex, (req, res) => {
     res.render('adminAssign')
 });
 router.get('/404', (req, res) => {

@@ -78,9 +78,11 @@ nav.innerHTML = `<div class="scroll-sidebar">
             </a>
         </li>
         <li class="text-center p-20 upgrade-btn">
-            <a
-                class="btn btn-block btn-danger text-white"   type="script" href="/logout" >
-                Logout</a>
+        <form method="GET" id="logout" class="signup-form" action="/user/logout">
+            <button
+                class="btn btn-block btn-danger text-white"  >
+                Logout</button>
+                </form>
         </li>
     </ul>
 
