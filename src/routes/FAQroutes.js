@@ -1,10 +1,10 @@
-const { addFAQ } = require('../controllers/FAQController')
+const express = require('express');
+const router = new express.Router();
+const{addFAQ, getAllFAQ, deleteFAQ}=require("../controllers/FAQcontroller")
 
-const routes = (app) => {
-    app.route('/addfaq')
-        .post(addFAQ);
+router.get('/adminFAQ', getAllFAQ)
 
+router.post('/addfaq', addFAQ)
+router.post('/adminFAQ',deleteFAQ)
 
-}
-
-module.exports = routes;
+module.exports = router
