@@ -36,18 +36,7 @@ exports.assignPatients = async (req, res) => {
 
     await Pathologist.updateOne({ 'userId': pathologist }, { $push: { assignedPatients: pp } })
     console.log("done1")
-    // if (pp.length > 0) {
-    //     newPatients.push(pp)
-    //     for (let index = 0; index < newPatients.length; index++) {
-    //         const element = newPatients[index];
-    //         await assigning(element);
-    //     }
-    // } else {
-    //     for (let index = 0; index < newPatients.length; index++) {
-    //         const element = newPatients[index];
-    //         await assigning(element);
-    //     }
-    // }
+
     if (Array.isArray(pp)) {
         for (let index = 0; index < pp.length; index++) {
             const element = pp[index];
