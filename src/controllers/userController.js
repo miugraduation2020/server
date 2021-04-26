@@ -359,7 +359,46 @@ exports.getPatients = async (req, res) => {
 
 }
 
+/*Search in Patients List*/
 
+exports.searchPatient = async (req, res) => {
+    const searchby = req.body.searchby;
+    const search = req.body.searchPt;
+
+    if(searchby == 'Name'){
+        const pname = req.body.searchPt.split(' ');
+        
+    if(pname[1]){
+    const allPate= await User.find({ lastName: pname[1], firstName:pname[0]});
+    return res.render("adminPatientsList", { pateints: allPate, choice:searchby , search:search });}
+    else {
+    const allPate = await User.find().where('firstName').equals(pname[0]);
+
+    return res.render("adminPatientsList", { pateints: allPate, choice:searchby , search:search });}
+
+}
+
+
+    if(searchby == 'Email'){
+        const pemail = req.body.searchPt;
+    
+        const allPate = await User.find().where('email').equals(search);
+        
+        console.log(allPate[0]);
+    
+        return res.render("adminPatientsList", { pateints: allPate ,choice:searchby , search:search});}
+    
+        if(searchby == 'Phone Number'){
+            const pphone = req.body.searchPt;
+        
+            const allPate = await User.find().where('phoneNumber').equals(search);
+            
+            console.log(allPate[0]);
+        
+            return res.render("adminPatientsList", { pateints: allPate , choice:searchby , search:search});}
+        
+
+}
 
 
 
