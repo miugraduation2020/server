@@ -380,20 +380,18 @@ exports.searchPatient = async (req, res) => {
 
 
     if(searchby == 'Email'){
-        const pemail = req.body.searchPt;
-    
-        const allPate = await User.find().where('email').equals(search);
-        
-        console.log(allPate[0]);
+        email = search.replace(/\s/g, '');
+
+        const allPate = await User.find().where('email').equals(email);
+
     
         return res.render("adminPatientsList", { pateints: allPate ,choice:searchby , search:search});}
     
         if(searchby == 'Phone Number'){
-            const pphone = req.body.searchPt;
-        
-            const allPate = await User.find().where('phoneNumber').equals(search);
+            phoneno= search.replace(/\s/g, '');
+
+            const allPate = await User.find().where('phoneNumber').equals(phoneno);
             
-            console.log(allPate[0]);
         
             return res.render("adminPatientsList", { pateints: allPate , choice:searchby , search:search});}
         
