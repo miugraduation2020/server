@@ -91,11 +91,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row">
+            <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">Manage FAQ</h3>
@@ -104,41 +100,27 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">Questions</th>
-                                            <th class="border-top-0">Answers</th>
+                                            <th class="border-top-0">ID</th>
+                                            <th class="border-top-0">Question</th>
+                                            <th class="border-top-0">Answer</th>
 
                                             <th class="border-top-0"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{#each faqs}}
                                         <tr>
-                                            <td>0</td>
-                                            <td>When should I recieve my test results?</td>
-                                            <td>Test results takes upto X hours to be generated. </td>
-                                            <td style="text-align:center;" >  <i  class=" far fa-edit
-                                                "></i> </td>
-                                            <td style="text-align:center;" >  <i  class=" far fa-trash-alt
-                                                "></i> </td>
+                                            <td>{{this.id}}</td>
+                                            <td>{{this.question}}</td>
+                                            <td>{{this.answer}}</td>
+                                            <td style="text-align:center;"> 
+                                               <input type="hidden" value="{{this.id}}"><button class="btn"><i class="far fa-edit"></i></button>
+                                            </td>
+                                            <td style="text-align:center;">
+                                               <input type="hidden" value="{{this.id}}"><button class="btn"><i class="fa fa-trash"></i></button>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>When should I recieve my test results?</td>
-                                            <td>Test results takes upto X hours to be generated. </td>
-                                            <td style="text-align:center;" >  <i  class=" far fa-edit
-                                                "></i> </td>
-                                            <td style="text-align:center;" >  <i  class=" far fa-trash-alt
-                                                "></i> </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>When should I recieve my test results?</td>
-                                            <td>Test results takes upto X hours to be generated. </td>
-                                            <td style="text-align:center;" >  <i  class=" far fa-edit
-                                                "></i> </td>
-                                            <td style="text-align:center;" >  <i  class=" far fa-trash-alt
-                                                "></i> </td>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
                                 </table>
                             </div>
