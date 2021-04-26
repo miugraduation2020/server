@@ -78,8 +78,14 @@ router.get('/changePassword', redirectIndex, (req, res) => {
 router.get('/adminTumor', redirectIndex, (req, res) => {
     res.render('adminTumor')
 });
+router.get('/adminFAQ', redirectIndex, (req, res) => {
+    res.render('adminFAQ')
+});
 router.get('/addTumor', redirectIndex, (req, res) => {
     res.render('addTumor')
+});
+router.get('/addfaq', redirectIndex, (req, res) => {
+    res.render('addfaq')
 });
 router.get('/adminPatientsList', redirectIndex, (req, res) => {
     res.render('adminPatientsList')
