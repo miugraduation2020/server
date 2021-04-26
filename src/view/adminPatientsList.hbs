@@ -23,6 +23,42 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<style> 
+input[type=text] 
+{
+    width: 60%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    padding: 12px 50px 12px 20px;
+
+}
+select
+{
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    width: 15%;
+    padding: 12px 20px 10px 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+input[type="submit"]
+{
+    width: 7%;
+    padding: 12px 20px 10px 20px;
+    font-size: 16px;
+
+}
+
+
+</style>
 </head>
 
 <body>
@@ -96,6 +132,20 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">Patients</h3>
+                             <form action="/adminPatientsList" method="POST">
+                                <input type="text" name="searchPt" placeholder="Search in Patients..." value="{{search}}">
+                                <input type="submit"  class="btn btn-success text-white" name="submitsearch" value="Search" >
+
+                                <h4 style='padding-top: 10px;'>Search by:</h4>
+                                <select   name="searchby"  >
+                                {{#if choice  }}
+                                <option selected="selected" >{{choice}}</option>
+                                {{/if}}
+                                <option >Name</option>
+                                <option>Email</option>
+                                <option>Phone Number</option>
+                                </select>
+                            </form>
                             <!-- <p class="text-muted">Add class <code>.table</code></p> -->
                             <div class="table-responsive">
                                 <table class="table">
