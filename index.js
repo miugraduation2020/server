@@ -1,11 +1,15 @@
 // Imported Route Files
 
 const { router } = require('./src/routes/imageRouts');
+<<<<<<< Updated upstream
 const FAQRouter = require('./src/routes/FAQRoutes');
+=======
+// const FAQRoutes = require('./src/routes/FAQRoutes');
+>>>>>>> Stashed changes
 const userRouter = require('./src/routes/userRoute');
 const tumorRouter = require('./src/routes/tumorRoutes');
 const pageRouter = require('./src/routes/pagesRoutes');
-const pathologistRouter= require('./src/routes/pathologistRoutes');
+const pathologistRouter = require('./src/routes/pathologistRoutes');
 
 
 
@@ -38,6 +42,10 @@ app.use(cors());
 app.locals.siteName = 'BCD';
 
 // Routes
+<<<<<<< Updated upstream
+=======
+// FAQRoutes(app);
+>>>>>>> Stashed changes
 app.use('/img', router);
 
 // app.use(urouter);
