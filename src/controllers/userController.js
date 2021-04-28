@@ -162,7 +162,8 @@ exports.signIn = async (req, res) => {
         ) {
             return res.render('PatientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
         } else {
-            req.session.user = user
+            req.session.userId = user.id
+            console.log(req.session.userId);
             // req.session.userType = user.type
             if (user.type == 'Patient') {
                 res.render('patientProfile', { user: user })
@@ -365,36 +366,40 @@ exports.searchPatient = async (req, res) => {
     const searchby = req.body.searchby;
     const search = req.body.searchPt;
 
-    if(searchby == 'Name'){
+    if (searchby == 'Name') {
         const pname = req.body.searchPt.split(' ');
-        
-    if(pname[1]){
-    const allPate= await User.find({ lastName: pname[1], firstName:pname[0]});
-    return res.render("adminPatientsList", { pateints: allPate, choice:searchby , search:search });}
-    else {
-    const allPate = await User.find().where('firstName').equals(pname[0]);
 
-    return res.render("adminPatientsList", { pateints: allPate, choice:searchby , search:search });}
+        if (pname[1]) {
+            const allPate = await User.find({ lastName: pname[1], firstName: pname[0] });
+            return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
+        }
+        else {
+            const allPate = await User.find().where('firstName').equals(pname[0]);
 
-}
+            return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
+        }
+
+    }
 
 
-    if(searchby == 'Email'){
+    if (searchby == 'Email') {
         email = search.replace(/\s/g, '');
 
         const allPate = await User.find().where('email').equals(email);
 
-    
-        return res.render("adminPatientsList", { pateints: allPate ,choice:searchby , search:search});}
-    
-        if(searchby == 'Phone Number'){
-            phoneno= search.replace(/\s/g, '');
 
-            const allPate = await User.find().where('phoneNumber').equals(phoneno);
-            
-        
-            return res.render("adminPatientsList", { pateints: allPate , choice:searchby , search:search});}
-        
+        return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
+    }
+
+    if (searchby == 'Phone Number') {
+        phoneno = search.replace(/\s/g, '');
+
+        const allPate = await User.find().where('phoneNumber').equals(phoneno);
+
+
+        return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
+    }
+
 
 }
 
