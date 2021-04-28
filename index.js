@@ -1,7 +1,7 @@
 // Imported Route Files
 
 const { router } = require('./src/routes/imageRouts');
-const FAQRoutes = require('./src/routes/FAQRoutes');
+const FAQRouter = require('./src/routes/FAQRoutes');
 const userRouter = require('./src/routes/userRoute');
 const tumorRouter = require('./src/routes/tumorRoutes');
 const pageRouter = require('./src/routes/pagesRoutes');
@@ -38,7 +38,6 @@ app.use(cors());
 app.locals.siteName = 'BCD';
 
 // Routes
-FAQRoutes(app);
 app.use('/img', router);
 
 // app.use(urouter);
@@ -65,6 +64,7 @@ app.use(userRouter);
 app.use(tumorRouter);
 app.use(pageRouter);
 app.use(pathologistRouter);
+app.use(FAQRouter);
 
 //Handling 404 page not found
 app.get('*', (req, res) => {
