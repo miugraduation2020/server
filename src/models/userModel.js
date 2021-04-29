@@ -57,10 +57,13 @@ const UserSchema = new Schema({
         type: Date,
         default: () => new Date(+new Date() + 3 * 60 * 1000),
     },
-    isAssigned:{
-        type:Boolean,
+    isAssigned: {
+        type: Boolean,
         default: false
-    }
+    },
+    tokens: [{
+        token: { type: String, required: true }
+    }]
 
 });
 

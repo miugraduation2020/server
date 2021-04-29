@@ -1,12 +1,13 @@
 const express = require('express');
 const router = new express.Router()
 const session = require('express-session');
-const { redirectProfile, loggedInUser } = require('../controllers/sessionController')
+const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession } = require('../controllers/sessionController')
 
 
-router.get('/addUser', redirectProfile, (req, res) => {
-    res.render('addUser')
-});
+router.get('/addUser',
+    (req, res) => {
+        res.render('addUser')
+    });
 
 router.get('/ALogin', (req, res) => {
     res.render('ALogin')
@@ -73,37 +74,48 @@ router.get('/verifyEmail', (req, res) => {
 router.get('/changePassword', (req, res) => {
     res.render('changePassword')
 });
+
 router.get('/adminTumor', (req, res) => {
     res.render('adminTumor')
 });
+
 router.get('/adminFAQ', (req, res) => {
     res.render('adminFAQ')
 });
+;
+
+router
 router.get('/addTumor', (req, res) => {
     res.render('addTumor')
 });
+
 router.get('/addfaq', (req, res) => {
     res.render('addfaq')
 });
+
 router.get('/adminPatientsList', (req, res) => {
     res.render('adminPatientsList')
 });
+
 router.get('/adminPathologistsList', (req, res) => {
     res.render('adminPathologistsList')
 });
+
 router.get('/adminAssign', (req, res) => {
     res.render('adminAssign')
 });
+
 router.get('/adminAssign/assignNew', (req, res) => {
     res.render('adminAssign')
 });
-router.get('/404', (req, res) => {
-    res.render('404')
-});
+
 router.get('/assigningConfirmation', (req, res) => {
     res.render('assigningConfirmation')
 });
 
+router.get('/404', (req, res) => {
+    res.render('404')
+});
 
 
 module.exports = router

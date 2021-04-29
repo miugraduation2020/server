@@ -5,6 +5,9 @@ const { UserSchema } = require('../models/userModel');
 const User = mongoose.model('User', UserSchema);
 const session = require('express-session');
 
+
+
+
 //if no session created, user will be redirected to main page
 exports.redirectIndex = (req, res, next) => {
     if (!req.session.user) {
@@ -12,8 +15,10 @@ exports.redirectIndex = (req, res, next) => {
 
     } else { next() }
 }
-// Admin control
-exports.redirectProfile = async (req, res, next) => {
+// Admin control only admin can view these pages
+// If user is logged in can't re-login 
+
+exports.notAdminRedirectProfile = async (req, res, next) => {
     const userId = req.session.userId;
     try {
         const user = await User.findOne({ _id: userId });
@@ -28,20 +33,23 @@ exports.redirectProfile = async (req, res, next) => {
     } catch (error) {
 
     }
+}
+exports.patientRedirectProfile = async (req, res, next) => {
+    const userId = req.session.userId;
+    try {
+        const user = await User.findOne({ _id: userId });
+        console.log(user.type);
 
+        if (user.type == 'Patient') {
+            res.redirect('/patientProfile')
+        }
+        else { next() }
+    } catch (error) {
 
-    // if (!req.session.userId == 'admin') {
-    //     if (req.session.userType == 'Patient') {
-    //         res.redirect('/patientProfile')
-    //     } else {
-    //         res.redirect('/pathProfile')
-    //     }
-
-
-    // } else { next() }
+    }
 }
 
-exports.loggedInUser = async (req, res, nex) => {
+exports.loggedInUser = async (req, res, next) => {
 
     const userId = req.session.userId;
     try {
@@ -50,6 +58,10 @@ exports.loggedInUser = async (req, res, nex) => {
 
         if (user.type == 'Pathologist') {
             res.render('pathProfile', { user: user })
+        } else if (user.type == 'Patient') {
+            res.render('patientProfile', { user: user })
+        } else if (user.type == 'admin') {
+            res.render('profile', { user: user })
         }
         else { next() }
     } catch (error) {
@@ -57,9 +69,10 @@ exports.loggedInUser = async (req, res, nex) => {
     }
 }
 
+
+
 //logout destroy session
-exports.destroySession = (req, res, nex) => {
-    req.session.destroy(function (err) {
-        res.redirect('/')
-    })
+exports.destroySession = (req, res, next) => {
+    req.session.destroy();
+    next()
 }
