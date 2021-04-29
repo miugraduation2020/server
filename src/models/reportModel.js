@@ -6,15 +6,15 @@ const ReportSchema = new Schema({
     reportID: Schema.Types.ObjectId,
     genDate: {
         type: Date,
-        required: 'Enter Report Generation date'
+        required
     },
     patientID: {
         type: String,
-        required: 'Enter Last Name'
+        required
     },
     pathologistID: {
         type: String,
-        required: 'Enter Email'
+        required
     },
     tumorID: {
         type:Number,

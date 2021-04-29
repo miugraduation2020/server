@@ -1,6 +1,5 @@
 // Imported Route Files
 
-const { router } = require('./src/routes/imageRouts');
 const FAQRouter = require('./src/routes/FAQRoutes');
 const userRouter = require('./src/routes/userRoute');
 const tumorRouter = require('./src/routes/tumorRoutes');
@@ -38,7 +37,8 @@ app.use(cors());
 app.locals.siteName = 'BCD';
 
 // Routes
-app.use('/img', router);
+
+// FAQRoutes(app);
 
 // app.use(urouter);
 

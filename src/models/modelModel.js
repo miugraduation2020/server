@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ModelSchema = new Schema({
-    reportID: Schema.Types.ObjectId,
 
     tumorID: {
         type:Number,

@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const { UserSchema } = require('../models/userModel');
-const { PathologistSchema } = require('../models/pathologistModel');
 const User = mongoose.model('User', UserSchema);
+const { PathologistSchema } = require('../models/pathologistModel');
 const Pathologist = mongoose.model("Pathologist", PathologistSchema);
-
+const session = require('express-session');
+var sess;
 
 exports.getPathologistsPatients = async (req, res) => {
 
@@ -25,8 +26,6 @@ exports.getPathologistsPatients = async (req, res) => {
 
 
 }
-
-
 
 
 exports.assignPatients = async (req, res) => {
@@ -69,10 +68,33 @@ async function getAssignedPatient(patients) {
 }
 
 
+
+exports.getMyPatients = async (req, res) => {
+
+    //Get Pathologist ID from the Application then the DB
+
+
+    const pathologist = req.session.userId;
+    console.log("id" + pathologist)
+    const pathologistReq = await Pathologist.findOne({ 'userId': pathologist });
+    console.log('path' + pathologistReq)
+    //Get Patients assigned for the Pathologist + their data
+
+    const patients = pathologistReq.assignedPatients;
+    const myPatientsList = await getAssignedPatient(patients);
+
+    //Get unassigned Patients
+
+
+    return res.render('pathPatientsList', { myPatients: myPatientsList});
+
+
+}
+
+
 async function getUnassigned() {
     const patients = await User.find().where('isAssigned').equals("false");
     console.log('4:' + patients)
     return patients
 
 }
-

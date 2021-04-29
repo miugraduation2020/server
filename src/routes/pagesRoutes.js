@@ -104,6 +104,21 @@ router.get('/assigningConfirmation', (req, res) => {
     res.render('assigningConfirmation')
 });
 
+router.get('/pathGenReport', (req, res) => {
+    res.render('pathGenReport')
+});
+
+router.get('/pathPatientsList', (req, res) => {
+    res.render('pathPatientsList')
+});
+
+
+router.get('/pathPatientProfile', (req, res) => {
+    res.render('pathPatientProfile')
+});
+
+
+
 
 
 module.exports = router
