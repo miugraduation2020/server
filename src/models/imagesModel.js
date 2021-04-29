@@ -6,18 +6,23 @@ const ImageSchema = new Schema({
         type: String,
         required: true
     },
-    imgNameDB:{
+    imgName:{
         type:String,
-        required: true
+        required
     },
     uploadDate:{
         type: Date,
         required:true
     },
     patientID:{
-        type: Number,
-        required:true
-    }
+        type: String,
+        required
+    },
+    pathologistID:{
+        type:String,
+        required
+    },
+   
 
 })
 

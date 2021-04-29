@@ -116,6 +116,21 @@ router.get('/assigningConfirmation', (req, res) => {
 router.get('/404', (req, res) => {
     res.render('404')
 });
+router.get('/pathGenReport', (req, res) => {
+    res.render('pathGenReport')
+});
+
+router.get('/pathPatientsList', (req, res) => {
+    res.render('pathPatientsList')
+});
+
+
+router.get('/pathPatientProfile', (req, res) => {
+    res.render('pathPatientProfile')
+});
+
+
+
 
 
 module.exports = router

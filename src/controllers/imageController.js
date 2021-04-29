@@ -1,20 +1,23 @@
 //const path = requir('path');
-const e = require('express');
 const mongoose = require('mongoose');
+const e = require('express');
 var gridfs = require('gridfs-stream');
-const image = require('../models/imagesModel');
+const {ImageSchema} = require('../models/imagesModel');
+const Image = mongoose.model("Image", ImageSchema);
+const { UserSchema } = require('../models/userModel');
+const User = mongoose.model('User', UserSchema);
 var fs = require('fs');
 
 const dburl = require("../db");
 
-var db_filename = "testy.tif";
-var local_file = "./src/is003.tif";
+var db_filename;
+var local_file;
 
 gridfs.mongo = mongoose.mongo;
 var connection = mongoose.connection;
 
 connection.on('error', console.error.bind(console, 'connection error:'));
-connection.once('open', function () {
+connection.once('open', function imageUpload (local_file,db_filename) {
 
     gfs = gridfs(connection.db);
 
@@ -65,3 +68,32 @@ connection.once('open', function () {
     }
 }
 )
+
+exports.AddImage = async (req,res)=>{
+    const pathologistId = req.body.pathologist;
+    const patientId=req.body.patient;
+    const patient= await User.findOne({id:patient});
+    const image=req.body.fileUpload;
+    const date=Date.now;
+    local_file=image.value;
+    db_filename=`${patient.firstName}${patien.lastName}id_${patientId}`
+
+    const image = new Image({
+        local_file,
+        db_filename,
+        date,
+        patientId,
+        pathologistId
+
+    })
+    await image.save().then(image=>{imageUpload(local_file,db_filename); console.log(image)})
+
+}
+
+exports.getPatAndPath = async(req,res)=>{
+    const pathologistId=req.session.userId;
+    const patientId=req.body.patient;
+    console.log('path: '+pathologistId+", pat: " + patientId);
+    return res.render("pathGenReport",{pathologistId:pathologistId,pathologistId:patientId});
+
+}
