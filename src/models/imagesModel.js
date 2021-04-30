@@ -4,23 +4,23 @@ const Schema = mongoose.Schema;
 const ImageSchema = new Schema({
     imgPath:{
         type: String,
-        required: true
+        require: true
     },
     imgName:{
         type:String,
-        required
+        require:true
     },
     uploadDate:{
         type: Date,
-        required:true
+        require:true
     },
     patientID:{
         type: String,
-        required
+        require:true
     },
     pathologistID:{
         type:String,
-        required
+        require:true
     },
    
 

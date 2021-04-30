@@ -73,8 +73,8 @@ exports.getMyPatients = async (req, res) => {
 
     //Get Pathologist ID from the Application then the DB
 
-
-    const pathologist = req.session.userId;
+    // const pathologist = req.session.userId;
+    const pathologist = req.body.pathologistID;
     console.log("id" + pathologist)
     const pathologistReq = await Pathologist.findOne({ 'userId': pathologist });
     console.log('path' + pathologistReq)
@@ -86,7 +86,7 @@ exports.getMyPatients = async (req, res) => {
     //Get unassigned Patients
 
 
-    return res.render('pathPatientsList', { myPatients: myPatientsList});
+    return res.render('/pathPatientsList', { myPatients: myPatientsList});
 
 
 }

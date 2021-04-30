@@ -5,6 +5,7 @@ const userRouter = require('./src/routes/userRoute');
 const tumorRouter = require('./src/routes/tumorRoutes');
 const pageRouter = require('./src/routes/pagesRoutes');
 const pathologistRouter = require('./src/routes/pathologistRoutes');
+const imageRouter = require('./src/routes/imageRouts');
 
 
 
@@ -19,7 +20,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
-
+const util = require("util");
+const multer = require("multer");
+const GridFsStorage = require("multer-gridfs-storage");
 
 const app = express();
 const PORT = 4000;
@@ -36,11 +39,9 @@ app.use(bodyParser.json());
 app.use(cors());
 app.locals.siteName = 'BCD';
 
-// Routes
 
-// FAQRoutes(app);
 
-// app.use(urouter);
+
 
 
 const viewsPath = path.join(__dirname, 'src/view');
@@ -65,6 +66,7 @@ app.use(tumorRouter);
 app.use(pageRouter);
 app.use(pathologistRouter);
 app.use(FAQRouter);
+app.use(imageRouter);
 
 //Handling 404 page not found
 app.get('*', (req, res) => {
