@@ -134,10 +134,16 @@
                                                 </form>
                                             </td>
 
-                                            <td style="text-align:center;"> <i class=" far fa-edit
-           "></i> </td>
-                                            <td style="text-align:center;"> <i class=" far fa-trash-alt
-           "></i> </td>
+                                            <form action="adminPathologistsList" method="POST">
+                                                <td style="text-align:center;"> 
+                                                    <input type="hidden" value="{{this.id}}" name="editpathid"><button type="submit" class="btn"><i class="far fa-edit"></i></button>
+                                                </td>
+                                            </form> 
+                                            <form action="adminPathologistsList" method="POST">
+                                                <td style="text-align:center;">
+                                               <input type="hidden" value="{{this.id}}" name="deletepathid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                            </form>
                                         </tr>
                                         {{/each}}
 
