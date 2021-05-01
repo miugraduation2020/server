@@ -40,11 +40,10 @@ exports.getAllFAQ = async (req, res) => {
    
 }
 
-
+//deleteFAQ
 exports.deleteFAQ = async (req, res) => {
 
-    var id = req.body.deleteid;
-    const del = await FAQ.deleteOne({ _id: req.body.id });
+    const del = await FAQ.deleteOne({ _id: req.body.deleteid });
         console.log(del);
 
     const allFAQ = await FAQ.find({});
