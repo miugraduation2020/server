@@ -1,7 +1,7 @@
 const express = require('express');
-const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData, getPatients, getPathologists, searchPatient, deleteFAQ } = require('../controllers/userController');
+const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData, getPatients, getPathologists, searchPatient } = require('../controllers/userController');
 const { destroySession, auth } = require('../controllers/sessionController')
-// const { addFAQ, getAllFAQ } = require("../controllers/FAQcontroller")
+const { addFAQ, getAllFAQ, deleteFAQ } = require("../controllers/FAQcontroller")
 
 const router = new express.Router()
 
@@ -22,9 +22,9 @@ router.get('/user/logout', auth, destroySession)
 router.post('/adminPatientsList', searchPatient);
 
 
-// router.get('/adminFAQ', getAllFAQ)
-// router.post('/addfaq', addFAQ)
-// router.post('/adminFAQ', deleteFAQ)
+router.get('/adminFAQ', getAllFAQ)
+router.post('/addfaq', addFAQ)
+router.post('/adminFAQ', deleteFAQ)
 
 
 module.exports = router
