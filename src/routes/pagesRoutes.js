@@ -1,7 +1,8 @@
 const express = require('express');
-const router = new express.Router()
+const router = new express.Router();
+const jwt = require("jsonwebtoken");
 const session = require('express-session');
-const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession } = require('../controllers/sessionController')
+const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession, auth } = require('../controllers/sessionController')
 
 
 router.get('/addUser',
@@ -21,7 +22,7 @@ router.get('/patientsLogin', (req, res) => {
     res.render('patientsLogin')
 });
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', auth, (req, res) => {
     res.render('dashboard')
 });
 
@@ -53,7 +54,7 @@ router.get('/generateReport', (req, res) => {
     res.render('generateReport')
 });
 
-router.get('/pathProfile', loggedInUser);
+router.get('/pathProfile', auth, loggedInUser);
 
 router.get('/report', (req, res) => {
     res.render('report')
@@ -116,6 +117,11 @@ router.get('/assigningConfirmation', (req, res) => {
 router.get('/404', (req, res) => {
     res.render('404')
 });
+
+router.get('/mustLogin', (req, res) => {
+    res.render('mustLogin')
+});
+
 router.get('/pathGenReport', (req, res) => {
     res.render('pathGenReport')
 });

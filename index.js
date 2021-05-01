@@ -12,6 +12,7 @@ const pathologistRouter = require('./src/routes/pathologistRoutes');
 
 const { url, mongoose, con } = require("./src/db")
 
+
 // Express / Middleware / Port
 const express = require('express');
 const hbs = require('hbs');
@@ -19,6 +20,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
+const jwt = require("jsonwebtoken");
+var cookieParser = require('cookie-parser');
+
+
 
 
 const app = express();
@@ -33,6 +38,7 @@ app.use(session({ secret: 'soktom boktom', saveUninitialized: false, resave: tru
 //bodyParser setup
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(cors());
 app.locals.siteName = 'BCD';
 
@@ -54,6 +60,7 @@ app.set('view engine', 'hbs');
 app.set('views', viewsPath);
 hbs.registerPartials(partialsPath)
 app.use(express.static(path.join(__dirname, 'src/view')))
+app.use(express.json())
 
 //our main page 
 app.get('/', (req, res) => {

@@ -3,8 +3,30 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const { UserSchema } = require('../models/userModel');
 const User = mongoose.model('User', UserSchema);
-const session = require('express-session');
 
+
+
+
+//User must be logged in
+exports.auth = async (req, res, next) => {
+    try {
+
+        // const token = req.header('Authorization').replace('Bearer ', '')
+        const token = req.cookies.token.replace('Bearer ', '');
+        const decoded = jwt.verify(token, 'thisismynewcourse')
+        const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
+
+        if (!user) {
+            throw new Error()
+        }
+
+        req.token = token
+        req.user = user
+        next()
+    } catch (e) {
+        res.status(401).render('mustLogin')
+    }
+}
 
 
 
@@ -15,6 +37,8 @@ exports.redirectIndex = (req, res, next) => {
 
     } else { next() }
 }
+
+
 // Admin control only admin can view these pages
 // If user is logged in can't re-login 
 
@@ -51,8 +75,8 @@ exports.patientRedirectProfile = async (req, res, next) => {
 
 exports.loggedInUser = async (req, res, next) => {
 
-    const userId = req.session.userId;
     try {
+        const userId = req.user._id;
         const user = await User.findOne({ _id: userId });
         console.log(user.type);
 
@@ -72,7 +96,17 @@ exports.loggedInUser = async (req, res, next) => {
 
 
 //logout destroy session
-exports.destroySession = (req, res, next) => {
-    req.session.destroy();
+exports.destroySession = async (req, res, next) => {
+    try {
+        req.user.tokens.splice(0, req.user.tokens.length);
+        await req.user.save();
+
+        res
+            .status(200)
+            .header('Authorization', req.header('Authorization')), res.redirect('../')
+
+    } catch (error) {
+        res.status(500).send(error);
+    }
     next()
 }

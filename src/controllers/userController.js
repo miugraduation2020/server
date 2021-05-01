@@ -139,9 +139,10 @@ exports.generateToken = async function () {
     const user = this
     const token = jwt.sign({ _id: user._id.toString() }, 'jsdufhsdfnlsdguf')
     user.tokens = user.concat({ token })
+    return res.json(token)
 }
 
-exports.signIn = async (req, res) => {
+exports.signIn = async (req, res, next) => {
     const { email, password } = req.body;
     const errors = { email: [], password: [] };
     // const input = { email: [], password: [] }
@@ -169,14 +170,12 @@ exports.signIn = async (req, res) => {
             return res.render('PatientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
         } else {
 
-            const token = jwt.sign({ _id: user._id.toString() }, 'jsdufhsdfnlsdguf')
-            user.tokens = user.tokens.concat({ token })
-            await user.save()
+            // user.generateAuthToken();
+            const token = await user.generateAuthToken();
+            console.log("the token: " + token)
 
-            // req.session.userId = user.id
-            // console.log(req.session.userId);
-            // req.session.userType = user.type
-
+            res.header('Authorization', 'Bearer ' + token)
+            res.cookie('token', token, { httpOnly: true }).status(200);
             if (user.type == 'Patient') {
                 res.render('patientProfile', { user: user })
             }
@@ -188,7 +187,7 @@ exports.signIn = async (req, res) => {
             }
 
             console.log(user.lastName)
-            console.log(token)
+
         }
     } catch (err) {
 
@@ -196,6 +195,8 @@ exports.signIn = async (req, res) => {
 
     }
 };
+
+
 
 /*Email Varification*/
 
