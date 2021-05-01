@@ -421,5 +421,31 @@ exports.searchPatient = async (req, res) => {
 
 }
 
+/* Delete Patient */
+
+exports.deletePatient = async (req, res) => {
+
+    const del = await User.deleteOne({ _id: req.body.deletepatientid });
+        console.log(del);
+
+        const allPate = await User.find().where('type').equals('Patient');
+        console.log(allPate[0]);
+    
+        return res.render("adminPatientsList", { pateints: allPate });
+
+}
 
 
+/* Delete Pathologist */
+
+exports.deletePathologist = async (req, res) => {
+
+    const del = await User.deleteOne({ _id: req.body.deletepathid });
+        console.log(del);
+
+        const allPath = await User.find().where('type').equals('Pathologist');
+        console.log(allPath[0]);
+
+    return res.render("adminPathologistsList", { pathologists: allPath });
+
+}
