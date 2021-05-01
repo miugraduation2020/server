@@ -77,7 +77,7 @@
                                 <li><a href="#">Dashboard</a></li>
                                
                             </ol>
-                            <a href="https://wrappixel.com/templates/ampleadmin/" 
+                            <a href="/addfaq" 
                                 class="btn btn-danger  d-none d-md-block pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Add FAQ</a>
 
                         </div>
@@ -113,12 +113,16 @@
                                             <td>{{this.id}}</td>
                                             <td>{{this.question}}</td>
                                             <td>{{this.answer}}</td>
-                                            <td style="text-align:center;"> 
-                                               <input type="hidden" value="{{this.id}}"><button class="btn"><i class="far fa-edit"></i></button>
+                                            <form action="adminFAQ" method="POST">
+                                                <td style="text-align:center;"> 
+                                                    <input type="hidden" value="{{this.id}}" name="editid"><button type="submit" class="btn"><i class="far fa-edit"></i></button>
+                                                </td>
+                                            </form> 
+                                            <form action="adminFAQ" method="POST">
+                                                <td style="text-align:center;">
+                                               <input type="hidden" value="{{this.id}}" name="deleteid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
                                             </td>
-                                            <td style="text-align:center;">
-                                               <input type="hidden" value="{{this.id}}"><button class="btn"><i class="fa fa-trash"></i></button>
-                                            </td>
+                                            </form>
                                         </tr>
                                         {{/each}}
                                     </tbody>
