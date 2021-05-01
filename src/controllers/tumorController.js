@@ -66,3 +66,16 @@ exports.getAllTumor = async (req, res) => {
 
 }
 
+/*Delete Tumor*/
+
+exports.deleteTumor = async (req, res) => {
+
+    const del = await Tumor.deleteOne({ _id: req.body.deletetumorid });
+        console.log(del);
+
+        const all = await Tumor.find();
+
+    return res.render("adminTumor", {tumors:all});
+
+}
+
