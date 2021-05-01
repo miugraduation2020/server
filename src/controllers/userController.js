@@ -189,6 +189,9 @@ exports.signIn = async (req, res) => {
 
             console.log(user.lastName)
             console.log(token)
+            req.session.email=req.body.email;
+            req.session.myid=user._id;
+            console.log('sc'+ req.session.myid)
         }
     } catch (err) {
 

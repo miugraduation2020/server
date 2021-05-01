@@ -86,7 +86,7 @@ exports.getMyPatients = async (req, res) => {
     //Get unassigned Patients
 
 
-    return res.render('/pathPatientsList', { myPatients: myPatientsList});
+    return res.render('pathPatientsList', { myPatients: myPatientsList});
 
 
 }

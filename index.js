@@ -31,8 +31,11 @@ const PORT = 4000;
 mongoose.Promise = global.Promise;
 
 // Session 
-app.use(session({ secret: 'soktom boktom', saveUninitialized: false, resave: true }));
-
+app.use(session({ secret: 'soktom boktom', saveUninitialized: false, resave: true ,  cookie: {
+    sameSite: true,
+    secure: false,
+    expires: false
+  } }));
 //bodyParser setup
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
