@@ -40,17 +40,33 @@ exports.getAllFAQ = async (req, res) => {
    
 }
 
-// //delete faq
+
 exports.deleteFAQ = async (req, res) => {
 
-    const del = await FAQ.deleteOne({});
+    var id = req.body.deleteid;
+    const del = await FAQ.deleteOne({ _id: req.body.id });
         console.log(del);
 
-    return res.render("adminFAQ", {faqs:del});
+    const allFAQ = await FAQ.find({});
+
+    return res.render("adminFAQ", {faqs:allFAQ});
 
 }
-//edit faq
 
+//edit faq
+// exports.editFAQ = async (req, res) => {
+    
+//     var id = req.body.editid;
+   
+//         const edit = await FAQ.updateOne({ _id: req.body.id }, { $set: { question } },{ $set: { answer } });
+//         console.log(edit);
+
+//         const allFAQ = await FAQ.find({});
+   
+
+//     return res.render("adminFAQ", {faqs:this.editFAQ},{faqs:allFAQ});
+
+// }
 
 
 
