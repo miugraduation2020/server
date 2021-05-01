@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express')
 const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData, getPatients, getPathologists, searchPatient, deletePatient, deletePathologist } = require('../controllers/userController');
 const { destroySession, auth } = require('../controllers/sessionController')
 const { addFAQ, getAllFAQ, deleteFAQ } = require("../controllers/FAQcontroller")
