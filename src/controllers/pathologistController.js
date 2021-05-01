@@ -3,7 +3,8 @@ const { UserSchema } = require('../models/userModel');
 const User = mongoose.model('User', UserSchema);
 const { PathologistSchema } = require('../models/pathologistModel');
 const Pathologist = mongoose.model("Pathologist", PathologistSchema);
-const session = require('express-session');
+const {loggedInUser} = require('../controllers/sessionController');
+
 
 var sess;
 
@@ -97,5 +98,14 @@ async function getUnassigned() {
     const patients = await User.find().where('isAssigned').equals("false");
     console.log('4:' + patients)
     return patients
+
+}
+exports.getPatAndPath = async (req, res) => {
+    const patientId = req.body.patient;
+    const patientData = await User.findById(patientId)
+    const Path = req.user
+    console.log(Path.email)
+    console.log( " pat: " + patientId);
+    return res.render("pathGenReport", {  patient: patientData, user:Path });
 
 }

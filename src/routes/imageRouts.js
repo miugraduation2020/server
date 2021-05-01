@@ -10,7 +10,6 @@ var gfs;
 var fs = require('fs');
 
 
-router.post('/Diagnose', getPatAndPath);
 
 router.post('/uploadImage', addImage)
 

@@ -33,13 +33,6 @@ exports.addImage = async (req, res) => {
 
 
 
-exports.getPatAndPath = async (req, res) => {
-    const pathologistId = req.session.userId;
-    const patientId = req.body.patient;
-    console.log('path: ' + pathologistId + ", pat: " + patientId);
-    return res.render("pathGenReport", { pathologistId: pathologistId, patientId: patientId });
-
-}
 
 // function make Diagnosis of add this function in the model controllet and call it in addImage function  
 

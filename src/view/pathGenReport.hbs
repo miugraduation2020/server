@@ -96,12 +96,12 @@
                     <div class="col-md-12">
                         <div class="white-box">
 
-                            <h2>File Upload & Image Preview</h2>
-                            <p class="lead">Patient's <b>Biopsy Test Image</b></p>
+                            <h2>{{user.firstName}} Upload</h2>
+                            <p class="lead">{{patient.firstName}} {{patient.lastName}}'s <b>Biopsy Test Image</b></p>
                             <!-- Upload  -->
                             <form id="file-upload-form" class="uploader" action="uploadImage">
-                                <input hidden value="{{pathologistId}}" name="pathologist">
-                                <input hidden value="{{patientId}}" name="patient">
+                                <input hidden value="{{user._id}}" name="pathologist">
+                                <input hidden value="{{patient._id}}" name="patient">
                                 <input id="file-upload" type="file" name="fileUpload" accept="file/*" />
                                 <label for="file-upload" id="file-drag">
                                     <img id="file-image" src="" alt="Preview" class="hidden">

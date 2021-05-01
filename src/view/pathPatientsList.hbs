@@ -101,7 +101,8 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title text-uppercase font-medium font-14"> Patients</h4>
+                        <h4 class="page-title text-uppercase font-medium font-14"> {{user.firstName}} {{user.lastName}}
+                        </h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
@@ -155,9 +156,8 @@
                                             <th class="border-top-0">Gender</th>
                                             <th class="border-top-0">Phone</th>
                                             <th class="border-top-0">DoB</th>
-                                            <th class="border-top-0">Is Assigned</th>
                                             <th class="border-top-0">Reports</th>
-                                            <th class="border-top-0" colspan="2">Manage</th>
+                                            <th class="border-top-0" >Diagnose</th>
 
 
                                             <th class="border-top-0"></th>
@@ -174,18 +174,22 @@
                                             <td>{{this.dateOfBirth}}</td>
 
                                             <td>
-                                                <form action="/Diagnose" method="POST">
+                                                <form action="/pathPatientProfile" method="POST">
                                                     <input type="text" hidden name="patient" value="{{this.id}}">
 
-                                                    <input type="submit" value="Diagnose"
+                                                    <input type="submit" value="VIEW"
                                                         class="btn btn-success text-white">
                                                 </form>
                                             </td>
+                                        
+                                            <td>
+                                                <form action="/pathGenReport" method="POST">
+                                                    <input type="text" hidden name="patient" value="{{this.id}}">
 
-                                            <td style="text-align:center;"> <i class=" far fa-edit
-           "></i> </td>
-                                            <td style="text-align:center;"> <i class=" far fa-trash-alt
-           "></i> </td>
+                                                    <input type="submit" value="ADD"
+                                                        class="btn btn-danger text-white">
+                                                </form>
+                                            </td>
                                         </tr>
                                         {{/each}}
 

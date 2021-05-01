@@ -2,8 +2,8 @@ const express = require('express');
 const router = new express.Router();
 const jwt = require("jsonwebtoken");
 const session = require('express-session');
-const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession, auth } = require('../controllers/sessionController')
-
+const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession, auth } = require('../controllers/sessionController');
+const { getMyPatients, getPatAndPath } = require('../controllers/pathologistController');
 
 router.get('/addUser',
     (req, res) => {
@@ -122,13 +122,11 @@ router.get('/mustLogin', (req, res) => {
     res.render('mustLogin')
 });
 
-router.get('/pathGenReport', (req, res) => {
-    res.render('pathGenReport')
-});
+router.get('/pathGenReport', auth, loggedInUser
+);
 
-router.get('/pathPatientsList', auth, (req, res) => {
-    res.render('pathPatientsList')
-});
+router.get('/pathPatientsList', auth, getMyPatients
+);
 
 
 router.get('/pathPatientProfile', (req, res) => {
