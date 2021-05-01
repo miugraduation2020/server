@@ -126,7 +126,7 @@ router.get('/pathGenReport', (req, res) => {
     res.render('pathGenReport')
 });
 
-router.get('/pathPatientsList', (req, res) => {
+router.get('/pathPatientsList', auth, (req, res) => {
     res.render('pathPatientsList')
 });
 

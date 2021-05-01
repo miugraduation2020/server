@@ -25,6 +25,7 @@ const imagePath= imgPath;
           (data) => {
             out.push(data.toString());
             logOutput('stdout')(data);
+            console.log('1 ')
           }
         );
     
@@ -33,7 +34,9 @@ const imagePath= imgPath;
           'data',
           (data) => {
             err.push(data.toString());
-            logOutput('Classss')(data);
+            logOutput('stderr')(data);
+            console.log('2 ')
+
           }
         );
     
@@ -47,7 +50,8 @@ const imagePath= imgPath;
             resolve(JSON.parse(JSON.stringify(out[0])));
           } catch(e) {
             reject(e);
-          }
+          }            console.log('3 ')
+ 
         });
       });
     }
@@ -55,7 +59,9 @@ const imagePath= imgPath;
  ( async () => {
         try {
           const output = await run()
-          logOutput('main')(output)
+          logOutput('main')(output[0]["Class"])
+          console.log('4')
+
           process.exit(0)
         } catch (e) {
           console.error('Error during script execution ', e.stack);

@@ -180,7 +180,7 @@ exports.signIn = async (req, res, next) => {
                 res.render('patientProfile', { user: user })
             }
             else if (user.type == 'Pathologist') {
-                res.render('pathProfile', { user: user })
+                res.redirect('../pathProfile')
             }
             else {
                 res.render('profile', { user: user })

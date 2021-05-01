@@ -15,14 +15,14 @@ nav.innerHTML = `<div class="scroll-sidebar">
     <ul id="sidebarnav">
         <!-- User Profile-->
         <li class="sidebar-item pt-2">
-            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pathGenReport"
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" href=""
                 aria-expanded="false">
                 <i class="far fa-clock" aria-hidden="true"></i>
                 <span class="hide-menu">Dashboard</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile"
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pathProfile"
                 aria-expanded="false">
                 <i class="fa fa-user-circle" aria-hidden="true"></i>
                 <span class="hide-menu">Profile</span>

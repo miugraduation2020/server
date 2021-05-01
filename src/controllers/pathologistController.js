@@ -4,6 +4,7 @@ const User = mongoose.model('User', UserSchema);
 const { PathologistSchema } = require('../models/pathologistModel');
 const Pathologist = mongoose.model("Pathologist", PathologistSchema);
 const session = require('express-session');
+
 var sess;
 
 exports.getPathologistsPatients = async (req, res) => {
@@ -74,7 +75,7 @@ exports.getMyPatients = async (req, res) => {
     //Get Pathologist ID from the Application then the DB
 
     // const pathologist = req.session.userId;
-    const pathologist = req.body.pathologistID;
+    const pathologist = req.user._id;
     console.log("id" + pathologist)
     const pathologistReq = await Pathologist.findOne({ 'userId': pathologist });
     console.log('path' + pathologistReq)
