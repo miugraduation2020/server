@@ -116,7 +116,9 @@
                                     <div id="response" class="hidden">
                                         <div id="messages"></div>
                                         <p id="path"></p>
-                                        <div id="imgPath"></div>
+                                        <div id="imgPath">
+                                            <input type='text'  name='imgPath'  value='D:\\MIU\\Graduation Project\\ICIAR2018_BACH_Challenge\\Photos\\Invasive\\iv035.tif'>
+                                        </div>
 
                                         <progress class="progress" id="file-progress" value="">
                                             <span></span>%
@@ -180,7 +182,7 @@
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
     <script src="js/fileUpload.js"></script>
-    <script>
+    {{!-- <script>
         var fileInput = document.getElementById("file-upload");
         var path = document.getElementById("path");
         var imgPath = document.getElementById('imgPath')
@@ -196,13 +198,13 @@
 
                 reader.onload = function (e) {
                     path.innerHTML = input.value;
-                    imgPath.innerHTML="<input type='text'  name='imgPath'  value='"+  input.value+"'>"
+                    imgPath.innerHTML=""
                 }
 
                 reader.readAsDataURL(input.files[0]);
             }
         }
-    </script>
+    </script> --}}
 
 </body>
 

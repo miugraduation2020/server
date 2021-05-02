@@ -195,7 +195,7 @@ def CNN(x):
     if(labels==3):
         diagnosis="Normal"
     
-    return diagnosis
+    return labels
     
 
 
@@ -204,11 +204,10 @@ imgPath=sys.argv[1]
 img,imagename=load_image(imgPath)
 img_norm = normalization('D:\\MIU\\Graduation Project\\newServer\\server\\src\\models\\pythonModel\\b022.tif',img,imagename)
 imgd=segmentation(img_norm,img,imagename)
-diagnosis=CNN(imgd)
-send_message_back = {
-  'Class': str(diagnosis),
+Labels=CNN(imgd)
+send_message_back = str(Labels)
 
-}
+
 print(json.dumps(send_message_back))
 
 

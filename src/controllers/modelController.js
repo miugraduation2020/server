@@ -10,12 +10,16 @@ module.exports= function (imgPath){
 var myPythonScript = "src\\models\\pythonModel\\FinalModel.py";
 var pythonExecutable = "C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python38\\python.exe";
 const imagePath= imgPath;
+var tumor;
 //const Path="D:\\MIU\\Graduation Project\\ICIAR2018_BACH_Challenge\\Photos\\Invasive\\iv004.tif";
 
     const logOutput = (name) => (message) =>{ 
       console.log(`[${name}] ${message}`);
+      
   }
-
+    async function sendClass(tClass){
+      return tClass
+    }
     function run() {
       return new Promise((resolve, reject) => {
         const process = spawn(pythonExecutable, [myPythonScript, imagePath]);
@@ -44,7 +48,7 @@ const imagePath= imgPath;
           logOutput('exit')(`${code} (${signal})`)
           if (code !== 0) {
             reject(new Error(err.join('\n')))
-            return
+            
           }
           try {
             resolve(JSON.parse(JSON.stringify(out[0])));
@@ -59,16 +63,18 @@ const imagePath= imgPath;
  ( async () => {
         try {
           const output = await run()
-          logOutput('main')(output[0]["Class"])
+          logOutput('main')(output)
           console.log('4')
-
-          process.exit(0)
+          tumor=output
+          const output2= await sendClass(tumor)
+          console.log(output2+"model")
         } catch (e) {
           console.error('Error during script execution ', e.stack);
           process.exit(1);
         }
       }
   )();
+
 
     }
 

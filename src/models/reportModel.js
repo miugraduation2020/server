@@ -6,23 +6,27 @@ const ReportSchema = new Schema({
     reportID: Schema.Types.ObjectId,
     genDate: {
         type: Date,
-        required
+        require:true
     },
     patientID: {
         type: String,
-        required
+        require:true
     },
     pathologistID: {
         type: String,
-        required
+        require:true
+
     },
     tumorID: {
         type:Number,
-        required:true,
+        require:true
     },
     imageID:{
         type:String,
-        required:true,
+        require:true
+    },
+    pathComments:{
+        type:String
     }
 });
 

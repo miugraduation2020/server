@@ -131,27 +131,27 @@ function ekUpload() {
         }
       }
     }
-    var fileInput = document.getElementById("file-upload");
-    var path = document.getElementById("path");
-    var imgPath = document.getElementById('imgPath')
-    fileInput.addEventListener("change", function () {
-        changeImage(this);
-    });
+    // var fileInput = document.getElementById("file-upload");
+    // var path = document.getElementById("path");
+    // var imgPath = document.getElementById('imgPath')
+    // fileInput.addEventListener("change", function () {
+    //     changeImage(this);
+    // });
 
-    function changeImage(input) {
-        var reader;
+    // function changeImage(input) {
+    //     var reader;
 
-        if (input.files && input.files[0]) {
-            reader = new FileReader();
+    //     if (input.files && input.files[0]) {
+    //         reader = new FileReader();
 
-            reader.onload = function (e) {
-                path.innerHTML = input.value;
-                imgPath.innerHTML="<input type='text' hidden name='imgPath'  value='"+ fileInput.value+"'>"
-            }
+    //         reader.onload = function (e) {
+    //             path.innerHTML = input.value;
+    //             imgPath.innerHTML="<input type='text'  name='imgPath'  value='"+  fileInput.attr("src");+"'>"
+    //         }
 
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
     // Check for the various File API support.
     if (window.File && window.FileList && window.FileReader) {
       Init();

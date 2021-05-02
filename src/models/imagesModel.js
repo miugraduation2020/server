@@ -22,6 +22,10 @@ const ImageSchema = new Schema({
         type:String,
         require:true
     },
+    diagnosis:{
+        type:String,
+        require:true
+    }
    
 
 })

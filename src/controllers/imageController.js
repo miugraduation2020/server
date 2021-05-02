@@ -10,10 +10,10 @@ const { createReadStream } = require('fs');
 const { createModel } = require('mongoose-gridfs');
 var connection = mongoose.connection;
 const model = require('./modelController')
-
+const {addNewReport}=require('./reportController')
 exports.addImage = async (req, res) => {
 
-    const imgPath=req.body.fileUpload;
+    const imgPath=req.body.imgPath;
     const pathologistID = req.body.pathologist;
     const patientId = req.body.patient;
     console.log('pathologist'+pathologistID)
@@ -24,9 +24,10 @@ exports.addImage = async (req, res) => {
     const patient = await User.findById(patientId);
     var uploadDate = Date.now();
     const imgName = `${uploadDate}-${patient.firstName} ${patient.firstName}-ID:${patient.id}`
-    const image = new Image({ imgPath, imgName, uploadDate, patient, pathologistID })
-    await image.save().then(image => { console.log('The img with id ' + image._id + ' has been added.') });
     const diagnosis = await new model(imgPath);
+    console.log(diagnosis+"image")
+    const image = new Image({ imgPath, imgName, uploadDate, patient, pathologistID,diagnosis })
+    await image.save().then(image => {   addNewReport(image._id,diagnosis)  });
     res.redirect('pathProfile');
 }
 
