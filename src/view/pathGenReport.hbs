@@ -113,7 +113,9 @@
                                     </div>
                                     <div id="response" class="hidden">
                                         <div id="messages"></div>
-                                        <progress class="progress" id="file-progress" value="">
+                                        <p id="path"></p>
+                                        <input type='submit'>
+                                            <progress class="progress" id="file-progress" value="">
                                             <span></span>%
                                         </progress>
                                     </div>
@@ -172,6 +174,28 @@
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
     <script src="js/fileUpload.js"></script>
+    <script>
+        var fileInput = document.getElementById("file-upload");
+var path = document.getElementById("path");
+    
+fileInput.addEventListener("change", function() {
+  changeImage(this);
+});
+
+function changeImage(input) {
+  var reader;
+
+  if (input.files && input.files[0]) {
+    reader = new FileReader();
+
+    reader.onload = function(e) {
+      path.innerHTML = input.value;
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+    </script>    
 
 </body>
 
