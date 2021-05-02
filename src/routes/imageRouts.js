@@ -1,17 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose')
-const {  addImage, getPatAndPath } = require('../controllers/imageController');
-
-var gridfs = require('gridfs-stream');
-gridfs.mongo = mongoose.mongo;
-var connection = mongoose.connection;
-var gfs;
-var fs = require('fs');
+const {  addImage } = require('../controllers/imageController');
+const {auth}= require('../controllers/sessionController')
 
 
 
-router.post('/uploadImage', addImage)
+
+router.post('/uploadImage', auth, addImage)
 
 
 

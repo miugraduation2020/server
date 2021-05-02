@@ -13,22 +13,21 @@ const model = require('./modelController')
 
 exports.addImage = async (req, res) => {
 
-    //  const imgPath=req.body.fileUpload;
-    const pathologistID = req.session.myid;
-    const patientMail = req.body.patient;
-    console.log(pathologistID)
+    const imgPath=req.body.fileUpload;
+    const pathologistID = req.body.pathologist;
+    const patientId = req.body.patient;
+    console.log('pathologist'+pathologistID)
+    console.log('patientId'+patientId)
+    console.log(imgPath+'  rhw')
 
-    const imgPath = 'D:\\MIU\\Graduation Project\\ICIAR2018_BACH_Challenge\\Photos\\InSitu\\is002.tif';
-    // const pathologistID = '606fbab4337804134c3f0c2a';
-    // const patientMail ='u@mail.com';
-    const patient = await User.findOne({ email: 'u@mail.com' });
+
+    const patient = await User.findById(patientId);
     var uploadDate = Date.now();
     const imgName = `${uploadDate}-${patient.firstName} ${patient.firstName}-ID:${patient.id}`
-
     const image = new Image({ imgPath, imgName, uploadDate, patient, pathologistID })
     await image.save().then(image => { console.log('The img with id ' + image._id + ' has been added.') });
     const diagnosis = await new model(imgPath);
-    
+    res.redirect('pathProfile');
 }
 
 

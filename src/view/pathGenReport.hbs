@@ -25,6 +25,8 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+    <script src="js/top-bar.js"></script>
+
 </head>
 
 <body>
@@ -96,12 +98,12 @@
                     <div class="col-md-12">
                         <div class="white-box">
 
-                            <h2>{{user.firstName}} Upload</h2>
+                            <h2>Dr.{{user.firstName}} Upload</h2>
                             <p class="lead">{{patient.firstName}} {{patient.lastName}}'s <b>Biopsy Test Image</b></p>
                             <!-- Upload  -->
-                            <form id="file-upload-form" class="uploader" action="uploadImage">
-                                <input hidden value="{{user._id}}" name="pathologist">
-                                <input hidden value="{{patient._id}}" name="patient">
+                            <form id="file-upload-form" class="uploader" method="POST" action="uploadImage">
+                                <input value="{{user._id}}" name="pathologist"hidden>
+                                <input value="{{patient._id}}" name="patient"hidden>
                                 <input id="file-upload" type="file" name="fileUpload" accept="file/*" />
                                 <label for="file-upload" id="file-drag">
                                     <img id="file-image" src="" alt="Preview" class="hidden">
@@ -114,15 +116,19 @@
                                     <div id="response" class="hidden">
                                         <div id="messages"></div>
                                         <p id="path"></p>
-                                        <input type='submit'>
-                                            <progress class="progress" id="file-progress" value="">
+                                        <div id="imgPath"></div>
+
+                                        <progress class="progress" id="file-progress" value="">
                                             <span></span>%
                                         </progress>
                                     </div>
                                 </label>
+                                <button type='submit' id='submit-button' value="Make Diagnosis"
+                                    class='btn btn-primary white-text'>Make Dianosis</button>
+
                             </form>
                         </div>
-                      
+
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -169,33 +175,34 @@
     <script src="js/waves.js"></script>
     <!--Menu sidebar -->
     <script src="js/sidebarmenuPath.js"></script>
-    <script src="js/topbar-path.js"></script>
+    <script src="js/top-bar.js"></script>
 
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
     <script src="js/fileUpload.js"></script>
     <script>
         var fileInput = document.getElementById("file-upload");
-var path = document.getElementById("path");
-    
-fileInput.addEventListener("change", function() {
-  changeImage(this);
-});
+        var path = document.getElementById("path");
+        var imgPath = document.getElementById('imgPath')
+        fileInput.addEventListener("change", function () {
+            changeImage(this);
+        });
 
-function changeImage(input) {
-  var reader;
+        function changeImage(input) {
+            var reader;
 
-  if (input.files && input.files[0]) {
-    reader = new FileReader();
+            if (input.files && input.files[0]) {
+                reader = new FileReader();
 
-    reader.onload = function(e) {
-      path.innerHTML = input.value;
-    }
+                reader.onload = function (e) {
+                    path.innerHTML = input.value;
+                    imgPath.innerHTML="<input type='text'  name='imgPath'  value='"+  input.value+"'>"
+                }
 
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-    </script>    
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 </body>
 

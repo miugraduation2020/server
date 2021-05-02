@@ -1,4 +1,6 @@
 // File Upload
+
+
 //
 function ekUpload() {
     function Init() {
@@ -40,7 +42,7 @@ function ekUpload() {
       // Process all File objects
       for (var i = 0, f; (f = files[i]); i++) {
         parseFile(f);
-        uploadFile(f);
+      //  uploadFile(f);
       }
     }
   
@@ -50,11 +52,11 @@ function ekUpload() {
       var m = document.getElementById("messages");
       m.innerHTML = msg;
     }
-  
+   
     function parseFile(file) {
       console.log(file.name);
-      output("<strong>" + encodeURI(file.name) + "</strong>");
-  
+      output("<strong>"  + file.name + "</strong>");
+      console.log(file)
       // var fileType = file.type;
       // console.log(fileType);
       var imageName = file.name;
@@ -102,15 +104,15 @@ function ekUpload() {
         if (file.size <= fileSizeLimit * 1024 * 1024) {
           // Progress bar
           pBar.style.display = "inline";
-          xhr.upload.addEventListener("loadstart", setProgressMaxValue, false);
-          xhr.upload.addEventListener("progress", updateFileProgress, false);
+          xhr.upload.addEventListener("loadstart", setProgressMaxValue, true);
+          xhr.upload.addEventListener("progress", updateFileProgress, true);
   
           // File received / failed
           xhr.onreadystatechange = function (e) {
             if (xhr.readyState == 4) {
               // Everything is good!
-              // progress.className = (xhr.status == 200 ? "success" : "failure");
-              // document.location.reload(true);
+               progress.className = (xhr.status == 200 ? "success" : "failure");
+              document.location.reload(true);
             }
           };
   
@@ -129,7 +131,27 @@ function ekUpload() {
         }
       }
     }
-  
+    var fileInput = document.getElementById("file-upload");
+    var path = document.getElementById("path");
+    var imgPath = document.getElementById('imgPath')
+    fileInput.addEventListener("change", function () {
+        changeImage(this);
+    });
+
+    function changeImage(input) {
+        var reader;
+
+        if (input.files && input.files[0]) {
+            reader = new FileReader();
+
+            reader.onload = function (e) {
+                path.innerHTML = input.value;
+                imgPath.innerHTML="<input type='text' hidden name='imgPath'  value='"+ fileInput.value+"'>"
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
     // Check for the various File API support.
     if (window.File && window.FileList && window.FileReader) {
       Init();
