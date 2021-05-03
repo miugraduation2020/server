@@ -176,19 +176,8 @@ exports.signIn = async (req, res, next) => {
 
             res.header('Authorization', 'Bearer ' + token)
             res.cookie('token', token, { httpOnly: true }).status(200);
-            if (user.type == 'Patient') {
-                res.render('patientProfile', { user: user })
-            }
-            else if (user.type == 'Pathologist') {
-                res.redirect('../pathProfile')
-            }
-            else {
-                res.render('profile', { user: user })
-            }
+            res.redirect('../profile')
 
-            console.log(user.lastName)
-
-            console.log(token)
             req.session.email = req.body.email;
             req.session.myid = user._id;
             console.log('sc' + req.session.myid)
@@ -426,12 +415,12 @@ exports.searchPatient = async (req, res) => {
 exports.deletePatient = async (req, res) => {
 
     const del = await User.deleteOne({ _id: req.body.deletepatientid });
-        console.log(del);
+    console.log(del);
 
-        const allPate = await User.find().where('type').equals('Patient');
-        console.log(allPate[0]);
-    
-        return res.render("adminPatientsList", { pateints: allPate });
+    const allPate = await User.find().where('type').equals('Patient');
+    console.log(allPate[0]);
+
+    return res.render("adminPatientsList", { pateints: allPate });
 
 }
 
@@ -441,10 +430,10 @@ exports.deletePatient = async (req, res) => {
 exports.deletePathologist = async (req, res) => {
 
     const del = await User.deleteOne({ _id: req.body.deletepathid });
-        console.log(del);
+    console.log(del);
 
-        const allPath = await User.find().where('type').equals('Pathologist');
-        console.log(allPath[0]);
+    const allPath = await User.find().where('type').equals('Pathologist');
+    console.log(allPath[0]);
 
     return res.render("adminPathologistsList", { pathologists: allPath });
 

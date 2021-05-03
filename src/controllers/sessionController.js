@@ -58,6 +58,8 @@ exports.notAdminRedirectProfile = async (req, res, next) => {
 
     }
 }
+
+//if patient tried to access directories they're not allowed to enter, will be redirected to their profile
 exports.patientRedirectProfile = async (req, res, next) => {
     const userId = req.session.userId;
     try {
@@ -82,9 +84,11 @@ exports.loggedInUser = async (req, res, next) => {
 
         if (user.type == 'Pathologist') {
             res.render('pathProfile', { user: user })
-        } else if (user.type == 'Patient') {
+        }
+        else if (user.type == 'Patient') {
             res.render('patientProfile', { user: user })
-        } else if (user.type == 'admin') {
+        }
+        else if (user.type == 'admin') {
             res.render('profile', { user: user })
         }
         else { next() }

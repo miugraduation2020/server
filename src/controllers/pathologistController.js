@@ -3,7 +3,7 @@ const { UserSchema } = require('../models/userModel');
 const User = mongoose.model('User', UserSchema);
 const { PathologistSchema } = require('../models/pathologistModel');
 const Pathologist = mongoose.model("Pathologist", PathologistSchema);
-const {loggedInUser} = require('../controllers/sessionController');
+const { loggedInUser } = require('../controllers/sessionController');
 
 
 var sess;
@@ -76,21 +76,25 @@ exports.getMyPatients = async (req, res) => {
     //Get Pathologist ID from the Application then the DB
 
     // const pathologist = req.session.userId;
-    const pathologist = req.user._id;
-    console.log("id" + pathologist)
-    const pathologistReq = await Pathologist.findOne({ 'userId': pathologist });
-    console.log('path' + pathologistReq)
-    //Get Patients assigned for the Pathologist + their data
+    if (req.user.type != "Pathologist") {
+        res.redirect("profile")
+    }
+    else {
+        const pathologist = req.user._id;
+        console.log("id" + pathologist)
+        const pathologistReq = await Pathologist.findOne({ 'userId': pathologist });
+        console.log('path' + pathologistReq)
+        //Get Patients assigned for the Pathologist + their data
 
-    const patients = pathologistReq.assignedPatients;
-    const myPatientsList = await getAssignedPatient(patients);
+        const patients = pathologistReq.assignedPatients;
+        const myPatientsList = await getAssignedPatient(patients);
 
-    //Get unassigned Patients
-
-
-    return res.render('pathPatientsList', { myPatients: myPatientsList});
+        //Get unassigned Patients
 
 
+        return res.render('pathPatientsList', { myPatients: myPatientsList });
+
+    }
 }
 
 
@@ -105,7 +109,7 @@ exports.getPatAndPath = async (req, res) => {
     const patientData = await User.findById(patientId)
     const Path = req.user
     console.log(Path.email)
-    console.log( " pat: " + patientId);
-    return res.render("pathGenReport", {  patient: patientData, user:Path });
+    console.log(" pat: " + patientId);
+    return res.render("pathGenReport", { patient: patientData, user: Path });
 
 }

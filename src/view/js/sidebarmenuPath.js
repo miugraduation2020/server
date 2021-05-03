@@ -43,7 +43,7 @@ nav.innerHTML = `<div class="scroll-sidebar">
             </a>
         </li>--->
         <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="AddUser"
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
                 aria-expanded="false">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 <span class="hide-menu">Diagnose</span>

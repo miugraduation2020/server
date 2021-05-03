@@ -18,7 +18,7 @@ router.get('/PathLogin', (req, res) => {
     res.render('PathLogin')
 });
 
-router.get('/patientsLogin', (req, res) => {
+router.get('/login', (req, res) => {
     res.render('patientsLogin')
 });
 
@@ -26,19 +26,17 @@ router.get('/dashboard', auth, (req, res) => {
     res.render('dashboard')
 });
 
-router.get('/profile', (req, res) => {
-    res.render('profile')
-});
+router.get('/profile', auth, loggedInUser);
 
-router.get('/patientsA', (req, res) => {
+router.get('/patientsA', auth, (req, res) => {
     res.render('patientsA')
 });
 
-router.get('/PathologistsA', (req, res) => {
+router.get('/PathologistsA', auth, (req, res) => {
     res.render('PathologistsA')
 });
 
-router.get('/ReportsList', (req, res) => {
+router.get('/ReportsList', auth, (req, res) => {
     res.render('ReportsList')
 });
 
@@ -46,21 +44,21 @@ router.get('/patientInPath', (req, res) => {
     res.render('patientInPath')
 });
 
-router.get('/patientProfile', (req, res) => {
+router.get('/patientProfile', auth, (req, res) => {
     res.render('patientProfile')
 });
 
-router.get('/generateReport', (req, res) => {
+router.get('/generateReport', auth, (req, res) => {
     res.render('generateReport')
 });
 
 router.get('/pathProfile', auth, loggedInUser);
 
-router.get('/report', (req, res) => {
+router.get('/report', auth, (req, res) => {
     res.render('report')
 });
 
-router.get('/userReportsList', (req, res) => {
+router.get('/userReportsList', auth, (req, res) => {
     res.render('userReportsList')
 });
 
@@ -76,33 +74,33 @@ router.get('/changePassword', (req, res) => {
     res.render('changePassword')
 });
 
-router.get('/adminTumor', (req, res) => {
+router.get('/adminTumor', auth, (req, res) => {
     res.render('adminTumor')
 });
 
-router.get('/adminFAQ', (req, res) => {
+router.get('/adminFAQ', auth, (req, res) => {
     res.render('adminFAQ')
 });
 ;
 
 router
-router.get('/addTumor', (req, res) => {
+router.get('/addTumor', auth, (req, res) => {
     res.render('addTumor')
 });
 
-router.get('/addfaq', (req, res) => {
+router.get('/addfaq', auth, (req, res) => {
     res.render('addfaq')
 });
 
-router.get('/adminPatientsList', (req, res) => {
+router.get('/adminPatientsList', auth, (req, res) => {
     res.render('adminPatientsList')
 });
 
-router.get('/adminPathologistsList', (req, res) => {
+router.get('/adminPathologistsList', auth, (req, res) => {
     res.render('adminPathologistsList')
 });
 
-router.get('/adminAssign', (req, res) => {
+router.get('/adminAssign', auth, (req, res) => {
     res.render('adminAssign')
 });
 
@@ -114,26 +112,23 @@ router.get('/assigningConfirmation', (req, res) => {
     res.render('assigningConfirmation')
 });
 
-router.get('/404', (req, res) => {
-    res.render('404')
+router.get('/pathGenReport', auth, loggedInUser
+);
+
+router.get('/pathPatientsList', auth, getMyPatients);
+
+
+router.get('/pathPatientProfile', auth, patientRedirectProfile, (req, res) => {
+    res.render('pathPatientProfile')
 });
 
 router.get('/mustLogin', (req, res) => {
     res.render('mustLogin')
 });
 
-router.get('/pathGenReport', auth, loggedInUser
-);
-
-router.get('/pathPatientsList', auth, getMyPatients
-);
-
-
-router.get('/pathPatientProfile', (req, res) => {
-    res.render('pathPatientProfile')
+router.get('/404', (req, res) => {
+    res.render('404')
 });
-
-
 
 
 

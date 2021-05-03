@@ -44,8 +44,7 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin5">
-
-        </header>
+            {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -101,8 +100,8 @@
                                     <div class="user-content">
                                         <a href="javascript:void(0)"><img src="/plugins/images/users/genu.jpg"
                                                 class="thumb-lg img-circle" alt="img"></a>
-                                        <h4 class="text-white mt-2">Full Name</h4>
-                                        <h5 class="text-white mt-2">info@myadmin.com</h5>
+                                        <h4 class="text-white mt-2">{{user.firstName }} {{user.lastName}}</h4>
+                                        <h5 class="text-white mt-2">{{user.email}}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +155,8 @@
 
                                 </table>
                                 <button onclick="window.location='reportsList.html'"
-                                    style="background-color: gray; color: honeydew;" class="btn btn-block">View All
+                                    style="background-color: gray; color: honeydew;" class="btn btn-block">View
+                                    All
                                     Reports</button>
                             </div>
                         </div>

@@ -57,7 +57,7 @@ app.locals.siteName = 'BCD';
 
 
 const viewsPath = path.join(__dirname, 'src/view');
-const partialsPath = path.join(__dirname, 'src/view');
+const partialsPath = path.join(__dirname, 'src/view/partials');
 
 
 
