@@ -24,12 +24,19 @@ exports.addImage = async (req, res) => {
     const patient = await User.findById(patientId);
     var uploadDate = Date.now();
     const imgName = `${uploadDate}-${patient.firstName} ${patient.firstName}-ID:${patient.id}`
-    const diagnosis = await new model(imgPath);
-    console.log(diagnosis+"image")
-    const image = new Image({ imgPath, imgName, uploadDate, patient, pathologistID,diagnosis })
-    await image.save().then(image => {   addNewReport(image._id,diagnosis)  });
-    res.redirect('pathProfile');
+    diagnosis=''
+    model(imgPath, function (diagnosis) {
+        console.log("The Diagnosis is "+diagnosis);
+        console.log(diagnosis+"image")
+        const image = new Image({ imgPath, imgName, uploadDate, patient, pathologistID,diagnosis })
+        image.save().then(image => {   addNewReport(image._id,diagnosis)  });
+        res.redirect('pathProfile');
+    
+        });
+
 }
+
+
 
 
 
