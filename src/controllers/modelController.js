@@ -5,10 +5,10 @@ const { spawn } = require('child_process')
 const { ModelSchema  } = require('../models/modelModel');
 const Model = mongoose.model('Model', ModelSchema);
 
-module.exports= function (imgPath){
-
+module.exports= function (imgPath,callback){
+var pythonExecutable = "C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"
 var myPythonScript = "src\\models\\pythonModel\\FinalModel.py";
-var pythonExecutable = "C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python38\\python.exe";
+//var pythonExecutable = "C:\\Users\\pc\\anaconda3\\envs\\tensorflow\\python.exe";
 const imagePath= imgPath;
 var tumor;
 //const Path="D:\\MIU\\Graduation Project\\ICIAR2018_BACH_Challenge\\Photos\\Invasive\\iv004.tif";
@@ -54,7 +54,7 @@ var tumor;
             resolve(JSON.parse(JSON.stringify(out[0])));
           } catch(e) {
             reject(e);
-          }            console.log('3 ')
+          }  console.log('3 ')
  
         });
       });
@@ -67,11 +67,26 @@ var tumor;
           console.log('4')
           tumor=output
           const output2= await sendClass(tumor)
-          console.log(output2+"model")
+          myString= output2.replace(/\s/g, "")
+          if(myString=='"0"'){
+          diagnosis="Benign"
+        }
+          if(myString=='"1"'){          
+            diagnosis="Carsinoma InSitu"
+                }
+          if(myString=='"2"'){          
+          diagnosis="Invasive Carsinoma"
+                }
+          if(myString=='"3"'){          
+          diagnosis="Normal"
+                }
+          callback(diagnosis)
         } catch (e) {
           console.error('Error during script execution ', e.stack);
           process.exit(1);
         }
+
+
       }
   )();
 
