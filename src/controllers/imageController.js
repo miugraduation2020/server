@@ -30,7 +30,7 @@ exports.addImage = async (req, res) => {
         console.log(diagnosis+"image")
         const image = new Image({ imgPath, imgName, uploadDate, patient, pathologistID,diagnosis })
         image.save().then(image => {   addNewReport(image._id,diagnosis)  });
-        res.redirect('pathProfile');
+        res.redirect('profile');
     
         });
 
