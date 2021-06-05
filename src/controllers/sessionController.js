@@ -71,9 +71,6 @@ exports.patientRedirectProfile = async (req, res, next) => {
         if (user.type == 'Patient') {
             res.redirect('/patientProfile')
         } 
-        else if (user.type == 'Pathologist') {
-            res.redirect('/pathProfile')
-        }
         else { next() }
     } catch (error) {
 
