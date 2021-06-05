@@ -7,7 +7,7 @@ const {auth}= require('../controllers/sessionController')
 
 
 
-router.post('/uploadImage', auth, addImage)
+//router.post('/uploadImage', auth, addImage)
 
 
 
