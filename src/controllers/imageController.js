@@ -12,11 +12,13 @@ var connection = mongoose.connection;
 const model = require('./modelController')
 const { addNewReport } = require('./reportController')
 
-exports.addImage = async (req, res) => {
 
-    const imgPath = req.body.imgPath;
-    const pathologistID = req.body.pathologist;
-    const patientID = req.body.patient;
+    exports.addImage = async (filename,Ipatientid,Ipathologistid) => {
+
+   
+    const imgPath = "src\\models\\DiagnosisImages\\"+filename
+    const pathologistID = Ipathologistid;
+    const patientID = Ipatientid;
     console.log('pathologist' + pathologistID)
     console.log('patientId' + patientID)
     console.log(imgPath + '  rhw')
@@ -45,9 +47,10 @@ exports.addImage = async (req, res) => {
             image._id) }, console.log(image._id +'iJBSR'+ uploadDate+'SNB'+patientID));
 
     });
-    return res.redirect('profile');
+    
 
 }
+
 
 
 
