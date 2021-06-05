@@ -10,29 +10,42 @@ const { createReadStream } = require('fs');
 const { createModel } = require('mongoose-gridfs');
 var connection = mongoose.connection;
 const model = require('./modelController')
-const {addNewReport}=require('./reportController')
+const { addNewReport } = require('./reportController')
+
 exports.addImage = async (req, res) => {
 
-    const imgPath=req.body.imgPath;
+    const imgPath = req.body.imgPath;
     const pathologistID = req.body.pathologist;
-    const patientId = req.body.patient;
-    console.log('pathologist'+pathologistID)
-    console.log('patientId'+patientId)
-    console.log(imgPath+'  rhw')
+    const patientID = req.body.patient;
+    console.log('pathologist' + pathologistID)
+    console.log('patientId' + patientID)
+    console.log(imgPath + '  rhw')
 
 
-    const patient = await User.findById(patientId);
+    const patient = await User.findById(patientID);
     var uploadDate = Date.now();
     const imgName = `${uploadDate}-${patient.firstName} ${patient.firstName}-ID:${patient.id}`
-    diagnosis=''
-    model(imgPath, function (diagnosis) {
-        console.log("The Diagnosis is "+diagnosis);
-        console.log(diagnosis+"image")
-        const image = new Image({ imgPath, imgName, uploadDate, patient, pathologistID,diagnosis })
-        image.save().then(image => {   addNewReport(image._id,diagnosis)  });
-        res.redirect('profile');
-    
-        });
+    tumorID = ''
+    model(imgPath, function (tumorID) {
+        console.log("The tumorID is " + tumorID);
+        const image =
+            new Image(
+                {
+                    imgPath,
+                    imgName,
+                    uploadDate,
+                    patientID,
+                    pathologistID,
+                    tumorID
+                }
+            )
+        image.save().then(image => { addNewReport(patientID,
+            pathologistID,
+            tumorID,
+            image._id) }, console.log(image._id +'iJBSR'+ uploadDate+'SNB'+patientID));
+
+    });
+    return res.redirect('profile');
 
 }
 
@@ -41,5 +54,5 @@ exports.addImage = async (req, res) => {
 
 
 
-// function make Diagnosis of add this function in the model controllet and call it in addImage function  
+// function make tumorID of add this function in the model controllet and call it in addImage function  
 

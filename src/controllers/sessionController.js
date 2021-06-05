@@ -7,7 +7,8 @@ const User = mongoose.model('User', UserSchema);
 
 
 
-//User must be logged in
+/* Authentication - User must sign in to access the feature */
+
 exports.auth = async (req, res, next) => {
     try {
 
@@ -29,8 +30,8 @@ exports.auth = async (req, res, next) => {
 }
 
 
+/* Redirecting to index page if there is no active session */
 
-//if no session created, user will be redirected to main page
 exports.redirectIndex = (req, res, next) => {
     if (!req.session.user) {
         res.redirect('/')
@@ -60,6 +61,7 @@ exports.notAdminRedirectProfile = async (req, res, next) => {
 }
 
 //if patient tried to access directories they're not allowed to enter, will be redirected to their profile
+
 exports.patientRedirectProfile = async (req, res, next) => {
     const userId = req.session.userId;
     try {
@@ -68,6 +70,9 @@ exports.patientRedirectProfile = async (req, res, next) => {
 
         if (user.type == 'Patient') {
             res.redirect('/patientProfile')
+        } 
+        else if (user.type == 'Pathologist') {
+            res.redirect('/pathProfile')
         }
         else { next() }
     } catch (error) {

@@ -22,7 +22,7 @@ const ImageSchema = new Schema({
         type:String,
         require:true
     },
-    diagnosis:{
+    tumorID:{
         type:String,
         require:true
     }

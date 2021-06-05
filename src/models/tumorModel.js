@@ -13,7 +13,7 @@ const TumorSchema = new Schema({
         required:true,
     },
     tumorClassNumber:{
-        type:Number,
+        type:String,
         required: true
     }
 });

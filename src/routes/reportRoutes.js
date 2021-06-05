@@ -1,30 +1,11 @@
-
 const express = require('express');
-const session = require('express-session');
+const{getAllReports}=require("../controllers/reportController")
+const {auth,loggedInUser}=require('../controllers/sessionController')
 
-const report = require('../controllers/reportController');
-const urouter = express.Router();
-var sess;
+const router = new express.Router();
 
-
-
-
-const repRoutes = (app) => {
-
-    /*Generate Report*/
-
-    app.post('/genrep', (req, res) => {
-        report.genReport(req, res)
-        console.log("repgens")
-        console.log('Generating Report')
-        res.redirect('./report.html');
+// router.get('/adminReportsList', getAllReports);
+// router.get('/pathProfile',auth, getMyPatients)
 
 
-    });
-
-
-   
-
-}
-
-module.exports = { repRoutes };
+module.exports = router

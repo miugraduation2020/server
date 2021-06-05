@@ -6,6 +6,7 @@ const tumorRouter = require('./src/routes/tumorRoutes');
 const pageRouter = require('./src/routes/pagesRoutes');
 const pathologistRouter = require('./src/routes/pathologistRoutes');
 const imageRouter = require('./src/routes/imageRouts');
+const reportRouter = require('./src/routes/reportRoutes');
 
 
 
@@ -80,6 +81,8 @@ app.use(pageRouter);
 app.use(pathologistRouter);
 app.use(FAQRouter);
 app.use(imageRouter);
+app.use(reportRouter);
+
 
 //Handling 404 page not found
 app.get('*', (req, res) => {

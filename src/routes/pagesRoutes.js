@@ -100,6 +100,10 @@ router.get('/adminPathologistsList', auth, (req, res) => {
     res.render('adminPathologistsList')
 });
 
+router.get('/adminReportsList', auth, (req, res) => {
+    res.render('adminReportsList')
+});
+
 router.get('/adminAssign', auth, (req, res) => {
     res.render('adminAssign')
 });

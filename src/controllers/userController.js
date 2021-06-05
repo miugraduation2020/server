@@ -15,6 +15,7 @@ dotenv.config();
 var sess;
 
 
+/* Add New User */
 
 exports.addUser = async (req, res) => {
     const email = req.body.email;
@@ -85,6 +86,7 @@ exports.addUser = async (req, res) => {
 
         const token = jwt.sign(email, "abcd1234");
 
+        //Adding user to DB 
         const user = new User({
             email,
             firstName,
@@ -114,7 +116,7 @@ exports.addUser = async (req, res) => {
         },
         )
 
-
+        //Confirmation Email
         sendEmail({
             to: user.email,
             subject: "Please confirm your email address",
@@ -134,7 +136,9 @@ exports.addUser = async (req, res) => {
 
 }
 
-/*Sign In*/
+
+/* Sign In */
+
 exports.generateToken = async function () {
     const user = this
     const token = jwt.sign({ _id: user._id.toString() }, 'jsdufhsdfnlsdguf')
@@ -191,7 +195,7 @@ exports.signIn = async (req, res, next) => {
 
 
 
-/*Email Varification*/
+/* Email Varification */
 
 exports.verifyEmail = async (req, res) => {
     const { email, code, screen } = req.body;
@@ -213,6 +217,7 @@ exports.verifyEmail = async (req, res) => {
         }
     });
 };
+
 
 /*Forget Password*/
 
@@ -247,6 +252,7 @@ exports.forgotPassword = async (req, res) => {
 
     }
 };
+
 
 /*Change Password*/
 
@@ -302,7 +308,10 @@ exports.changePassword = async (req, res) => {
 
     res.send({ response: "Password renewed successfully!" });
 };
+
+
 /*Get Current User*/
+
 exports.getUsersData = async (req, res) => {
 
     sess = req.session;
@@ -329,6 +338,7 @@ exports.getUsersData = async (req, res) => {
     console.log(user)
 }
 
+
 /*Get All Users*/
 
 exports.getUsers = async (req, res) => {
@@ -345,6 +355,7 @@ exports.getUsers = async (req, res) => {
     console.log(user)
 }
 
+
 /*Get All Pathologists*/
 
 exports.getPathologists = async (req, res) => {
@@ -356,6 +367,7 @@ exports.getPathologists = async (req, res) => {
     return res.render("adminPathologistsList", { pathologists: allPath });
 }
 
+
 /*Get All Patients*/
 
 exports.getPatients = async (req, res) => {
@@ -366,6 +378,7 @@ exports.getPatients = async (req, res) => {
     return res.render("adminPatientsList", { pateints: allPate });
 
 }
+
 
 /*Search in Patients List*/
 
@@ -407,8 +420,8 @@ exports.searchPatient = async (req, res) => {
         return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
     }
 
-
 }
+
 
 /* Delete Patient */
 

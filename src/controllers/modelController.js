@@ -69,16 +69,16 @@ var tumor;
           const output2= await sendClass(tumor)
           myString= output2.replace(/\s/g, "")
           if(myString=='"0"'){
-          diagnosis="Benign"
+          diagnosis="0"
         }
           if(myString=='"1"'){          
-            diagnosis="Carsinoma InSitu"
+            diagnosis=" 1"
                 }
           if(myString=='"2"'){          
-          diagnosis="Invasive Carsinoma"
+          diagnosis="2"
                 }
           if(myString=='"3"'){          
-          diagnosis="Normal"
+          diagnosis="3"
                 }
           callback(diagnosis)
         } catch (e) {

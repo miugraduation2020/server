@@ -17,6 +17,8 @@
   <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
   <!-- Custom CSS -->
   <link href="css/style.min.css" rel="stylesheet" />
+  <!-- TIFF View -->
+  <script src="js/UTIF.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -25,7 +27,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body onload="UTIF.replaceIMG()">
   <!-- ============================================================== -->
   <!-- Preloader - style you can find in spinners.css -->
   <!-- ============================================================== -->
@@ -94,50 +96,86 @@
 
           <!-- Column -->
           <!-- Column -->
-          <div class="col-xlg-9 col-xlg-3 col-md-6">
+          <div class="col-md-9">
             <div class="card">
               <div class="card-body">
                 <!-- Patient Info  -->
                 <div class="white-box  p-0">
-                  <div class="user" style="background-color: lightslategrey;">
+                  <div class="user">
                     <div class="overlay-box">
-                      <p style="text-align: right;padding: 10px; padding-bottom: 0px;" class="h5 text-white ">Date:
-                        <b>15
-                          Jan, 2021</b>
-                        <span class="h5 text-white " style="float:left; padding: 0px;">
-                          Patient: <b> Johnathan Doe </b>
-                        </span>
-                      </p>
+                      <h6 class=" mt-2" style="text-align:end;  padding-left: 10px;">Received Date:<b> {{date}}
+                          </6>
+
+                          <h6 class=" mt-2" style="text-align: end; padding-bottom: 40px; padding-left: 10px;">
+                            Reported Date:<b> {{date}}</b>
+                            </6>
+                            <div style="align-items: center;"><img src="plugins/images/Title (2).png" width="85%"
+                                height="85%">
+
+                              {{!-- <div class="row" style="width: 90%; align-items:right ;">
+
+                                <div>
+                                  <p style="align-items: right; padding: 10px; padding-bottom: 0px;"
+                                    class="h5 text-white ">
+
+                                    Date:
+                                    <b>{{date}}</b>
+
+                                </div>
+                                <div>
+                                  </p>
+                                  <p style="align-items: right; padding: 10px; padding-bottom: 0px;"
+                                    class="h5 text-white ">
+
+                                    Date:
+                                    <b>{{date}}</b>
+
+                                  </p>
+                                </div>
+                              </div> --}}
+                            </div>
 
 
 
-                      <h5 class="text-white mt-2" style="text-align: left; padding-left: 10px;">Pathologist:<b> Danny
-                          Sam</b>
-                        </5>
 
-                        <h6 class="text-white mt-2" style="text-align: left; padding-left: 10px;">SEX:<b> F </b></h6>
-                        <h6 class="text-white mt-2" style="text-align: left; padding-left: 10px;">DOB: <b> 14/10/1992
-                          </b>
-                        </h6>
-                        <h2 class="text-white mt-2" style="text-align: center; padding-bottom: 20px;"><b>Pathology
-                            Report</b>
-                        </h2>
                     </div>
                   </div>
                 </div>
 
                 <form class="form-horizontal form-material">
+                  <div class="form-group mb-4">
+                    <label class="col-md-12 p-0">Patient Information
+                    </label>
+                    <div class="col-md-12 border-bottom p-0" style="padding-left: 20px;">
+                      <h5 class=" mt-2" style="text-align: left; padding-left: 10px;">
+                        Patient:<b> {{patient}}</b>
+                        </5>
+                        <h6 class=" mt-2" style="text-align: left; padding-left: 10px;">SEX:<b>
+                            {{patientGender}} </b></h6>
+                        <h6 class=" mt-2" style="text-align: left; padding-left: 10px;">DOB: <b>
+                            {{patientDOB}}
+                          </b>
+                        </h6><br>
+                        <h5 class=" mt-2" style="text-align: left; padding-left: 10px;">
+                          Pathologist:<b> {{pathologist}}</b>
+                          </5>
+
+
+                    </div>
+                  </div>
 
                   <div class="form-group mb-4">
                     <label for="example-email" class="col-md-12 p-0">Diagnosis
                     </label>
                     <div class="col-md-12 border-bottom p-0" style="padding-left: 20px;">
                       <!-- <p class="form-control p-0 border-0"> -->
-                      <ol class="form-control p-0 border-0">
-                        <li>Ductal Carcinoma insitu</li>
+                      <ul class="form-control p-0 border-0">
+                        <li>{{diagnosis}}</li>
+                        <li>{{diagnosisDescription}}</li>
 
-                        </ul>
-                        <!-- </p> -->
+
+                      </ul>
+                      <!-- </p> -->
                     </div>
                   </div>
                   <div class="form-group mb-4">
@@ -150,7 +188,7 @@
                   <div class="form-group mb-4">
                     <label class="col-md-12 p-0">General Notes</label>
                     <div class="col-md-12 border-bottom p-0">
-                      <p rows="5" class="form-control p-0 border-0"> The report was reviewed by Dr. Marry Andrew. </p>
+                      <p rows="5" class="form-control p-0 border-0"> {{diagnosisDescription}} </p>
                     </div>
                   </div>
                   <div class="form-group mb-4">
