@@ -95,11 +95,10 @@ exports.getAllReports = async (req, res) => {
 /* Get Pathologist Reports*/
 
 exports.getPathReports = async (req, res) => {
-
     userID = req.user._id;
     userType = req.user.type;
-    console.log(+' check #1:'+userID+' check #2:'+userType)
-    const reports= this.getUserReports(userID,userType)
+    console.log(' check #1:'+userID+' check #2:'+userType)
+    const reports= await this.getUserReports(userID,userType)
     console.log("check #3: "+reports[0])
     return res.render("pathReportsList", { reports: reports });
 }
@@ -118,11 +117,13 @@ exports.getUserReports= async  (ID, userType) =>{
     userID = '';
     if (userType == "Pathologist") {
         userID = 'pathologistID'
+        console.log("fl functionnnnnnnn")
     }
     else {
         userID = 'patientID'
     }
     const reports = await Report.find().where(userID).equals(ID);
+    console.log(reports[0]+'mell functionnn')
     return reports;
 
 }
