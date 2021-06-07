@@ -17,6 +17,8 @@
     <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
     <!-- Custom CSS -->
     <link href="css/style.min.css" rel="stylesheet">
+        <link href="css/editformstyle.css" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -134,7 +136,7 @@ input[type="submit"]
                             <h3 class="box-title">Patients</h3>
                              <form action="/adminPatientsList" method="POST">
                                 <input type="text" name="searchPt" placeholder="Search in Patients..." value="{{search}}">
-                                <input type="submit"  class="btn btn-success text-white" name="submitsearch" value="Search" >
+                                <input type="submit"  class="btn btn-success text-white" name="submitsearch" value="Search" style="padding: 10px;">
 
                                 <h4 style='padding-top: 10px;'>Search by:</h4>
                                 <select   name="searchby"  >
@@ -151,6 +153,7 @@ input[type="submit"]
                                 <table class="table">
                                     <thead>
                                         <tr>
+                                            <th class="border-top-0">Patient ID</th>
                                             <th class="border-top-0">First Name</th>
                                             <th class="border-top-0">Last Name</th>
                                             <th class="border-top-0">Email</th>
@@ -168,6 +171,7 @@ input[type="submit"]
                                     <tbody>
                                         {{#each pateints}}
                                         <tr>
+                                            <td>{{this.id}}</td>
                                             <td>{{this.firstName}}</td>
                                             <td>{{this.lastName}}</td>
                                             <td>{{this.email}}</td>
@@ -178,12 +182,14 @@ input[type="submit"]
 
                                             <td>view</td>
 
-                                            <form action="profile" method="POST">
+                                             <form>
                                                 <td style="text-align:center;"> 
-                                                    <input type="hidden" value="{{this.id}}" name="editpatientid"><button type="submit" class="btn"><i class="far fa-edit"></i></button>
-                                                </td>
+                                                <input type="hidden" value="{{this.id}}" name="editpatientid">
                                             </form> 
-                                            <form action="profile" method="POST">
+                                             <button class="btn" onclick='getPat("{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")' name="editid"><i class="far fa-edit"></i></button>
+                                                </td>
+
+                                            <form action="adminPatientsList" method="POST">
                                                 <td style="text-align:center;">
                                                <input type="hidden" value="{{this.id}}" name="deletepatientid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
                                             </td>
@@ -208,6 +214,73 @@ input[type="submit"]
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
             </div>
+
+<div class="editPopup" >
+      <div class="formPopup" id="popupForm">
+       
+        <form action="adminPatientsList" class="formContainer" method="POST">
+           
+          <h2>Edit fields</h2>
+
+          <label for="fname"> <strong>First Name</strong></label>
+              <input type="hidden" value="{{this.id}}" name="editid">
+               <input type="text" id="fnamenew" value="{{this.firstName}}" name="fnamenew">
+          
+          <label for="lname"> <strong>Last Name</strong> </label>
+                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="text" id="lnamenew" value="{{this.lastName}}" name="lnamenew">
+           
+           <label for="email"> <strong>Email</strong> </label>
+                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="text" id="emailnew" value="{{this.email}}" name="emailnew">
+           
+           <label for="phone"> <strong>Phone</strong> </label>
+                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="text" id="phonenew" value="{{this.phoneNumber}}" name="phonenew">
+
+           <label for="dob"> <strong>Date of Birth</strong> </label>
+                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="date" id="dobnew" value="{{this.dateOfBirth}}" name="dobnew">
+        
+        
+         
+
+          <button type="submit" class="btn save" onclick='save(q,a)'>Save</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
+       
+      </div>
+    </div> 
+
+<script>
+
+      function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+      }
+
+      
+
+       function getPat(fname,lname,email,phone,dob)
+        {
+        document.getElementById("fnamenew").value= fname;
+        document.getElementById("lnamenew").value= lname;
+        document.getElementById("emailnew").value= email;
+        document.getElementById("phonenew").value= phone;
+        document.getElementById("dobnew").value= dob;
+        document.getElementById("popupForm").style.display = "block";
+
+        } 
+
+        var modal = document.getElementById('popupForm');
+ 
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>      
+
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
