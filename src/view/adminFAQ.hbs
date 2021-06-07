@@ -16,6 +16,7 @@
     <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
     <!-- Custom CSS -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/editformstyle.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -110,14 +111,15 @@
                                     <tbody>
                                         {{#each faqs}}
                                         <tr>
-                                            <td>{{this.id}}</td>
-                                            <td>{{this.question}}</td>
-                                            <td>{{this.answer}}</td>
-                                            <form action="adminFAQ" method="POST">
+                                            <td >{{this.id}}</td>
+                                            <td id="ques">{{this.question}}</td>
+                                            <td id="ans">{{this.answer}}</td>
+                                            <form>
                                                 <td style="text-align:center;"> 
-                                                    <input type="hidden" value="{{this.id}}" name="editid"><button type="submit" class="btn"><i class="far fa-edit"></i></button>
-                                                </td>
+                                                <input type="hidden" value="{{this.id}}" name="editid">
                                             </form> 
+                                             <button class="btn" onclick='getQA("{{this.question}}","{{this.answer}}")' name="editid"><i class="far fa-edit"></i></button>
+                                                </td>
                                             <form action="adminFAQ" method="POST">
                                                 <td style="text-align:center;">
                                                <input type="hidden" value="{{this.id}}" name="deleteid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
@@ -131,6 +133,51 @@
                         </div>
                     </div>
                 </div>
+              
+   <div class="editPopup">
+      <div class="formPopup" id="popupForm">
+       
+        <form action="adminFAQ" class="formContainer" method="POST">
+           
+          <h2>Edit fields</h2>
+<input type="hidden" value="{{this.id}}" name="editid">
+          <label for="question"> <strong>Question</strong></label>
+              
+               <input type="text" id="quesnew" value="{{q}}" name="quesnew">
+          
+          <label for="answer"> <strong>Answer</strong> </label>
+                <input type="text" id="ansnew" value="{{a}}" name="ansnew">
+         
+
+          <button type="submit" class="btn">Save</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
+       
+      </div>
+    </div> 
+
+    <script>
+
+      function closeForm()
+      {
+        document.getElementById("popupForm").style.display = "none";
+      }
+
+      {{!-- function save(qu,an){
+          document.getElementById("quesnew").value = qu; 
+          document.getElementById("ansnew").value = an; 
+
+      } --}}
+
+      function getQA(q, a)
+        {
+        document.getElementById("quesnew").value= q;
+        document.getElementById("ansnew").value= a;
+        document.getElementById("popupForm").style.display = "block";
+
+        } 
+
+    </script>                                   
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -177,6 +224,7 @@
     <script src="js/custom.js"></script>
     <!--Header -->
     <script src="js/top-bar.js"></script>
+    <script src="/main.js"></script>
 </body>
 
 </html>
