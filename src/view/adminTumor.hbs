@@ -16,6 +16,8 @@
     <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
     <!-- Custom CSS -->
     <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/editformstyle.css" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -116,13 +118,15 @@
                                         {{#each tumors}}
                                         <tr>
                                             <td>{{this.tumorClassNumber}}</td>
-                                            <td>{{this.tumorName}}</td>
-                                            <td>{{this.tumorDescription}}</td>
-                                           <form action="adminTumor" method="POST">
+                                            <td id="name">{{this.tumorName}}</td>
+                                            <td id="desc">{{this.tumorDescription}}</td>
+                                           <form>
                                                 <td style="text-align:center;"> 
-                                                    <input type="hidden" value="{{this.id}}" name="edittumorid"><button type="submit" class="btn"><i class="far fa-edit"></i></button>
+                                                    <input type="hidden" value="{{this.id}}" name="edittumorid">
+                                                   </form> 
+                                                    <button class="btn" onclick='getTumor("{{this.tumorName}}","{{this.tumorDescription}}")' name="editit"><i class="far fa-edit"></i></button>
                                                 </td>
-                                            </form> 
+
                                             <form action="adminTumor" method="POST">
                                                 <td style="text-align:center;">
                                                <input type="hidden" value="{{this.id}}" name="deletetumorid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
@@ -147,6 +151,48 @@
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
             </div>
+
+        <div class="loginPopup">
+      <div class="formPopup" id="popupForm">
+       
+        <form action="adminTumor" class="formContainer" method="POST">
+           
+          <h2>Edit fields</h2>
+
+          <label for="name"> <strong>Name</strong></label>
+              <input type="hidden" value="{{this.id}}" name="editid">
+               <input type="text" id="namenew" value="{{this.tumorName}}" name="namenew">
+          
+          <label for="description"> <strong>Description</strong> </label>
+                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="text" id="descnew" value="{{this.tumorDescription}}" name="descnew">
+         
+
+          <button type="submit" class="btn" onclick='save(q,a)'>Save</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
+       
+      </div>
+    </div> 
+
+    <script>
+
+      function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+      }
+
+      
+
+       function getTumor(n, d)
+        {
+        document.getElementById("namenew").value= n;
+        document.getElementById("descnew").value= d;
+        document.getElementById("popupForm").style.display = "block";
+
+        } 
+
+    </script>
+
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
