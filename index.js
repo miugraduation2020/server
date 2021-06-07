@@ -123,7 +123,7 @@ const storage = new GridFsStorage({
           bucketName: "uploads"
         };
         resolve(fileInfo);
-
+        
       });
     });
   }
@@ -172,9 +172,7 @@ app.get("/photo", (req, res) => {
         this.downloadImage();
         imagecont.addImage(Ifilename,Ipatient,Ipathologist);
 
-        return res.render("pathGenReport", {
-            files: f
-          });        }
+        return res.render("diagnosing");        }
 
   });
 });
@@ -182,6 +180,7 @@ app.get("/photo", (req, res) => {
 
 app.post("/upload", upload.single("file"), (req, res) => {
   res.redirect("/photo");
+  return res.redirect("diagnosing")
 });
 
 

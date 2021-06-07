@@ -19,22 +19,22 @@ exports.genReport = async (req, res) => {
     const pathologist = await User.findById(report.pathologistID)
     const image = await Image.findById(report.imageID)
     const diagnosis = await Tumor.findOne().where("tumorClassNumber").equals(report.tumorID);
-    console.log("check:"+diagnosis.tumorName)
+    // console.log("check:" + diagnosis.tumorName)
 
     return res.render(
         "report",
         {
-            patient: `${patient.firstName} & ${patient.lastname}`, 
-            patientDOB:patient.dateOfBirth,
-            patientGender:patient.gender,
-            pathologist:`Dr. ${pathologist.firstName} ${pathologist.lastName}`,
-            diagnosis:diagnosis.tumorName,
-            diagnosisDescription:diagnosis.tumorDescription,
+            patient: `${patient.firstName} & ${patient.lastname}`,
+            patientDOB: patient.dateOfBirth,
+            patientGender: patient.gender,
+            pathologist: `Dr. ${pathologist.firstName} ${pathologist.lastName}`,
+            diagnosis: diagnosis.tumorName,
+            diagnosisDescription: diagnosis.tumorDescription,
             date: report.genDate,
             pathologistNote: report.pathComments,
         }
     );
-        
+
 
 
 
@@ -92,8 +92,50 @@ exports.getAllReports = async (req, res) => {
     return res.render("adminReportsList", { reports: allRep });
 }
 
+/* Get Pathologist Reports*/
 
+exports.getPathReports = async (req, res) => {
 
+    userID = req.user._id;
+    userType = req.user.type;
+    console.log(+' check #1:'+userID+' check #2:'+userType)
+    const reports= this.getUserReports(userID,userType)
+    console.log("check #3: "+reports[0])
+    return res.render("pathReportsList", { reports: reports });
+}
+// exports.getPathRepProfile = async (req, res) => {
+
+//     userID = req.user._id;
+//     userType = req.user.type;
+//     console.log(+' check #1:'+userID+' check #2:'+userType)
+//     const reports= await getUserReports(userID,userType)
+//     console.log("check #3: "+reports[2])
+//     res.render("pathProfile", { reports: reports });
+// }
+
+exports.getUserReports= async  (ID, userType) =>{
+
+    userID = '';
+    if (userType == "Pathologist") {
+        userID = 'pathologistID'
+    }
+    else {
+        userID = 'patientID'
+    }
+    const reports = await Report.find().where(userID).equals(ID);
+    return reports;
+
+}
+
+/* Get Pathologist Reports*/
+
+exports.getPateReports = async (req, res) => {
+
+    patientID = req.user;
+    const reports = await Report.find().where("patientID").equals(patientID);
+    console.log("check1: " + reports[0]);
+    return res.render("patientReportsList", { reports: reports });
+}
 
 
 //get all reports

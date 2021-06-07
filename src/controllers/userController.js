@@ -128,7 +128,7 @@ exports.addUser = async (req, res) => {
             from: "miu.graduation2020@gmail.com",
         });
 
-        res.render('dashboard')
+        res.render('AddUser')
 
     } catch (err) {
         console.log(`${res.status(406).send({ error: err.message })}`);

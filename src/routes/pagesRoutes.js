@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const session = require('express-session');
 const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession, auth } = require('../controllers/sessionController');
 const { getMyPatients, getPatAndPath } = require('../controllers/pathologistController');
-
+const {getPathRepProfile}=require('../controllers/reportController')
 router.get('/addUser',
     (req, res) => {
         res.render('addUser')
@@ -104,6 +104,14 @@ router.get('/adminReportsList', auth, (req, res) => {
     res.render('adminReportsList')
 });
 
+router.get('/patientReportsList', auth, (req, res) => {
+    res.render('patientReportsList')
+});
+
+router.get('/pathReportsList', auth, (req, res) => {
+    res.render('pathReportsList')
+});
+
 router.get('/adminAssign', auth, (req, res) => {
     res.render('adminAssign')
 });
@@ -133,6 +141,10 @@ router.get('/mustLogin', (req, res) => {
 router.get('/404', (req, res) => {
     res.render('404')
 });
+router.get('/diagnosing', (req, res) => {
+    res.render('diagnosing')
+});
+
 
 
 

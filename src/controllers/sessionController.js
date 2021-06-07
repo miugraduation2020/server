@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const { UserSchema } = require('../models/userModel');
+const { getUserReports } = require("../controllers/reportController")
 const User = mongoose.model('User', UserSchema);
 
 
@@ -70,7 +71,7 @@ exports.patientRedirectProfile = async (req, res, next) => {
 
         if (user.type == 'Patient') {
             res.redirect('/patientProfile')
-        } 
+        }
         else { next() }
     } catch (error) {
 
@@ -85,10 +86,13 @@ exports.loggedInUser = async (req, res, next) => {
         console.log(user.type);
 
         if (user.type == 'Pathologist') {
-            res.render('pathProfile', { user: user })
+            const reports = await getUserReports(userId, user.type);
+            res.render('pathProfile', { user: user, reports: reports })
         }
         else if (user.type == 'Patient') {
-            res.render('patientProfile', { user: user })
+            const reports = await getUserReports(userId, user.type);
+
+            res.render('patientProfile', { user: user, reports: reports })
         }
         else if (user.type == 'admin') {
             res.render('profile', { user: user })

@@ -119,30 +119,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
+                                        {{#each reports}}
                                         <tr>
-                                            <td>Jan 15, 2021 </td>
-                                            <td>Deshmukh</td>
-                                            <td style="text-align:center;"> <i class=" fas fa-download "></td>
+                                            <td>{{this.genDate}} </td>
+                                            <td>{{this.pathologistID}}</td>
+                                            <td style="text-align:center;"> <i class=" fas fa-view "></td>
                                         </tr>
-                                        <tr>
-                                            <td>Jan 15, 2021 </td>
-                                            <td>Deshmukh</td>
-                                            <td style="text-align:center;"> <i class=" fas fa-download "></td>
-                                        <tr>
-                                            <td>Jan 15, 2021 </td>
-                                            <td>Sanghani</td>
-                                            <td style="text-align:center;"> <i class=" fas fa-download "></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jan 15, 2021 </td>
-                                            <td>Sanghani</td>
-                                            <td style="text-align:center;"> <i class=" fas fa-download "></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jan 15, 2021 </td>
-                                            <td>Sanghani</td>
-                                            <td style="text-align:center;"> <i class=" fas fa-download "></td>
-                                        </tr>
+                                        {{/each}}
                                     </tbody>
 
 

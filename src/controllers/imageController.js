@@ -23,7 +23,6 @@ const { addNewReport } = require('./reportController')
     console.log('patientId' + patientID)
     console.log(imgPath + '  rhw')
 
-
     const patient = await User.findById(patientID);
     var uploadDate = Date.now();
     const imgName = `${uploadDate}-${patient.firstName} ${patient.firstName}-ID:${patient.id}`
