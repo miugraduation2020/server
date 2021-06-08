@@ -310,6 +310,59 @@ exports.changePassword = async (req, res) => {
 };
 
 
+exports.updatePassword = async (req, res) => {
+    const { email, currentPassword, password, confPassword } = req.body;
+    const errors = { password: [], confPassword: [], currentPassword: [] };
+    const saltRounds = 10;
+
+
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res
+            .status(406)
+            .send({ error: "User does not exists" });
+    } try {
+        await user.comparePassword(currentPasswords);
+    } catch (error) {
+        errors.currentPassword.push("Invalid password");
+    }
+    if (!password) return res.status(406).send({ error: "Enter password" });
+    else if (password.length < 6) { errors.password.push("Password must be at least 6 characters"); }
+
+
+    if (!confPassword) {
+        errors.confPassword.push("Enter password confirmation");
+
+    }
+    if (password !== confPassword) {
+        errors.confPassword.push("Password does not match");
+    }
+    if (
+        errors.password.length ||
+        errors.confPassword.length
+    ) {
+        return res
+            .status(406).render('changePassword', {
+                email: email,
+                inputPassword: password,
+                inputConfPassword: confPassword,
+                errors: errors
+
+            })
+    }
+    try {
+
+        await User.updateOne({ email }, { $set: { password } });
+
+        res.redirect('profile')
+        // res.send(user);
+    } catch (error) {
+        console.log(`${res.status(406).send({ error: error.message })}`);
+    }
+
+
+    res.send({ response: "Password renewed successfully!" });
+};
 /*Get Current User*/
 
 exports.getUsersData = async (req, res) => {

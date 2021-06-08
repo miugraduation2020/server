@@ -134,6 +134,9 @@ router.get('/pathPatientProfile', auth, patientRedirectProfile, (req, res) => {
     res.render('pathPatientProfile')
 });
 
+router.get('/settings', (req, res) => {
+    res.render('settings')
+});
 router.get('/mustLogin', (req, res) => {
     res.render('mustLogin')
 });
