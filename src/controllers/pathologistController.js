@@ -130,7 +130,7 @@ exports.getMyPatients = async (req, res) => {
             // console.log("CheckPath#5: "+"id" + pathologist)
             // console.log("CheckPath#6: "+ 'path' + pathologistReq)
 
-        return res.render('pathPatientsList', { myPatients: myPatientsList });
+        return res.render('pathPatientsList', { myPatients: myPatientsList,user: req.user  });
 
     }
 }
@@ -139,7 +139,7 @@ exports.getMyPatients = async (req, res) => {
 
 async function getUnassigned() {
 
-    const patients = await User.find().where('isAssigned').equals("false");
+    const patients = await User.find({ type: 'Patient', isAssigned:false});
 
         //console.log("CheckPath#7: "+ patients)
 

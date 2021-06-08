@@ -81,9 +81,7 @@ router.get('/adminTumor', auth, (req, res) => {
 router.get('/adminFAQ', auth, (req, res) => {
     res.render('adminFAQ')
 });
-;
 
-router
 router.get('/addTumor', auth, (req, res) => {
     res.render('addTumor')
 });
@@ -92,9 +90,6 @@ router.get('/addfaq', auth, (req, res) => {
     res.render('addfaq')
 });
 
-router.get('/adminPatientsList', auth, (req, res) => {
-    res.render('adminPatientsList')
-});
 
 router.get('/adminPathologistsList', auth, (req, res) => {
     res.render('adminPathologistsList')
@@ -137,9 +132,6 @@ router.get('/pathPatientProfile', auth, patientRedirectProfile, (req, res) => {
     res.render('pathPatientProfile')
 });
 
-router.get('/profile', (req,res) =>{
-    res.render('profile')
-});
 
 router.get('/mustLogin', (req, res) => {
     res.render('mustLogin')

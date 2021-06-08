@@ -123,7 +123,9 @@ exports.addUser = async (req, res) => {
             html: `<div>
                 <h2>Hi there!</h2>
                 <h3>Please verify your email by entering the code below to be able to use our system.</h3>
-                <h3>${code}</h3>
+                <h3><b>${code}</b></h3>
+                <h4>This code expires in 7 days.</h4>
+
               </div>`,
             from: "miu.graduation2020@gmail.com",
         });
@@ -213,7 +215,7 @@ exports.verifyEmail = async (req, res) => {
         if (screen == "forgotPassword") {
             res.render('changePassword', { email: email })
         } else {
-            res.redirect('../patientsLogin');
+            res.redirect('../login');
         }
     });
 };
@@ -306,7 +308,7 @@ exports.changePassword = async (req, res) => {
     }
 
 
-    res.send({ response: "Password renewed successfully!" });
+    res.redirect("index");
 };
 
 
@@ -364,7 +366,7 @@ exports.getPathologists = async (req, res) => {
     const allPath = await User.find().where('type').equals('Pathologist');
     console.log(allPath[0]);
 
-    return res.render("adminPathologistsList", { pathologists: allPath });
+    return res.render("adminPathologistsList", { pathologists: allPath, user: req.user  });
 }
 
 
@@ -415,6 +417,15 @@ exports.searchPatient = async (req, res) => {
         phoneno = search.replace(/\s/g, '');
 
         const allPate = await User.find().where('phoneNumber').equals(phoneno);
+
+
+        return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
+    }
+
+    if (searchby == 'ID') {
+        userId = search.replace(/\s/g, '');
+
+        const allPate = await User.findById(userId);
 
 
         return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });

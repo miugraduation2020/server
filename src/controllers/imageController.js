@@ -1,15 +1,15 @@
 
-const express = require("express");
-const session = require("express-session")
+
 const mongoose = require('mongoose');
+
 const { UserSchema } = require('../models/userModel');
 const User = mongoose.model('User', UserSchema);
+
 const { ImageSchema } = require('../models/imagesModel')
 const Image = mongoose.model('Image', ImageSchema)
-const { createReadStream } = require('fs');
-const { createModel } = require('mongoose-gridfs');
-var connection = mongoose.connection;
+
 const model = require('./modelController')
+
 const { addNewReport } = require('./reportController')
 
 

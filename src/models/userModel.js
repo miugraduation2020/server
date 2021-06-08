@@ -55,7 +55,7 @@ const UserSchema = new Schema({
     },
     codeExpires: {
         type: Date,
-        default: () => new Date(+new Date() + 3 * 60 * 1000),
+        default: () => new Date(+new Date() + 10080 * 60 * 1000),
     },
     isAssigned: {
         type: Boolean,
