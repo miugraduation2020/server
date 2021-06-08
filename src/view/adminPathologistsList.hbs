@@ -174,28 +174,28 @@
         <div class="editPopup">
       <div class="formPopup" id="popupForm">
        
-        <form action="adminPathologistsList" class="formContainer" method="POST">
+        <form action="/editPath" class="formContainer" method="POST">
            
           <h2>Edit fields</h2>
 
           <label for="fname"> <strong>First Name</strong></label>
-              <input type="hidden" value="{{this.id}}" name="editid">
+              <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                <input type="text" id="fnamenew" value="{{this.firstName}}" name="fnamenew">
           
           <label for="lname"> <strong>Last Name</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                 <input type="text" id="lnamenew" value="{{this.lastName}}" name="lnamenew">
            
            <label for="email"> <strong>Email</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                 <input type="text" id="emailnew" value="{{this.email}}" name="emailnew">
            
            <label for="phone"> <strong>Phone</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                 <input type="text" id="phonenew" value="{{this.phoneNumber}}" name="phonenew">
 
            <label for="dob"> <strong>Date of Birth</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                 <input type="date" id="dobnew" value="{{this.dateOfBirth}}" name="dobnew">
 
            
