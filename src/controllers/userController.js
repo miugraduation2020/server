@@ -451,3 +451,49 @@ exports.deletePathologist = async (req, res) => {
     return res.render("adminPathologistsList", { pathologists: allPath });
 
 }
+
+//edit pathologist
+
+exports.editPathologist = async (req, res) => {
+    const { editID, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
+
+    const pat = await User.findByIdAndUpdate({ _id: editID }, {
+        firstName: fnamenew,
+        lastName: lnamenew,
+        phoneNumber: phonenew,
+        email: emailnew,
+        dateOfBirth: dobnew
+    });
+
+    if (!pat) {
+        return res
+            .status(406)
+            .send({ error: "Pathologist does not exists" });
+    }
+
+
+    res.send({ response: "Pathologist data renewed successfully!" });
+};
+
+//edit pathologist
+
+exports.editPatient = async (req, res) => {
+    const { editID, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
+
+    const pat = await User.findByIdAndUpdate({ _id: editID }, {
+        firstName: fnamenew,
+        lastName: lnamenew,
+        phoneNumber: phonenew,
+        email: emailnew,
+        dateOfBirth: dobnew
+    });
+
+    if (!pat) {
+        return res
+            .status(406)
+            .send({ error: "User does not exists" });
+    }
+
+
+    res.send({ response: "User data renewed successfully!" });
+};
