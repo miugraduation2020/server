@@ -79,3 +79,21 @@ exports.deleteTumor = async (req, res) => {
 
 }
 
+//edit tumor
+
+exports.editTumor = async (req, res) => {
+    const { editID, namenew, descnew } = req.body;
+
+    const tumor = await Tumor.findByIdAndUpdate({ _id: editID }, {
+        tumorName: namenew,
+        tumorDescription: descnew
+    });
+    if (!tumor) {
+        return res
+            .status(406)
+            .send({ error: "Tumor does not exists" });
+    }
+
+
+    res.send({ response: "Tumor data updated successfully!" });
+};
