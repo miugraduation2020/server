@@ -1,7 +1,7 @@
 const express = require('express');
-const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData, getPatients, getPathologists, searchPatient, deletePatient, deletePathologist } = require('../controllers/userController');
+const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData, getPatients, getPathologists, searchPatient, deletePatient, deletePathologist, editPathologist,editPatient} = require('../controllers/userController');
 const { destroySession, auth } = require('../controllers/sessionController')
-const { addFAQ, getAllFAQ, deleteFAQ } = require("../controllers/FAQcontroller")
+const { addFAQ, getAllFAQ, deleteFAQ, editFAQ } = require("../controllers/FAQcontroller")
 const{getAllReports,genReport,getPathReports,getPateReports,getPathRepProfile,getPathPatientRep}=require("../controllers/reportController")
 
 const router = new express.Router()
@@ -38,8 +38,12 @@ router.post('/adminPatientsList', searchPatient);
 router.get('/adminFAQ', getAllFAQ)
 router.post('/addfaq', addFAQ)
 router.post('/adminFAQ', deleteFAQ)
+router.post('/editFAQ',editFAQ)
+
 
 router.post('/profile', deletePatient);
 router.post('/adminPathologistsList', deletePathologist)
+router.post('/editPat',editPatient)
+router.post('/editPath',editPathologist)
 
 module.exports = router
