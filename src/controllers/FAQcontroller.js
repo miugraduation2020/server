@@ -24,7 +24,7 @@ exports.addFAQ = async (req, res) => {
 
         },
         );
-        res.send({ faq });
+        res.redirect('/adminFAQ');
     } catch (err) {
         return res.status(406).send({ error: err.message });
     }
@@ -53,23 +53,21 @@ exports.deleteFAQ = async (req, res) => {
 }
 
 //edit faq
-// exports.editFAQ = async (req, res) => {
-    
-//     var id = req.body.editid;
-   
-//         const edit = await FAQ.updateOne({ _id: req.body.id }, { $set: { question } },{ $set: { answer } });
-//         console.log(edit);
 
-//         const allFAQ = await FAQ.find({});
-   
+exports.editFAQ = async (req, res) => {
+    const { editID, quesnew, ansnew } = req.body;
 
-//     return res.render("adminFAQ", {faqs:this.editFAQ},{faqs:allFAQ});
+    const faq = await FAQ.findByIdAndUpdate({ _id: editID }, {
+        question: quesnew,
+        answer: ansnew
+    });
 
-// }
-
-
-
+    if (!faq) {
+        return res
+            .status(406)
+            .send({ error: "FAQ does not exists" });
+    }
 
 
-
-
+    res.send({ response: "FAQ renewed successfully!" });
+};
