@@ -123,7 +123,9 @@ exports.addUser = async (req, res) => {
             html: `<div>
                 <h2>Hi there!</h2>
                 <h3>Please verify your email by entering the code below to be able to use our system.</h3>
-                <h3>${code}</h3>
+                <h3><b>${code}</b></h3>
+                <h4>This code expires in 7 days.</h4>
+
               </div>`,
             from: "miu.graduation2020@gmail.com",
         });
@@ -213,7 +215,7 @@ exports.verifyEmail = async (req, res) => {
         if (screen == "forgotPassword") {
             res.render('changePassword', { email: email })
         } else {
-            res.redirect('../patientsLogin');
+            res.redirect('../login');
         }
     });
 };
@@ -306,7 +308,7 @@ exports.changePassword = async (req, res) => {
     }
 
 
-    res.send({ response: "Password renewed successfully!" });
+    res.redirect("index");
 };
 
 
@@ -417,7 +419,7 @@ exports.getPathologists = async (req, res) => {
     const allPath = await User.find().where('type').equals('Pathologist');
     console.log(allPath[0]);
 
-    return res.render("adminPathologistsList", { pathologists: allPath });
+    return res.render("adminPathologistsList", { pathologists: allPath, user: req.user  });
 }
 
 
@@ -473,6 +475,15 @@ exports.searchPatient = async (req, res) => {
         return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
     }
 
+    if (searchby == 'ID') {
+        userId = search.replace(/\s/g, '');
+
+        const allPate = await User.findById(userId);
+
+
+        return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
+    }
+
 }
 
 
@@ -504,3 +515,49 @@ exports.deletePathologist = async (req, res) => {
     return res.render("adminPathologistsList", { pathologists: allPath });
 
 }
+
+//edit pathologist
+
+exports.editPathologist = async (req, res) => {
+    const { editID, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
+
+    const pat = await User.findByIdAndUpdate({ _id: editID }, {
+        firstName: fnamenew,
+        lastName: lnamenew,
+        phoneNumber: phonenew,
+        email: emailnew,
+        dateOfBirth: dobnew
+    });
+
+    if (!pat) {
+        return res
+            .status(406)
+            .send({ error: "Pathologist does not exists" });
+    }
+
+
+    res.send({ response: "Pathologist data renewed successfully!" });
+};
+
+//edit pathologist
+
+exports.editPatient = async (req, res) => {
+    const { editID, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
+
+    const pat = await User.findByIdAndUpdate({ _id: editID }, {
+        firstName: fnamenew,
+        lastName: lnamenew,
+        phoneNumber: phonenew,
+        email: emailnew,
+        dateOfBirth: dobnew
+    });
+
+    if (!pat) {
+        return res
+            .status(406)
+            .send({ error: "User does not exists" });
+    }
+
+
+    res.send({ response: "User data renewed successfully!" });
+};

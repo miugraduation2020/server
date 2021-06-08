@@ -43,7 +43,7 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin5">
-
+            {{>topBar}}
         </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -109,7 +109,7 @@
                                     <span style="color: red;">{{errors}}</span>
 
                                 </div>
-                               <div class="form-group">
+                                <div class="form-group">
                                     <input type="question" class="form-input" name="answer" id="answer"
                                         placeholder="Answer" value="{{inputAnswer}}" /><br>
                                     <span style="color: red;">{{errors}}</span>

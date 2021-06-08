@@ -43,9 +43,8 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin5">
-
-        </header>
+  <header class="topbar" data-navbarbg="skin5">
+            {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -137,16 +136,16 @@
    <div class="editPopup">
       <div class="formPopup" id="popupForm">
        
-        <form action="adminFAQ" class="formContainer" method="POST">
+        <form action="/editFAQ" class="formContainer" method="POST">
            
           <h2>Edit fields</h2>
-<input type="hidden" value="{{this.id}}" name="editid">
+        <input type="hidden" value="{{this.id}}" name="editID" id="editID">
           <label for="question"> <strong>Question</strong></label>
-              
-               <input type="text" id="quesnew" value="{{q}}" name="quesnew">
+        <input type="text" id="quesnew" value="{{question}}" name="quesnew">
           
+                  <input type="hidden" value="{{this.id}}" name="editID" id="editID">
           <label for="answer"> <strong>Answer</strong> </label>
-                <input type="text" id="ansnew" value="{{a}}" name="ansnew">
+                <input type="text" id="ansnew" value="{{answer}}" name="ansnew">
          
 
           <button type="submit" class="btn">Save</button>
@@ -162,12 +161,6 @@
       {
         document.getElementById("popupForm").style.display = "none";
       }
-
-      {{!-- function save(qu,an){
-          document.getElementById("quesnew").value = qu; 
-          document.getElementById("ansnew").value = an; 
-
-      } --}}
 
       function getQA(q, a)
         {

@@ -8,6 +8,7 @@ const Image = mongoose.model('Image', ImageSchema)
 const { TumorSchema } = require('../models/tumorModel')
 const Tumor = mongoose.model('Tumor', TumorSchema)
 const { UserSchema } = require('../models/userModel');
+const { getMyPatients } = require('./pathologistController');
 const User = mongoose.model('User', UserSchema);
 
 
@@ -15,7 +16,7 @@ exports.genReport = async (req, res) => {
 
     const reportID = req.body.viewreport;
     const report = await Report.findById(reportID);
-    const patient = await User.findById(report.patientID)
+    const patient = await User.findById(report.patientID);
     const pathologist = await User.findById(report.pathologistID)
     const image = await Image.findById(report.imageID)
     const diagnosis = await Tumor.findOne().where("tumorClassNumber").equals(report.tumorID);
@@ -95,11 +96,10 @@ exports.getAllReports = async (req, res) => {
 /* Get Pathologist Reports*/
 
 exports.getPathReports = async (req, res) => {
-
     userID = req.user._id;
     userType = req.user.type;
-    console.log(+' check #1:'+userID+' check #2:'+userType)
-    const reports= this.getUserReports(userID,userType)
+    console.log(' check #1:'+userID+' check #2:'+userType)
+    const reports= await this.getUserReports(userID,userType)
     console.log("check #3: "+reports[0])
     return res.render("pathReportsList", { reports: reports });
 }
@@ -118,11 +118,13 @@ exports.getUserReports= async  (ID, userType) =>{
     userID = '';
     if (userType == "Pathologist") {
         userID = 'pathologistID'
+        console.log("fl functionnnnnnnn")
     }
     else {
         userID = 'patientID'
     }
     const reports = await Report.find().where(userID).equals(ID);
+    console.log(reports[0]+'mell functionnn')
     return reports;
 
 }
@@ -130,13 +132,63 @@ exports.getUserReports= async  (ID, userType) =>{
 /* Get Pathologist Reports*/
 
 exports.getPateReports = async (req, res) => {
-
-    patientID = req.user;
-    const reports = await Report.find().where("patientID").equals(patientID);
-    console.log("check1: " + reports[0]);
+    userID = req.user._id;
+    userType = req.user.type;
+    console.log(' check #1:'+userID+' check #2:'+userType)
+    const reports= await this.getUserReports(userID,userType)
+    console.log("check #3: "+reports[0])
     return res.render("patientReportsList", { reports: reports });
 }
 
+exports.getPathPatientRep=async(req,res)=>{
+    userID = req.body.patient;
+    userType ='Patient' ;
+    console.log(' check #1:'+userID+' check #2:'+userType)
+    const reports= await this.getUserReports(userID,userType)
+    console.log("check #3: "+reports[0])
+    return res.render("pathPatientsReports", { reports: reports });
+    
+}
+
+exports.reportReview = async(req,res)=>{
+
+    userID = req.user._id
+    reportID = req.body.repID;
+    const report = await Report.findById(reportID);
+    const patient = await User.findById(report.patientID);
+    const pathologist = await User.findById(report.pathologistID)
+    const diagnosis = await Tumor.findOne().where("tumorClassNumber").equals(report.tumorID);
+    return res.render(
+        "addReportReview",
+        {
+            patient: `${patient.firstName} & ${patient.lastname}`,
+            patientDOB: patient.dateOfBirth,
+            patientGender: patient.gender,
+            pathologist: `Dr. ${pathologist.firstName} ${pathologist.lastName}`,
+            diagnosis: diagnosis.tumorName,
+            diagnosisDescription: diagnosis.tumorDescription,
+            date: report.genDate,
+            pathologistNote: report.pathComments,
+            reportID: reportID
+        }
+    );
+
+
+
+}
+
+exports.addReview = async(req,res)=>{
+
+    pathologistID = req.user._id;
+    reportID = req.body.id;
+    comments = req.body.comments;
+
+    console.log("check#: "+pathologistID)
+    console.log("check#: "+reportID)
+
+    const report = await Report.findByIdAndUpdate(reportID,{pathComments: comments})
+    return res.render('pathPatientsList',getMyPatients)
+}
 
 //get all reports
 //get a report

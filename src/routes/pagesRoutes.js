@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const session = require('express-session');
 const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession, auth } = require('../controllers/sessionController');
 const { getMyPatients, getPatAndPath } = require('../controllers/pathologistController');
-const {getPathRepProfile}=require('../controllers/reportController')
+const { getPathRepProfile } = require('../controllers/reportController')
 router.get('/addUser',
     (req, res) => {
         res.render('addUser')
@@ -39,6 +39,10 @@ router.get('/PathologistsA', auth, (req, res) => {
 router.get('/ReportsList', auth, (req, res) => {
     res.render('ReportsList')
 });
+router.get('/addReportReview', auth, (req, res) => {
+    res.render('addReportReview')
+});
+
 
 router.get('/patientInPath', (req, res) => {
     res.render('patientInPath')
@@ -81,9 +85,7 @@ router.get('/adminTumor', auth, (req, res) => {
 router.get('/adminFAQ', auth, (req, res) => {
     res.render('adminFAQ')
 });
-;
 
-router
 router.get('/addTumor', auth, (req, res) => {
     res.render('addTumor')
 });
@@ -92,9 +94,6 @@ router.get('/addfaq', auth, (req, res) => {
     res.render('addfaq')
 });
 
-router.get('/adminPatientsList', auth, (req, res) => {
-    res.render('adminPatientsList')
-});
 
 router.get('/adminPathologistsList', auth, (req, res) => {
     res.render('adminPathologistsList')
@@ -110,6 +109,9 @@ router.get('/patientReportsList', auth, (req, res) => {
 
 router.get('/pathReportsList', auth, (req, res) => {
     res.render('pathReportsList')
+});
+router.get('/pathPatientsReports', (req, res) => {
+    res.render('pathPatientsReports')
 });
 
 router.get('/adminAssign', auth, (req, res) => {
@@ -137,6 +139,7 @@ router.get('/pathPatientProfile', auth, patientRedirectProfile, (req, res) => {
 router.get('/settings', (req, res) => {
     res.render('settings')
 });
+
 router.get('/mustLogin', (req, res) => {
     res.render('mustLogin')
 });

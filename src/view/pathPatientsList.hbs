@@ -75,9 +75,8 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin5">
-
-        </header>
+  <header class="topbar" data-navbarbg="skin5">
+            {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -174,7 +173,7 @@
                                             <td>{{this.dateOfBirth}}</td>
 
                                             <td>
-                                                <form action="/pathPatientProfile" method="POST">
+                                                <form action="/pathPatientsReports" method="POST">
                                                     <input type="text" hidden name="patient" value="{{this.id}}">
 
                                                     <input type="submit" value="VIEW"
