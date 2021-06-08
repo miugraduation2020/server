@@ -463,7 +463,7 @@ exports.searchPatient = async (req, res) => {
     if (searchby == 'Email') {
         email = search.replace(/\s/g, '');
 
-        const allPate = await User.find().where('email').equals(email);
+        const allPate = await User.find({email: { $regex: new RegExp("^" + email.toLowerCase(), "i") } });
 
 
         return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
