@@ -155,20 +155,20 @@
         <div class="loginPopup">
       <div class="formPopup" id="popupForm">
        
-        <form action="adminTumor" class="formContainer" method="POST">
+        <form action="/editTumor" class="formContainer" method="POST">
            
           <h2>Edit fields</h2>
 
           <label for="name"> <strong>Name</strong></label>
-              <input type="hidden" value="{{this.id}}" name="editid">
+              <input type="hidden" value="{{this.id}}" name="editID">
                <input type="text" id="namenew" value="{{this.tumorName}}" name="namenew">
           
           <label for="description"> <strong>Description</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
+                <input type="hidden" value="{{this.id}}" name="editID">
                 <input type="text" id="descnew" value="{{this.tumorDescription}}" name="descnew">
          
 
-          <button type="submit" class="btn" onclick='save(q,a)'>Save</button>
+          <button type="submit" class="btn" >Save</button>
           <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
         </form>
        
