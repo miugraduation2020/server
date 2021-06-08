@@ -39,6 +39,10 @@ router.get('/PathologistsA', auth, (req, res) => {
 router.get('/ReportsList', auth, (req, res) => {
     res.render('ReportsList')
 });
+router.get('/addReportReview', auth, (req, res) => {
+    res.render('addReportReview')
+});
+
 
 router.get('/patientInPath', (req, res) => {
     res.render('patientInPath')

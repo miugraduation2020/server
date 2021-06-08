@@ -10,7 +10,8 @@ const url = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}
 const con = mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false 
 });
 
 module.exports = {url, mongoose , con}

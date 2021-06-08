@@ -105,6 +105,7 @@
                                             <th class="border-top-0">Date</th>
                                             <th class="border-top-0">Diagnosis</th>
                                             <th class="border-top-0">Report</th>
+                                            <th class="border-top-0">Review</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -116,9 +117,15 @@
 
 
                                             <form action="report" method="POST">
-                                                <td style="text-align:center; align-items: center;">
+                                                <td style="text-align:left; align-items: left;">
                                                     <input type="hidden" value="{{this.id}}"
                                                         name="viewreport"><button type="submit" value="view" class="btn btn-success text-white">view</button>
+                                                </td>
+                                            </form>
+                                            <form action="addReportReview" method="POST">
+                                                <td style="text-align:left; align-items: left;">
+                                                    <input type="hidden" value="{{this.id}}"
+                                                        name="repID"><button type="submit" value="review" class="btn btn-success text-white">add</button>
                                                 </td>
                                             </form>
                                         </tr>
