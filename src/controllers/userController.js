@@ -440,16 +440,19 @@ exports.getPatients = async (req, res) => {
 exports.searchPatient = async (req, res) => {
     const searchby = req.body.searchby;
     const search = req.body.searchPt;
+    
+    
 
     if (searchby == 'Name') {
         const pname = req.body.searchPt.split(' ');
-
         if (pname[1]) {
-            const allPate = await User.find({ lastName: pname[1], firstName: pname[0] });
+            const allPate = await User.find({ lastName: { $regex: new RegExp("^" + pname[1].toLowerCase(), "i") } , firstName: { $regex: new RegExp("^" + pname[0].toLowerCase(), "i") }  });
             return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
         }
         else {
-            const allPate = await User.find().where('firstName').equals(pname[0]);
+      
+
+            const allPate = await User.find({firstName: { $regex: new RegExp("^" + pname[0].toLowerCase(), "i") } });
 
             return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
         }
@@ -478,7 +481,7 @@ exports.searchPatient = async (req, res) => {
     if (searchby == 'ID') {
         userId = search.replace(/\s/g, '');
 
-        const allPate = await User.findById(userId);
+        const allPate = await User.find().where('_id').equals(userId);
 
 
         return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
