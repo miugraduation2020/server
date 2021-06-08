@@ -17,7 +17,7 @@
     <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
     <!-- Custom CSS -->
     <link href="css/style.min.css" rel="stylesheet">
-        <link href="css/editformstyle.css" rel="stylesheet">
+    <link href="css/editformstyle.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,41 +26,37 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<style> 
-input[type=text] 
-{
-    width: 60%;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    padding: 12px 50px 12px 20px;
+    <style>
+        input[type=text] {
+            width: 60%;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            padding: 12px 50px 12px 20px;
 
-}
-select
-{
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: white;
-    width: 15%;
-    padding: 12px 20px 10px 20px;
-    font-size: 16px;
-    text-align: center;
-}
+        }
 
-input[type="submit"]
-{
-    width: 7%;
-    padding: 12px 20px 10px 20px;
-    font-size: 16px;
+        select {
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            width: 15%;
+            padding: 12px 20px 10px 20px;
+            font-size: 16px;
+            text-align: center;
+        }
 
-}
+        input[type="submit"] {
+            width: 7%;
+            padding: 12px 20px 10px 20px;
+            font-size: 16px;
 
-
-</style>
+        }
+    </style>
 </head>
 
 <body>
@@ -82,8 +78,7 @@ input[type="submit"]
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin5">
-
-        </header>
+            {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -134,18 +129,20 @@ input[type="submit"]
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">Patients</h3>
-                             <form action="/adminPatientsList" method="POST">
-                                <input type="text" name="searchPt" placeholder="Search in Patients..." value="{{search}}">
-                                <input type="submit"  class="btn btn-success text-white" name="submitsearch" value="Search" style="padding: 10px;">
+                            <form action="/adminPatientsList" method="POST">
+                                <input type="text" name="searchPt" placeholder="Search in Patients..."
+                                    value="{{search}}">
+                                <input type="submit" class="btn btn-success text-white" name="submitsearch"
+                                    value="Search" style="padding: 10px;">
 
                                 <h4 style='padding-top: 10px;'>Search by:</h4>
-                                <select   name="searchby"  >
-                                {{#if choice  }}
-                                <option selected="selected" >{{choice}}</option>
-                                {{/if}}
-                                <option >Name</option>
-                                <option>Email</option>
-                                <option>Phone Number</option>
+                                <select name="searchby">
+                                    {{#if choice }}
+                                    <option selected="selected">{{choice}}</option>
+                                    {{/if}}
+                                    <option>Name</option>
+                                    <option>Email</option>
+                                    <option>Phone Number</option>
                                 </select>
                             </form>
                             <!-- <p class="text-muted">Add class <code>.table</code></p> -->
@@ -154,46 +151,55 @@ input[type="submit"]
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">Patient ID</th>
-                                            <th class="border-top-0">First Name</th>
-                                            <th class="border-top-0">Last Name</th>
                                             <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Name</th>
                                             <th class="border-top-0">Gender</th>
                                             <th class="border-top-0">Phone</th>
                                             <th class="border-top-0">DoB</th>
+                                            <th class="border-top-0" colspan="2">Manage</th>
                                             <th class="border-top-0">Is Assigned</th>
                                             <th class="border-top-0">Reports</th>
-                                            <th class="border-top-0" colspan="2">Manage</th>
-
-
-                                            <th class="border-top-0"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {{#each pateints}}
-                                        <tr>
+                                        <tr style="text-align: center;">
                                             <td>{{this.id}}</td>
-                                            <td>{{this.firstName}}</td>
-                                            <td>{{this.lastName}}</td>
                                             <td>{{this.email}}</td>
+
+                                            <td>{{this.firstName}} {{this.lastName}}</td>
                                             <td>{{this.gender}}</td>
                                             <td>{{this.phoneNumber}}</td>
                                             <td>{{this.dateOfBirth}}</td>
-                                            <td>{{this.isAssigned}}</td>
-
-                                            <td>view</td>
-
-                                             <form>
-                                                <td style="text-align:center;"> 
-                                                <input type="hidden" value="{{this.id}}" name="editpatientid">
-                                            </form> 
-                                             <button class="btn" onclick='getPat("{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")' name="editid"><i class="far fa-edit"></i></button>
-                                                </td>
+                                            <form>
+                                                <td style="text-align:center;">
+                                                    <input type="hidden" value="{{this.id}}" name="editpatientid">
+                                            </form>
+                                            <button class="btn"
+                                                onclick='getPat("{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")'
+                                                name="editid"><i class="far fa-edit"></i></button>
+                                            </td>
 
                                             <form action="adminPatientsList" method="POST">
                                                 <td style="text-align:center;">
-                                               <input type="hidden" value="{{this.id}}" name="deletepatientid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
-                                            </td>
+                                                    <input type="hidden" value="{{this.id}}" name="deletepatientid">
+                                                    <button type="submit" class="btn"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </td>
                                             </form>
+                                            <td>{{this.isAssigned}}</td>
+
+                                            <td>
+                                                <form action="/pathPatientsReports" method="POST">
+                                                    <input type="text" hidden name="patient" value="{{this.id}}">
+
+                                                    <button type="submit" class="btn"><i
+                                                            class="fas fa-file-medical-alt"></i></button>
+
+                                                </form>
+                                            </td>
+
+
                                         </tr>
                                         {{/each}}
 
@@ -215,71 +221,70 @@ input[type="submit"]
                 <!-- ============================================================== -->
             </div>
 
-<div class="editPopup" >
-      <div class="formPopup" id="popupForm">
-       
-        <form action="adminPatientsList" class="formContainer" method="POST">
-           
-          <h2>Edit fields</h2>
+            <div class="editPopup">
+                <div class="formPopup" id="popupForm">
 
-          <label for="fname"> <strong>First Name</strong></label>
-              <input type="hidden" value="{{this.id}}" name="editid">
-               <input type="text" id="fnamenew" value="{{this.firstName}}" name="fnamenew">
-          
-          <label for="lname"> <strong>Last Name</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
-                <input type="text" id="lnamenew" value="{{this.lastName}}" name="lnamenew">
-           
-           <label for="email"> <strong>Email</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
-                <input type="text" id="emailnew" value="{{this.email}}" name="emailnew">
-           
-           <label for="phone"> <strong>Phone</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
-                <input type="text" id="phonenew" value="{{this.phoneNumber}}" name="phonenew">
+                    <form action="adminPatientsList" class="formContainer" method="POST">
 
-           <label for="dob"> <strong>Date of Birth</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editid">
-                <input type="date" id="dobnew" value="{{this.dateOfBirth}}" name="dobnew">
-        
-        
-         
+                        <h2>Edit fields</h2>
 
-          <button type="submit" class="btn save" onclick='save(q,a)'>Save</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-        </form>
-       
-      </div>
-    </div> 
+                        <label for="fname"> <strong>First Name</strong></label>
+                        <input type="hidden" value="{{this.id}}" name="editid">
+                        <input type="text" id="fnamenew" value="{{this.firstName}}" name="fnamenew">
 
-<script>
+                        <label for="lname"> <strong>Last Name</strong> </label>
+                        <input type="hidden" value="{{this.id}}" name="editid">
+                        <input type="text" id="lnamenew" value="{{this.lastName}}" name="lnamenew">
 
-      function closeForm() {
-        document.getElementById("popupForm").style.display = "none";
-      }
+                        <label for="email"> <strong>Email</strong> </label>
+                        <input type="hidden" value="{{this.id}}" name="editid">
+                        <input type="text" id="emailnew" value="{{this.email}}" name="emailnew">
 
-      
+                        <label for="phone"> <strong>Phone</strong> </label>
+                        <input type="hidden" value="{{this.id}}" name="editid">
+                        <input type="text" id="phonenew" value="{{this.phoneNumber}}" name="phonenew">
 
-       function getPat(fname,lname,email,phone,dob)
-        {
-        document.getElementById("fnamenew").value= fname;
-        document.getElementById("lnamenew").value= lname;
-        document.getElementById("emailnew").value= email;
-        document.getElementById("phonenew").value= phone;
-        document.getElementById("dobnew").value= dob;
-        document.getElementById("popupForm").style.display = "block";
+                        <label for="dob"> <strong>Date of Birth</strong> </label>
+                        <input type="hidden" value="{{this.id}}" name="editid">
+                        <input type="date" id="dobnew" value="{{this.dateOfBirth}}" name="dobnew">
 
-        } 
 
-        var modal = document.getElementById('popupForm');
- 
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
 
-    </script>      
+
+                        <button type="submit" class="btn save" onclick='save(q,a)'>Save</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                    </form>
+
+                </div>
+            </div>
+
+            <script>
+
+                function closeForm() {
+                    document.getElementById("popupForm").style.display = "none";
+                }
+
+
+
+                function getPat(fname, lname, email, phone, dob) {
+                    document.getElementById("fnamenew").value = fname;
+                    document.getElementById("lnamenew").value = lname;
+                    document.getElementById("emailnew").value = email;
+                    document.getElementById("phonenew").value = phone;
+                    document.getElementById("dobnew").value = dob;
+                    document.getElementById("popupForm").style.display = "block";
+
+                }
+
+                var modal = document.getElementById('popupForm');
+
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+
+            </script>
 
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
