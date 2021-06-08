@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const { FAQSchema } = require('../models/FAQModel');
 const dotenv = require("dotenv");
+const { ObjectID } = require('bson');
 dotenv.config();
 
 const FAQ = mongoose.model('FAQ', FAQSchema);
@@ -36,19 +37,19 @@ exports.getAllFAQ = async (req, res) => {
     const allFAQ = await FAQ.find({});
     console.log(allFAQ);
 
-    return res.render("adminFAQ", {faqs:allFAQ});
-   
+    return res.render("adminFAQ", { faqs: allFAQ });
+
 }
 
 //deleteFAQ
 exports.deleteFAQ = async (req, res) => {
 
     const del = await FAQ.deleteOne({ _id: req.body.deleteid });
-        console.log(del);
+    console.log(del);
 
     const allFAQ = await FAQ.find({});
 
-    return res.render("adminFAQ", {faqs:allFAQ});
+    return res.render("adminFAQ", { faqs: allFAQ });
 
 }
 
@@ -57,7 +58,7 @@ exports.deleteFAQ = async (req, res) => {
 exports.editFAQ = async (req, res) => {
     const { editID, quesnew, ansnew } = req.body;
 
-    const faq = await FAQ.findByIdAndUpdate({ _id: editID }, {
+    const faq = await FAQ.findByIdAndUpdate({ _id: new ObjectID(editID) }, {
         question: quesnew,
         answer: ansnew
     });
@@ -69,5 +70,5 @@ exports.editFAQ = async (req, res) => {
     }
 
 
-    res.send({ response: "FAQ renewed successfully!" });
+    res.redirect('adminFAQ');
 };

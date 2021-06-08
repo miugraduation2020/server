@@ -28,6 +28,7 @@
     <![endif]-->
 </head>
 
+
 <body onload="UTIF.replaceIMG()">
   <!-- ============================================================== -->
   <!-- Preloader - style you can find in spinners.css -->
@@ -98,7 +99,7 @@
           <!-- Column -->
           <!-- Column -->
           <div class="col-md-9">
-            <div class="card">
+            <div class="card" id="report">
               <div class="card-body">
                 <!-- Patient Info  -->
                 <div class="white-box  p-0">
@@ -172,7 +173,7 @@
 
                     </div>
                     <div class="col-md-12 " style="text-align: center;">
-                      <img src="plugins/images/tumor.png"  width="200px" height="200px" alt="biopsy test image" />
+                      <img src="plugins/images/tumor.png" width="200px" height="200px" alt="biopsy test image" />
                     </div>
                   </div>
                   {{!-- <div class="form-group mb-4">
@@ -203,14 +204,18 @@
 
 
 
-                  <div class="form-group mb-4">
-                    <div class="col-sm-12">
-                      <button style="background-color: gray; color: honeydew" class="btn btn-block">
-                        Download <i class="fas fa-download"></i>
-                      </button>
-                    </div>
-                  </div>
+
                 </form>
+              </div>
+            </div>
+            <div id="editor"></div>
+            <button style="background-color: gray; color: honeydew" class="btn btn-block" id="download">
+              Download <i class="fas fa-download"></i>
+            </button>
+            <div class="form-group mb-4">
+              <div class="col-sm-12">
+
+
               </div>
             </div>
           </div>
@@ -266,6 +271,25 @@
   <!--Header -->
   <script src="js/top-bar.js"></script>
   <script src="partials/topBar.hbs"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+  <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+  <script>
+    var doc = new jsPDF();
+    var specialElementHandlers = {
+      '#editor': function (element, renderer) {
+        return true;
+      }
+    };
+
+    $('#download').click(function () {
+      doc.fromHTML($('#report').html(), 15, 15, {
+        'width': 170,
+        'elementHandlers': specialElementHandlers
+      });
+      doc.save('your report.pdf');
+    });
+  </script>
 </body>
 
 </html>

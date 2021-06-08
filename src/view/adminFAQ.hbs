@@ -43,7 +43,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-  <header class="topbar" data-navbarbg="skin5">
+        <header class="topbar" data-navbarbg="skin5">
             {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -73,12 +73,13 @@
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ml-auto">
-                        
+
                                 <li><a href="#">Dashboard</a></li>
-                               
+
                             </ol>
-                            <a href="/addfaq" 
-                                class="btn btn-danger  d-none d-md-block pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Add FAQ</a>
+                            <a href="/addfaq"
+                                class="btn btn-danger  d-none d-md-block pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Add
+                                FAQ</a>
 
                         </div>
                     </div>
@@ -92,111 +93,113 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Manage FAQ</h3>
-                            <!-- <p class="text-muted">Add class <code>.table</code></p> -->
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">ID</th>
-                                            <th class="border-top-0">Question</th>
-                                            <th class="border-top-0">Answer</th>
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Manage FAQ</h3>
+                        <!-- <p class="text-muted">Add class <code>.table</code></p> -->
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0">ID</th>
+                                        <th class="border-top-0">Question</th>
+                                        <th class="border-top-0">Answer</th>
 
-                                            <th class="border-top-0"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{#each faqs}}
-                                        <tr>
-                                            <td >{{this.id}}</td>
-                                            <td id="ques">{{this.question}}</td>
-                                            <td id="ans">{{this.answer}}</td>
-                                            <form>
-                                                <td style="text-align:center;"> 
+                                        <th class="border-top-0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each faqs}}
+                                    <tr>
+                                        <td>{{this.id}}</td>
+                                        <td id="ques">{{this.question}}</td>
+                                        <td id="ans">{{this.answer}}</td>
+                                        <form>
+                                            <td style="text-align:center;">
                                                 <input type="hidden" value="{{this.id}}" name="editid">
-                                            </form> 
-                                             <button class="btn" onclick='getQA("{{this.question}}","{{this.answer}}")' name="editid"><i class="far fa-edit"></i></button>
-                                                </td>
-                                            <form action="adminFAQ" method="POST">
-                                                <td style="text-align:center;">
-                                               <input type="hidden" value="{{this.id}}" name="deleteid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                        <button class="btn"
+                                            onclick='getQA("{{this.id}}","{{this.question}}","{{this.answer}}")'
+                                            name="editidd"><i class="far fa-edit"></i></button>
+                                        </td>
+                                        <form action="adminFAQ" method="POST">
+                                            <td style="text-align:center;">
+                                                <input type="hidden" value="{{this.id}}" name="deleteid"><button
+                                                    type="submit" class="btn"><i class="fa fa-trash"></i></button>
                                             </td>
-                                            </form>
-                                        </tr>
-                                        {{/each}}
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </form>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-              
-   <div class="editPopup">
-      <div class="formPopup" id="popupForm">
-       
-        <form action="/editFAQ" class="formContainer" method="POST">
-           
-          <h2>Edit fields</h2>
-        <input type="hidden" value="{{this.id}}" name="editID" id="editID">
-          <label for="question"> <strong>Question</strong></label>
-        <input type="text" id="quesnew" value="{{question}}" name="quesnew">
-          
-                  <input type="hidden" value="{{this.id}}" name="editID" id="editID">
-          <label for="answer"> <strong>Answer</strong> </label>
-                <input type="text" id="ansnew" value="{{answer}}" name="ansnew">
-         
-
-          <button type="submit" class="btn">Save</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-        </form>
-       
-      </div>
-    </div> 
-
-    <script>
-
-      function closeForm()
-      {
-        document.getElementById("popupForm").style.display = "none";
-      }
-
-      function getQA(q, a)
-        {
-        document.getElementById("quesnew").value= q;
-        document.getElementById("ansnew").value= a;
-        document.getElementById("popupForm").style.display = "block";
-
-        } 
-
-    </script>                                   
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
+
+            <div class="editPopup">
+                <div class="formPopup" id="popupForm">
+
+                    <form action="/editFAQ" class="formContainer" method="POST">
+
+                        <h2>Edit fields</h2>
+                        <input type="hidden" value="{{editID}}" name="editID" id="editID">
+                        <label for="question"> <strong>Question</strong></label>
+                        <input type="text" id="quesnew" value="{{question}}" name="quesnew">
+
+                        {{!-- <input type="hidden" value="{{this.id}}" name="editID" id="editID"> --}}
+                        <label for="answer"> <strong>Answer</strong> </label>
+                        <input type="text" id="ansnew" value="{{answer}}" name="ansnew">
+
+
+                        <button type="submit" class="btn">Save</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                    </form>
+
+                </div>
+            </div>
+
+            <script>
+
+                function closeForm() {
+                    document.getElementById("popupForm").style.display = "none";
+                }
+
+                function getQA(ID, q, a) {
+                    document.getElementById("editID").value = ID;
+                    document.getElementById("quesnew").value = q;
+                    document.getElementById("ansnew").value = a;
+                    document.getElementById("popupForm").style.display = "block";
+
+                }
+
+            </script>
             <!-- ============================================================== -->
-            <!-- End Container fluid  -->
+            <!-- End PAge Content -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
-            <!-- footer -->
+            <!-- Right sidebar -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2021 © BCBD Using Deep Learning
-            </footer>
+            <!-- .right-sidebar -->
             <!-- ============================================================== -->
-            <!-- End footer -->
+            <!-- End Right sidebar -->
             <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
+        <!-- End Container fluid  -->
         <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center"> 2021 © BCBD Using Deep Learning
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->

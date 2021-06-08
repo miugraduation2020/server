@@ -2,13 +2,24 @@ const express = require('express');
 const router = new express.Router();
 const jwt = require("jsonwebtoken");
 const session = require('express-session');
-const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession, auth } = require('../controllers/sessionController');
+const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession, auth, loggedIn } = require('../controllers/sessionController');
 const { getMyPatients, getPatAndPath } = require('../controllers/pathologistController');
 const { getPathRepProfile } = require('../controllers/reportController')
+
+
+
+
+
 router.get('/addUser',
     (req, res) => {
         res.render('addUser')
-    });
+    }
+);
+router.get('', loggedIn,
+    (req, res) => {
+        res.render('index')
+    }
+);
 
 router.get('/ALogin', (req, res) => {
     res.render('ALogin')
@@ -144,12 +155,14 @@ router.get('/mustLogin', (req, res) => {
     res.render('mustLogin')
 });
 
-router.get('/404', (req, res) => {
-    res.render('404')
-});
 router.get('/diagnosing', (req, res) => {
     res.render('diagnosing')
 });
+
+router.get('/404', (req, res) => {
+    res.render('404')
+});
+
 
 
 

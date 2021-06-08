@@ -45,18 +45,19 @@ exports.redirectIndex = (req, res, next) => {
 // If user is logged in can't re-login 
 
 exports.notAdminRedirectProfile = async (req, res, next) => {
-    
+
     const userId = req.user._id;
     console.log("userId")
     try {
         const user = await User.findById(userId);
         console.log(user.type);
-        if(user.type != 'Admin'){
-        if (user.type == 'Patient') {
-            res.redirect('/patientProfile')
-        } else if (user.type == 'Pathologist') {
-            res.redirect('/pathProfile')
-        }}
+        if (user.type != 'Admin') {
+            if (user.type == 'Patient') {
+                res.redirect('/patientProfile')
+            } else if (user.type == 'Pathologist') {
+                res.redirect('/pathProfile')
+            }
+        }
         else { next() }
     } catch (error) {
 
@@ -123,6 +124,26 @@ exports.destroySession = async (req, res, next) => {
     next()
 }
 
+exports.loggedIn = async (req, res, next) => {
+    try {
+
+        // const token = req.header('Authorization').replace('Bearer ', '')
+        const token = req.cookies.token.replace('Bearer ', '');
+        const decoded = jwt.verify(token, 'thisismynewcourse')
+        const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
+
+        if (user) {
+            res.redirect('profile')
+        }
+        else {
+            next()
+        }
+    } catch (e) {
+        res.status(401).render('profile')
+    }
+}
+
+
 exports.authAdmin = async (req, res, next) => {
     try {
 
@@ -131,7 +152,7 @@ exports.authAdmin = async (req, res, next) => {
         const decoded = jwt.verify(token, 'thisismynewcourse')
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
 
-        if (user.type!="Admin") {
+        if (user.type != "Admin") {
             throw new Error()
         }
 
