@@ -2,7 +2,7 @@ const express = require('express');
 const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData, getPatients, getPathologists, searchPatient, deletePatient, deletePathologist } = require('../controllers/userController');
 const { destroySession, auth } = require('../controllers/sessionController')
 const { addFAQ, getAllFAQ, deleteFAQ } = require("../controllers/FAQcontroller")
-const{getAllReports,genReport,getPathReports,getPateReports,getPathRepProfile}=require("../controllers/reportController")
+const{getAllReports,genReport,getPathReports,getPateReports,getPathRepProfile,getPathPatientRep}=require("../controllers/reportController")
 
 const router = new express.Router()
 
@@ -13,9 +13,9 @@ router.get('/user', (req, res) => {
 router.get('/adminPatientsList', getPatients);
 router.get('/adminPathologistsList', getPathologists);
 router.get('/adminReportsList',auth, getAllReports);
-router.get('/pathReportsList',auth,getPathReports);
-router.get('/patientReportsList',auth,getPateReports);
-
+router.get('/pathReportsList',auth, getPathReports);
+router.get('/patientReportsList',auth, getPateReports);
+router.post('/pathPatientsReports', getPathPatientRep)
 
 
 

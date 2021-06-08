@@ -131,13 +131,23 @@ exports.getUserReports= async  (ID, userType) =>{
 /* Get Pathologist Reports*/
 
 exports.getPateReports = async (req, res) => {
-
-    patientID = req.user;
-    const reports = await Report.find().where("patientID").equals(patientID);
-    console.log("check1: " + reports[0]);
+    userID = req.user._id;
+    userType = req.user.type;
+    console.log(' check #1:'+userID+' check #2:'+userType)
+    const reports= await this.getUserReports(userID,userType)
+    console.log("check #3: "+reports[0])
     return res.render("patientReportsList", { reports: reports });
 }
 
+exports.getPathPatientRep=async(req,res)=>{
+    userID = req.body.patient;
+    userType ='Patient' ;
+    console.log(' check #1:'+userID+' check #2:'+userType)
+    const reports= await this.getUserReports(userID,userType)
+    console.log("check #3: "+reports[0])
+    return res.render("pathPatientsReports", { reports: reports });
+    
+}
 
 //get all reports
 //get a report

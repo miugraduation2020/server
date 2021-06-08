@@ -111,6 +111,9 @@ router.get('/patientReportsList', auth, (req, res) => {
 router.get('/pathReportsList', auth, (req, res) => {
     res.render('pathReportsList')
 });
+router.get('/pathPatientsReports', (req, res) => {
+    res.render('pathPatientsReports')
+});
 
 router.get('/adminAssign', auth, (req, res) => {
     res.render('adminAssign')

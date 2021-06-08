@@ -5,3 +5,4 @@ node_modules/@types/node/http.d.ts
 src/models/pythonModel/DenseNet169_model
 src/models/pythonModel/ResNet101_model
 src/models/pythonModel/ResNet50_model
+*.tif

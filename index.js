@@ -130,57 +130,19 @@ const storage = new GridFsStorage({
 
 });
 
-const upload = multer({
+const upload =  multer({
   storage
 });
 
-// get / page
-app.get("/photo", (req, res) => {
-  if(!gfs) {
-    console.log("some error occured, check connection to db");
-    res.send("some error occured, check connection to db");
-    process.exit(0);
-  }
-  gfs.find().toArray((err, files) => {
-    // check if files
-    if (!files || files.length === 0) {
-      return res.render("index", {
-        files: false
-      });
-    } else {
-      const f = files
-        .map(file => {
-          if (
-    
-            file.contentType === "image/*" 
 
-          ) {
-            file.isImage = true;
-          } else {
-            file.isImage = false;
-          }
-          return file;
-        })
-        .sort((a, b) => {
-          return (
-            new Date(b["uploadDate"]).getTime() -
-            new Date(a["uploadDate"]).getTime()
-          );
-        });
+app.post("/upload",upload.single('file'),  (req, res) => {
         
         //ADD IMAGE FUNCTION
         this.downloadImage();
         imagecont.addImage(Ifilename,Ipatient,Ipathologist);
-
-        return res.render("diagnosing");        }
-
-  });
-});
+        return  res.render("diagnosing");
 
 
-app.post("/upload", upload.single("file"), (req, res) => {
-  res.redirect("/photo");
-  return res.redirect("diagnosing")
 });
 
 
