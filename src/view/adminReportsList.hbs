@@ -43,7 +43,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-  <header class="topbar" data-navbarbg="skin5">
+        <header class="topbar" data-navbarbg="skin5">
             {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -94,8 +94,9 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-sm-12">
+                        <h3 class="box-title">All Reports</h3>
+
                         <div class="white-box">
-                            <h3 class="box-title">All Reports</h3>
                             <!-- <p class="text-muted">Add class <code>.table</code></p> -->
                             <div class="table-responsive">
                                 <table class="table">
@@ -116,13 +117,14 @@
                                             <td>{{this.patientID}}</td>
                                             <td>{{this.pathologistID}}</td>
                                             <td>{{this.tumorID}}</td>
-                                        
+
 
 
                                             <form action="report" method="POST">
                                                 <td style="text-align:center; align-items: center;">
-                                                    <input type="hidden" value="{{this.id}}"
-                                                        name="viewreport"><button type="submit" value="view" class="btn btn-success text-white">view</button>
+                                                    <input type="hidden" value="{{this.id}}" name="viewreport"><button
+                                                        type="submit" value="view"
+                                                        class="btn btn-success text-white">view</button>
                                                 </td>
                                             </form>
                                         </tr>

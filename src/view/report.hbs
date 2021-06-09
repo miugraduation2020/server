@@ -47,7 +47,8 @@
     <!-- ============================================================== -->
     <!-- Topbar header - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <header class="topbar" data-navbarbg="skin5"></header>
+    <header class="topbar" data-navbarbg="skin5">
+      {{>topBar}} </header>
     <!-- ============================================================== -->
     <!-- End Topbar header -->
     <!-- ============================================================== -->
@@ -168,7 +169,8 @@
                       <h5 class=" mt-2" style="text-align: left; padding-left: 10px;">
                         Diagnosis:<b> {{diagnosis}}</b>
                         </5>
-                        <h6 class=" mt-2" style="text-align: left; padding-left: 10px;">Description:<b>
+                        <h5 class=" mt-2" style="text-align: left; padding-left: 10px;">Description:</h5>
+                        <h6 class=" mt-2" style="text-align: left; padding-left: 10px;"><b>
                             {{diagnosisDescription}} </b></h6><br>
 
                     </div>
@@ -190,14 +192,13 @@
                         Pathologist:<b> {{pathologist}}</b>
                         </5>
 
-                        <p rows="5" class="form-control p-0 border-0"> {{pathologistNote}} </p>
+                        <p rows="5" class="form-control p-0 border-0">Review: {{pathologistNote}} </p>
                     </div>
                   </div>
                   <div class="form-group mb-4">
                     <label class="col-md-12 p-0">Previous Tests</label>
                     <div class="col-md-12 border-bottom p-0">
                       <p class="form-control p-0 border-0">
-                        Benign (10 Dec, 2011)
                       </p>
                     </div>
                   </div>
@@ -239,9 +240,7 @@
       <!-- ============================================================== -->
       <!-- footer -->
       <!-- ============================================================== -->
-      <footer class="footer text-center">
-        2020 © Ample Admin brought to you by
-        <a href="https://www.wrappixel.com/">wrappixel.com</a>
+      <footer class="footer text-center"> 2021 © BCBD Using Deep Learning
       </footer>
       <!-- ============================================================== -->
       <!-- End footer -->

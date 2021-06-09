@@ -25,7 +25,7 @@ exports.genReport = async (req, res) => {
     return res.render(
         "report",
         {
-            patient: `${patient.firstName} & ${patient.lastname}`,
+            patient: `${patient.firstName}  ${patient.lastName}`,
             patientDOB: patient.dateOfBirth,
             patientGender: patient.gender,
             pathologist: `Dr. ${pathologist.firstName} ${pathologist.lastName}`,
@@ -33,6 +33,7 @@ exports.genReport = async (req, res) => {
             diagnosisDescription: diagnosis.tumorDescription,
             date: report.genDate,
             pathologistNote: report.pathComments,
+            user: req.user,
         }
     );
 
@@ -90,7 +91,7 @@ exports.getAllReports = async (req, res) => {
 
     const allRep = await Report.find({})
     //console.log("check1: " + allRep[0]);
-    return res.render("adminReportsList", { reports: allRep });
+    return res.render("adminReportsList", { reports: allRep,user:req.user });
 }
 
 /* Get Pathologist Reports*/
@@ -103,28 +104,20 @@ exports.getPathReports = async (req, res) => {
     console.log("check #3: " + reports[0])
     return res.render("pathReportsList", { reports: reports });
 }
-// exports.getPathRepProfile = async (req, res) => {
 
-//     userID = req.user._id;
-//     userType = req.user.type;
-//     console.log(+' check #1:'+userID+' check #2:'+userType)
-//     const reports= await getUserReports(userID,userType)
-//     console.log("check #3: "+reports[2])
-//     res.render("pathProfile", { reports: reports });
-// }
 
 exports.getUserReports = async (ID, userType) => {
 
     userID = '';
     if (userType == "Pathologist") {
         userID = 'pathologistID'
-        console.log("fl functionnnnnnnn")
+        // console.log("check: user report")
     }
     else {
         userID = 'patientID'
     }
     const reports = await Report.find().where(userID).equals(ID);
-    console.log(reports[0] + 'mell functionnn')
+    // console.log(reports[0] )
     return reports;
 
 }
@@ -137,7 +130,7 @@ exports.getPateReports = async (req, res) => {
     console.log(' check #1:' + userID + ' check #2:' + userType)
     const reports = await this.getUserReports(userID, userType)
     console.log("check #3: " + reports[0])
-    return res.render("patientReportsList", { reports: reports });
+    return res.render("patientReportsList", { reports: reports, user: req.user });
 }
 
 exports.getPathPatientRep = async (req, res) => {
@@ -146,7 +139,7 @@ exports.getPathPatientRep = async (req, res) => {
     console.log(' check #1:' + userID + ' check #2:' + userType)
     const reports = await this.getUserReports(userID, userType)
     console.log("check #3: " + reports[0])
-    return res.render("pathPatientsReports", { reports: reports });
+    return res.render("pathPatientsReports", { reports: reports ,user:req.user});
 
 }
 
@@ -169,7 +162,8 @@ exports.reportReview = async (req, res) => {
             diagnosisDescription: diagnosis.tumorDescription,
             date: report.genDate,
             pathologistNote: report.pathComments,
-            reportID: reportID
+            reportID: reportID,
+            user:req.user
         }
     );
 

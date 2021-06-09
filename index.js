@@ -7,8 +7,6 @@ const pageRouter = require('./src/routes/pagesRoutes');
 const pathologistRouter = require('./src/routes/pathologistRoutes');
 const imageRouter = require('./src/routes/imageRouts');
 const reportRouter = require('./src/routes/reportRoutes');
-const { loggedIn } = require('./src/controllers/sessionController');
-
 
 
 
@@ -38,11 +36,11 @@ mongoose.Promise = global.Promise;
 
 // Session 
 app.use(session({
-  secret: 'soktom boktom', saveUninitialized: false, resave: true, cookie: {
-    sameSite: true,
-    secure: false,
-    expires: false
-  }
+    secret: 'soktom boktom', saveUninitialized: false, resave: true, cookie: {
+        sameSite: true,
+        secure: false,
+        expires: false
+    }
 }));
 //bodyParser setup
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -69,8 +67,8 @@ app.use(express.static(path.join(__dirname, 'src/view')))
 app.use(express.json())
 
 //our main page 
-app.get('/', loggedIn, (req, res) => {
-  res.render('index')
+app.get('/', (req, res) => {
+    res.render('index')
 });
 
 app.use(userRouter);
@@ -89,10 +87,10 @@ const GridFsStorage = require("multer-gridfs-storage");
 const fs = require('fs');
 
 const conn = mongoose.createConnection(url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+  
 // init gfs
 let gfs;
 let Ifilename;
@@ -117,51 +115,51 @@ const storage = new GridFsStorage({
         }
         const filename = buf.toString("hex") + path.extname(file.originalname);
         Ipatient = req.body.patient;
-        Ipathologist = req.body.pathologist;
-        Ifilename = filename;
+        Ipathologist=req.body.pathologist;
+        Ifilename=filename;
         const fileInfo = {
           filename: filename,
-          metadata: { 'pathologistID': req.body.pathologist, 'patientId': req.body.patient },
+          metadata:{ 'pathologistID':req.body.pathologist,'patientId':req.body.patient},
           bucketName: "uploads"
         };
         resolve(fileInfo);
-
+        
       });
     });
   }
 
 });
 
-const upload = multer({
+const upload =  multer({
   storage
 });
 
 
-app.post("/upload", upload.single('file'), (req, res) => {
-
-  //ADD IMAGE FUNCTION
-  this.downloadImage();
-  imagecont.addImage(Ifilename, Ipatient, Ipathologist);
-  return res.render("diagnosing");
+app.post("/upload",upload.single('file'),  (req, res) => {
+        
+        //ADD IMAGE FUNCTION
+        this.downloadImage();
+        imagecont.addImage(Ifilename,Ipatient,Ipathologist);
+        return  res.render("diagnosing");
 
 
 });
 
 
 
-exports.downloadImage = async () => {
-  console.log("DIR" + __dirname)
-  var fsstreamwrite = fs.createWriteStream(
-    path.join(__dirname, "src\\models\\DiagnosisImages\\" + Ifilename)
-  );
-
-  var readstream = await gfs.createReadStream({
-    filename: Ifilename
-  });
-  readstream.pipe(fsstreamwrite);
-  readstream.on("close", function (file) {
-    console.log("File Read successfully from database");
-  });
+exports.downloadImage= async () => {
+    console.log("DIR"+__dirname)
+      var fsstreamwrite =  fs.createWriteStream(
+        path.join(__dirname, "src\\models\\DiagnosisImages\\"+Ifilename)
+    );
+    
+    var readstream = await gfs.createReadStream({
+        filename: Ifilename
+    });
+    readstream.pipe(fsstreamwrite);
+    readstream.on("close", function (file) {
+        console.log("File Read successfully from database");
+    });
 }
 
 
@@ -179,9 +177,9 @@ exports.downloadImage = async () => {
 
 //Handling 404 page not found
 app.get('*', (req, res) => {
-  res.render('404')
+    res.render('404')
 });
 
 app.listen(PORT, () => {
-  console.log(`Node and express server running on port ${PORT}`)
+    console.log(`Node and express server running on port ${PORT}`)
 });

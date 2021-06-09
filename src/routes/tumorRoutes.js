@@ -1,11 +1,12 @@
 const express = require('express');
-const { addTumor,getAllTumor, deleteTumor, editTumor} = require('../controllers/tumorController');
+const { addTumor, getAllTumor, deleteTumor, editTumor } = require('../controllers/tumorController');
+const { auth } = require('../controllers/sessionController');
 const router = new express.Router()
 
 
 
-router.post('/addTumor', addTumor)
-router.post('/adminTumor', deleteTumor)
-router.get('/adminTumor',getAllTumor)
-router.post('/editTumor',editTumor)
+router.post('/addTumor', auth, addTumor)
+router.post('/adminTumor', auth, deleteTumor)
+router.get('/adminTumor', auth, getAllTumor)
+router.post('/editTumor', auth, editTumor)
 module.exports = router

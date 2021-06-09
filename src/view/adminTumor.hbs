@@ -44,7 +44,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-  <header class="topbar" data-navbarbg="skin5">
+        <header class="topbar" data-navbarbg="skin5">
             {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -99,8 +99,9 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-sm-12">
+                        <h3 class="box-title">Manage Tumors</h3>
+
                         <div class="white-box">
-                            <h3 class="box-title">Manage Tumors</h3>
                             <!-- <p class="text-muted">Add class <code>.table</code></p> -->
                             <div class="table-responsive">
                                 <table class="table">
@@ -119,17 +120,21 @@
                                             <td>{{this.tumorClassNumber}}</td>
                                             <td id="name">{{this.tumorName}}</td>
                                             <td id="desc">{{this.tumorDescription}}</td>
-                                           <form>
-                                                <td style="text-align:center;"> 
+                                            <form>
+                                                <td style="text-align:center;">
                                                     <input type="hidden" value="{{this.id}}" name="edittumorid">
-                                                   </form> 
-                                                    <button class="btn" onclick='getTumor("{{this.tumorName}}","{{this.tumorDescription}}")' name="editit"><i class="far fa-edit"></i></button>
-                                                </td>
+                                            </form>
+                                            <button class="btn"
+                                                onclick='getTumor("{{this.tumorName}}","{{this.tumorDescription}}")'
+                                                name="editit"><i class="far fa-edit"></i></button>
+                                            </td>
 
                                             <form action="adminTumor" method="POST">
                                                 <td style="text-align:center;">
-                                               <input type="hidden" value="{{this.id}}" name="deletetumorid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
-                                            </td>
+                                                    <input type="hidden" value="{{this.id}}"
+                                                        name="deletetumorid"><button type="submit" class="btn"><i
+                                                            class="fa fa-trash"></i></button>
+                                                </td>
                                             </form>
                                         </tr>
                                         {{/each}}
@@ -151,46 +156,45 @@
                 <!-- ============================================================== -->
             </div>
 
-        <div class="loginPopup">
-      <div class="formPopup" id="popupForm">
-       
-        <form action="/editTumor" class="formContainer" method="POST">
-           
-          <h2>Edit fields</h2>
+            <div class="loginPopup">
+                <div class="formPopup" id="popupForm">
 
-          <label for="name"> <strong>Name</strong></label>
-              <input type="hidden" value="{{this.id}}" name="editID">
-               <input type="text" id="namenew" value="{{this.tumorName}}" name="namenew">
-          
-          <label for="description"> <strong>Description</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editID">
-                <input type="text" id="descnew" value="{{this.tumorDescription}}" name="descnew">
-         
+                    <form action="/editTumor" class="formContainer" method="POST">
 
-          <button type="submit" class="btn" >Save</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-        </form>
-       
-      </div>
-    </div> 
+                        <h2>Edit fields</h2>
 
-    <script>
+                        <label for="name"> <strong>Name</strong></label>
+                        <input type="hidden" value="{{this.id}}" name="editID">
+                        <input type="text" id="namenew" value="{{this.tumorName}}" name="namenew">
 
-      function closeForm() {
-        document.getElementById("popupForm").style.display = "none";
-      }
+                        <label for="description"> <strong>Description</strong> </label>
+                        <input type="hidden" value="{{this.id}}" name="editID">
+                        <input type="text" id="descnew" value="{{this.tumorDescription}}" name="descnew">
 
-      
 
-       function getTumor(n, d)
-        {
-        document.getElementById("namenew").value= n;
-        document.getElementById("descnew").value= d;
-        document.getElementById("popupForm").style.display = "block";
+                        <button type="submit" class="btn">Save</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                    </form>
 
-        } 
+                </div>
+            </div>
 
-    </script>
+            <script>
+
+                function closeForm() {
+                    document.getElementById("popupForm").style.display = "none";
+                }
+
+
+
+                function getTumor(n, d) {
+                    document.getElementById("namenew").value = n;
+                    document.getElementById("descnew").value = d;
+                    document.getElementById("popupForm").style.display = "block";
+
+                }
+
+            </script>
 
             <!-- ============================================================== -->
             <!-- End Container fluid  -->

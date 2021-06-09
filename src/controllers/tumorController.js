@@ -35,6 +35,7 @@ exports.addTumor = async (req, res) => {
             inputTumorName: tumorName,
             inputTumorDescription: tumorDescription,
             inputTumorClassNumber: tumorClassNumber,
+            user: req.user
         });
 
     }
@@ -52,7 +53,7 @@ exports.addTumor = async (req, res) => {
     console.log(all[0].tumorName);
 
 
-   return res.render("adminTumor", {tumors:all});
+    return res.render("adminTumor", { tumors: all });
 
 
 }
@@ -62,7 +63,7 @@ exports.getAllTumor = async (req, res) => {
     console.log(all[0].tumorName);
 
 
-   return res.render("adminTumor", {tumors:all});
+    return res.render("adminTumor", { tumors: all, user: req.user });
 
 }
 
@@ -71,11 +72,11 @@ exports.getAllTumor = async (req, res) => {
 exports.deleteTumor = async (req, res) => {
 
     const del = await Tumor.deleteOne({ _id: req.body.deletetumorid });
-        console.log(del);
+    console.log(del);
 
-        const all = await Tumor.find();
+    const all = await Tumor.find();
 
-    return res.render("adminTumor", {tumors:all});
+    return res.render("adminTumor", { tumors: all });
 
 }
 

@@ -23,7 +23,7 @@ router.post('/addReview', auth, addReview)
 
 
 
-router.post('/report', genReport);
+router.post('/report',auth, genReport);
 
 // splite or remove sidebar menu
 
@@ -46,9 +46,9 @@ router.post('/adminFAQ', auth, notAdminRedirectProfile, deleteFAQ)
 router.post('/editFAQ', editFAQ)
 
 
-router.post('/profile', deletePatient);
+router.post('/profile', auth,deletePatient);
 router.post('/adminPathologistsList', auth, notAdminRedirectProfile, deletePathologist)
-router.post('/editPat', editPatient)
-router.post('/editPath', editPathologist)
+router.post('/editPat', auth,editPatient)
+router.post('/editPath',auth, editPathologist)
 
 module.exports = router;

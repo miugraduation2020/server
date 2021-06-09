@@ -37,7 +37,7 @@ exports.getAllFAQ = async (req, res) => {
     const allFAQ = await FAQ.find({});
     console.log(allFAQ);
 
-    return res.render("adminFAQ", { faqs: allFAQ });
+    return res.render("adminFAQ", { faqs: allFAQ, user: req.user });
 
 }
 

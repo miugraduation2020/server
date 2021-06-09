@@ -430,7 +430,7 @@ exports.getPatients = async (req, res) => {
     const allPate = await User.find().where('type').equals('Patient');
     console.log(allPate[0]);
 
-    return res.render("adminPatientsList", { pateints: allPate });
+    return res.render("adminPatientsList", { pateints: allPate, user: req.user });
 
 }
 
