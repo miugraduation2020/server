@@ -140,14 +140,15 @@
                                             </td>
                                             <form>
                                                 <td style="text-align:center;"> 
-                                                <input type="hidden" value="{{this.id}}" name="editpathologistid">
+                                                <input type="hidden" value="{{this.id}}" name="editpathid">
                                             </form> 
-                                             <button class="btn" onclick='getPath("{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")' name="editid"><i class="far fa-edit"></i></button>
+                                             <button class="btn" onclick='getPath("{{this.id}}","{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")' name="editid"><i class="far fa-edit"></i></button>
                                                 </td>
 
                                             <form action="adminPathologistsList" method="POST">
                                                 <td style="text-align:center;">
-                                               <input type="hidden" value="{{this.id}}" name="deletepathid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
+                                               <input type="hidden" value="{{this.id}}" 
+                                               name="deletepathid"><button type="submit" class="btn"><i class="fa fa-trash"></i></button>
                                             </td>
                                             </form>
                                         </tr>
@@ -178,23 +179,19 @@
           <h2>Edit fields</h2>
 
           <label for="fname"> <strong>First Name</strong></label>
-              <input type="hidden" value="{{this.id}}" name="editID" id="editID">
+              <input type="hidden" value="{{this.id}}" name="editpathid" id="editpathid">
                <input type="text" id="fnamenew" value="{{this.firstName}}" name="fnamenew">
           
           <label for="lname"> <strong>Last Name</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                 <input type="text" id="lnamenew" value="{{this.lastName}}" name="lnamenew">
            
            <label for="email"> <strong>Email</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                 <input type="text" id="emailnew" value="{{this.email}}" name="emailnew">
            
            <label for="phone"> <strong>Phone</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                 <input type="text" id="phonenew" value="{{this.phoneNumber}}" name="phonenew">
 
            <label for="dob"> <strong>Date of Birth</strong> </label>
-                <input type="hidden" value="{{this.id}}" name="editID" id="editID">
                 <input type="date" id="dobnew" value="{{this.dateOfBirth}}" name="dobnew">
 
            
@@ -214,8 +211,9 @@
       }
 
       
-       function getPath(fname,lname,email,phone,dob)
+       function getPath(ID,fname,lname,email,phone,dob)
         {
+        document.getElementById("editpathid").value = ID;
         document.getElementById("fnamenew").value= fname;
         document.getElementById("lnamenew").value= lname;
         document.getElementById("emailnew").value= email;
