@@ -10,6 +10,8 @@ const Pathologist = mongoose.model('Pathologist', PathologistSchema);
 const { generateToken } = require('./sessionController')
 const dotenv = require("dotenv");
 const bcrypt = require('bcrypt');
+const { ObjectID } = require('bson');
+
 
 dotenv.config();
 var sess;
@@ -522,9 +524,9 @@ exports.deletePathologist = async (req, res) => {
 //edit pathologist
 
 exports.editPathologist = async (req, res) => {
-    const { editID, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
+    const { editpathid, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
 
-    const pat = await User.findByIdAndUpdate({ _id: editID }, {
+    const path = await User.findByIdAndUpdate({ _id: new Object(editpathid) }, {
         firstName: fnamenew,
         lastName: lnamenew,
         phoneNumber: phonenew,
@@ -532,22 +534,22 @@ exports.editPathologist = async (req, res) => {
         dateOfBirth: dobnew
     });
 
-    if (!pat) {
+    if (!path) {
         return res
             .status(406)
             .send({ error: "Pathologist does not exists" });
     }
 
 
-    res.send({ response: "Pathologist data renewed successfully!" });
+    res.redirect('adminPathologistsList');
 };
 
-//edit pathologist
+//edit patient
 
 exports.editPatient = async (req, res) => {
-    const { editID, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
+    const { editpatid, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
 
-    const pat = await User.findByIdAndUpdate({ _id: editID }, {
+    const pat = await User.findByIdAndUpdate({ _id: new Object(editpatid) }, {
         firstName: fnamenew,
         lastName: lnamenew,
         phoneNumber: phonenew,
@@ -562,5 +564,5 @@ exports.editPatient = async (req, res) => {
     }
 
 
-    res.send({ response: "User data renewed successfully!" });
+    res.redirect('adminPatientsList');
 };
