@@ -181,7 +181,7 @@ exports.addReview = async (req, res) => {
     console.log("check#: " + reportID)
 
     const report = await Report.findByIdAndUpdate(reportID, { pathComments: comments })
-    return res.redirect('patientReportsList')
+    return res.redirect('pathReportsList')
 }
 
 //get all reports
