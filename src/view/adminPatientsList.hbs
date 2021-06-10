@@ -163,7 +163,7 @@
                                                     <input type="hidden" value="{{this.id}}" name="editpatid">
                                             </form>
                                             <button class="btn"
-                                                onclick='getPat("{{this.id}}","{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")'
+                                                onclick='event.preventDefault(); getPat("{{this.id}}","{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")'
                                                 name="editid"><i class="far fa-edit"></i></button>
                                             </td>
 
