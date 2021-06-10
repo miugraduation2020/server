@@ -24,6 +24,7 @@ exports.addUser = async (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const phoneNumber = req.body.phoneNumber;
+    const ssn = req.body.ssn;
     const password = req.body.password;
     const confPassword = req.body.confPassword;
     const type = req.body.type;
@@ -32,14 +33,20 @@ exports.addUser = async (req, res) => {
     const gender = req.body.gender;
 
     const code = Math.floor(1000 + Math.random() * 9000);
-    const errors = { email: [], password: [], confPassword: [] };
+    const errors = { email: [], ssn: [], password: [], confPassword: [] };
     const emailError = [];
+    const ssnError = [];
     const user = await User.findOne({ email });
+    const ssnCheck = await User.findOne({ ssn });
 
     //Check if user exists
     if (user) {
         errors.email.push("User already exists");
         emailError.push("User already exists");
+    }
+    if (ssnCheck) {
+        errors.ssn.push("User already exists");
+        ssnError.push("User already exists");
     }
     try {
         //Password Validation
@@ -66,6 +73,7 @@ exports.addUser = async (req, res) => {
 
         if (
             errors.email.length ||
+            errors.ssn.length ||
             errors.password.length ||
             errors.confPassword.length
         ) {
@@ -76,6 +84,7 @@ exports.addUser = async (req, res) => {
                 inputFName: firstName,
                 inputLName: lastName,
                 inputPhoneNumber: phoneNumber,
+                inputSsn: ssn,
                 inputPassword: password,
                 inputConfPassword: confPassword,
                 inputType: type,
@@ -95,6 +104,7 @@ exports.addUser = async (req, res) => {
             lastName,
             phoneNumber,
             password,
+            ssn,
             type,
             address,
             dateOfBirth,
@@ -421,7 +431,7 @@ exports.getPathologists = async (req, res) => {
     const allPath = await User.find().where('type').equals('Pathologist');
     console.log(allPath[0]);
 
-    return res.render("adminPathologistsList", { pathologists: allPath, user: req.user  });
+    return res.render("adminPathologistsList", { pathologists: allPath, user: req.user });
 }
 
 
@@ -442,19 +452,19 @@ exports.getPatients = async (req, res) => {
 exports.searchPatient = async (req, res) => {
     const searchby = req.body.searchby;
     const search = req.body.searchPt;
-    
-    
+
+
 
     if (searchby == 'Name') {
         const pname = req.body.searchPt.split(' ');
         if (pname[1]) {
-            const allPate = await User.find({ lastName: { $regex: new RegExp("^" + pname[1].toLowerCase(), "i") } , firstName: { $regex: new RegExp("^" + pname[0].toLowerCase(), "i") }  });
+            const allPate = await User.find({ lastName: { $regex: new RegExp("^" + pname[1].toLowerCase(), "i") }, firstName: { $regex: new RegExp("^" + pname[0].toLowerCase(), "i") } });
             return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
         }
         else {
-      
 
-            const allPate = await User.find({firstName: { $regex: new RegExp("^" + pname[0].toLowerCase(), "i") } });
+
+            const allPate = await User.find({ firstName: { $regex: new RegExp("^" + pname[0].toLowerCase(), "i") } });
 
             return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
         }
@@ -465,7 +475,7 @@ exports.searchPatient = async (req, res) => {
     if (searchby == 'Email') {
         email = search.replace(/\s/g, '');
 
-        const allPate = await User.find({email: { $regex: new RegExp("^" + email.toLowerCase(), "i") } });
+        const allPate = await User.find({ email: { $regex: new RegExp("^" + email.toLowerCase(), "i") } });
 
 
         return res.render("adminPatientsList", { pateints: allPate, choice: searchby, search: search });
@@ -524,7 +534,7 @@ exports.deletePathologist = async (req, res) => {
 //edit pathologist
 
 exports.editPathologist = async (req, res) => {
-    const { editpathid, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
+    const { editpathid, fnamenew, lnamenew, emailnew, dobnew, phonenew } = req.body;
 
     const path = await User.findByIdAndUpdate({ _id: new Object(editpathid) }, {
         firstName: fnamenew,
@@ -547,7 +557,7 @@ exports.editPathologist = async (req, res) => {
 //edit patient
 
 exports.editPatient = async (req, res) => {
-    const { editpatid, fnamenew,lnamenew, emailnew,dobnew,phonenew } = req.body;
+    const { editpatid, fnamenew, lnamenew, emailnew, dobnew, phonenew } = req.body;
 
     const pat = await User.findByIdAndUpdate({ _id: new Object(editpatid) }, {
         firstName: fnamenew,

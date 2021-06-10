@@ -43,6 +43,10 @@ const UserSchema = new Schema({
         type: String,
         required: 'Enter phoneNumber'
     },
+    ssn: {
+        type: String,
+
+    },
     isVerified: {
         type: Boolean,
         default: false,
