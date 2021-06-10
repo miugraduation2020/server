@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { TumorSchema } = require('../models/tumorModel');
 const Tumor = mongoose.model('Tumor', TumorSchema);
+const { ObjectID } = require('bson');
 const hbs = require('hbs');
 
 exports.addTumor = async (req, res) => {
@@ -83,9 +84,9 @@ exports.deleteTumor = async (req, res) => {
 //edit tumor
 
 exports.editTumor = async (req, res) => {
-    const { editID, namenew, descnew } = req.body;
+    const { edittumorid, namenew, descnew } = req.body;
 
-    const tumor = await Tumor.findByIdAndUpdate({ _id: editID }, {
+    const tumor = await Tumor.findByIdAndUpdate({ _id: new ObjectID(edittumorid) }, {
         tumorName: namenew,
         tumorDescription: descnew
     });
@@ -95,6 +96,6 @@ exports.editTumor = async (req, res) => {
             .send({ error: "Tumor does not exists" });
     }
 
-
-    res.send({ response: "Tumor data updated successfully!" });
+    
+    res.redirect('adminTumor');
 };
