@@ -158,12 +158,12 @@
 
                                             <td>view</td>
 
-                                            <form>
+                                            <form >
                                                 <td style="text-align:center;">
-                                                    <input type="hidden" value="{{this.id}}" name="editpatientid">
+                                                    <input type="hidden" value="{{this.id}}" name="editpatid">
                                             </form>
                                             <button class="btn"
-                                                onclick='getPat("{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")'
+                                                onclick='getPat("{{this.id}}","{{this.firstName}}","{{this.lastName}}","{{this.email}}","{{this.phoneNumber}}","{{this.dateOfBirth}}")'
                                                 name="editid"><i class="far fa-edit"></i></button>
                                             </td>
 
@@ -201,25 +201,21 @@
                     <form action="/editPat" class="formContainer" method="POST">
 
                         <h2>Edit fields</h2>
+                        <input type="hidden" value="{{editpatid}}" name="editpatid" id="editpatid">
 
                         <label for="fname"> <strong>First Name</strong></label>
-                        <input type="hidden" value="{{this.id}}" name="editID">
                         <input type="text" id="fnamenew" value="{{this.firstName}}" name="fnamenew">
 
                         <label for="lname"> <strong>Last Name</strong> </label>
-                        <input type="hidden" value="{{this.id}}" name="editID">
                         <input type="text" id="lnamenew" value="{{this.lastName}}" name="lnamenew">
 
                         <label for="email"> <strong>Email</strong> </label>
-                        <input type="hidden" value="{{this.id}}" name="editID">
                         <input type="text" id="emailnew" value="{{this.email}}" name="emailnew">
 
                         <label for="phone"> <strong>Phone</strong> </label>
-                        <input type="hidden" value="{{this.id}}" name="editID">
                         <input type="text" id="phonenew" value="{{this.phoneNumber}}" name="phonenew">
 
                         <label for="dob"> <strong>Date of Birth</strong> </label>
-                        <input type="hidden" value="{{this.id}}" name="editID">
                         <input type="date" id="dobnew" value="{{this.dateOfBirth}}" name="dobnew">
 
 
@@ -240,7 +236,9 @@
 
 
 
-                function getPat(fname, lname, email, phone, dob) {
+                function getPat(ID,fname, lname, email, phone, dob)
+                 {
+                    document.getElementById("editpatid").value = ID;
                     document.getElementById("fnamenew").value = fname;
                     document.getElementById("lnamenew").value = lname;
                     document.getElementById("emailnew").value = email;
@@ -248,14 +246,6 @@
                     document.getElementById("dobnew").value = dob;
                     document.getElementById("popupForm").style.display = "block";
 
-                }
-
-                var modal = document.getElementById('popupForm');
-
-                window.onclick = function (event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
                 }
 
             </script>
