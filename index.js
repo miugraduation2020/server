@@ -85,21 +85,21 @@ const crypto = require("crypto");
 const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 const fs = require('fs');
-
+const mongo = require("mongodb")
 const conn = mongoose.createConnection(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
   
-// init gfs
-let gfs;
+// init gfsdb
+let gfsdb;
 let Ifilename;
 let Ipatient;
 let Ipathologist;
 conn.once("open", () => {
   // init stream
-
-  gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+  
+  gfsdb = new mongo.GridFSBucket(conn.db, {
     bucketName: "uploads"
   });
 });
@@ -135,7 +135,7 @@ const upload =  multer({
 });
 
 
-app.post("/upload",upload.single('file'),  (req, res) => {
+app.post("/upload",upload.single('file'), (req, res) => {
         
         //ADD IMAGE FUNCTION
         this.downloadImage();
@@ -153,7 +153,7 @@ exports.downloadImage= async () => {
         path.join(__dirname, "src\\models\\DiagnosisImages\\"+Ifilename)
     );
     
-    var readstream = await gfs.createReadStream({
+    var readstream = await gfsdb.createReadStream({
         filename: Ifilename
     });
     readstream.pipe(fsstreamwrite);
@@ -166,7 +166,7 @@ exports.downloadImage= async () => {
 // // files/del/:id
 // // Delete chunks from the db
 // app.post("/files/del/:id", (req, res) => {
-//   gfs.delete(new mongoose.Types.ObjectId(req.params.id), (err, data) => {
+//   gfsdb.delete(new mongoose.Types.ObjectId(req.params.id), (err, data) => {
 //     if (err) return res.status(404).json({ err: err.message });
 //     res.redirect("/");
 //   });

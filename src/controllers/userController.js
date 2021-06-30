@@ -11,6 +11,7 @@ const { generateToken } = require('./sessionController')
 const dotenv = require("dotenv");
 const bcrypt = require('bcrypt');
 const { ObjectID } = require('bson');
+const {assignPatients} = require("../controllers/pathologistController")
 
 
 dotenv.config();
@@ -122,6 +123,7 @@ exports.addUser = async (req, res) => {
 
             if (user.type == "Pathologist") {
                 pathologist.save().then(pathologist => console.log('The Pathologist ' + pathologist + ' has been added.'))
+
 
             }
 

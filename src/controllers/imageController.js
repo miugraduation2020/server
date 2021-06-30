@@ -1,19 +1,18 @@
-
-
+const express = require("express");
+const session = require("express-session")
 const mongoose = require('mongoose');
-
 const { UserSchema } = require('../models/userModel');
 const User = mongoose.model('User', UserSchema);
-
 const { ImageSchema } = require('../models/imagesModel')
 const Image = mongoose.model('Image', ImageSchema)
-
+const { createReadStream } = require('fs');
+const { createModel } = require('mongoose-gridfs');
+var connection = mongoose.connection;
 const model = require('./modelController')
-
 const { addNewReport } = require('./reportController')
 
 
-    exports.addImage = async (filename,Ipatientid,Ipathologistid) => {
+    exports.addImage = async (filename,Ipatientid,Ipathologistid,fileId,gfs) => {
 
    
     const imgPath = "src\\models\\DiagnosisImages\\"+filename
@@ -45,6 +44,9 @@ const { addNewReport } = require('./reportController')
             tumorID,
             image._id) }, console.log(image._id +'iJBSR'+ uploadDate+'SNB'+patientID));
 
+ 
+
+
     });
     
 
@@ -56,5 +58,4 @@ const { addNewReport } = require('./reportController')
 
 
 
-// function make tumorID of add this function in the model controllet and call it in addImage function  
-
+// function make tumorID of add this function in the model controllet and call it in addImage function

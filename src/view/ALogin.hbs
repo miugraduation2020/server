@@ -1,50 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> Admin Login</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="css/styleReg.css">
+    {{!--
+    <link rel="stylesheet" href="css/styleReg.css"> --}}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/line-icons.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/nivo-lightbox.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- <link rel="stylesheet" href="css/color-switcher.css"> -->
+    <link rel="stylesheet" href="css/menu_sideslide.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
+
 <body>
 
-    <div class="main">
-        <section class="signup">
-            <!-- <img src="images/signup-bg.jpg" alt=""> -->
-            <div class="container">
-                <div class="signup-content">
-                    <form method="POST" id="signup-form" class="signup-form" action="adminSignIn">
-                        <h2 class="form-title">Welcome Back Admin!</h2>
-                        
-                        <div class="form-group">
-                            <input type="email" class="form-input" name="email" required id="email" placeholder="Your Email"/>
+    <div id="subscribe" class="section">
+        <!-- <img src="images/signup-bg.jpg" alt=""> -->
+        <div class="container">
+            <div class="signup-content">
+                <div class="row justify-content-between">
+                    <div class="col-lg-5 col-md-12 col-xs-12">
+                        <div class="subscribe-form">
+                            <div class="form-wrapper">
+                                <div class="sub-title text-center">
+                                    <h3>Login</h3>
+                                    <p>Welcome Back!</p>
+                                </div>
+                                <form method="POST" id="signup-form" class="signup-form" action="adminSignIn">
+                                    <div class="row">
+                                        <div class="col-12 form-line">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" name="email" required
+                                                    id="email" placeholder="Your Email" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-line">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="password" required
+                                                    id="password" placeholder="Password" />
+                                            </div>
+                                            <span toggle="#password"
+                                                class="zmdi zmdi-eye field-icon toggle-password"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-submit">
+                                            <button type="submit" name="submit" id="submit"
+                                                class="btn btn-common btn-effect">Sign In</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-input" name="password" required id="password" placeholder="Password"/>
-                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                        </div>
-                        
-                        <div class="form-group">
-                            <a href="dashboard.html" style="color: transparent;">dashboard</a>
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign in" 
-                            href='dashboard.html' />
-                        </div>
-                    </form>
-                  
+                    </div>
                 </div>
             </div>
-        </section>
-
+        </div>
     </div>
 
+
+    <script src="js/jquery-min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/classie.js"></script>
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
@@ -59,4 +96,5 @@
     <script src="../routes/userRoutes.js"></script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>
