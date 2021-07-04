@@ -44,6 +44,7 @@ router.get('/adminFAQ', auth, notAdminRedirectProfile, getAllFAQ)
 router.post('/addfaq', auth, notAdminRedirectProfile, addFAQ)
 router.post('/adminFAQ', auth, notAdminRedirectProfile, deleteFAQ)
 router.post('/editFAQ', editFAQ)
+router.post('/adminFAQ',deleteFAQ)
 
 
 router.post('/profile', auth,deletePatient);
