@@ -1,6 +1,6 @@
 // Imported Route Files
 
-const FAQRouter = require('./src/routes/FAQRoutes');
+// const FAQRouter = require('./src/routes/FAQRoutes');
 const userRouter = require('./src/routes/userRoute');
 const tumorRouter = require('./src/routes/tumorRoutes');
 const pageRouter = require('./src/routes/pagesRoutes');
@@ -75,7 +75,7 @@ app.use(userRouter);
 app.use(tumorRouter);
 app.use(pageRouter);
 app.use(pathologistRouter);
-app.use(FAQRouter);
+// app.use(FAQRouter);
 app.use(imageRouter);
 app.use(reportRouter);
 
