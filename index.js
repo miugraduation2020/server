@@ -42,12 +42,12 @@ app.use(session({
   secret: 'soktom boktom',
   saveUninitialized: true,
   resave: false,
-  cookie: {
-    sameSite: true,
-    expires: false,
-    secure: true,
-    maxAge: 60000
-  }
+  // cookie: {
+  //   sameSite: true,
+  //   expires: false,
+  //   secure: true,
+  //   maxAge: 60000
+  // }
 
 }));
 
