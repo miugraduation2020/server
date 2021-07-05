@@ -30,7 +30,7 @@ router.get('/PathLogin', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    res.render('patientsLogin')
+    res.render('login')
 });
 
 router.get('/dashboard', auth, (req, res) => {

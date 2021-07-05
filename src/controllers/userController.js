@@ -187,7 +187,7 @@ exports.signIn = async (req, res, next) => {
         if (errors.email.length ||
             errors.password.length
         ) {
-            return res.render('patientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
+            return res.render('login', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
         } else {
 
             // user.generateAuthToken();
