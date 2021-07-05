@@ -35,27 +35,13 @@ const PORT = 4000;
 mongoose.Promise = global.Promise;
 
 // Session 
-app.set('trust proxy', 1);
-
 app.use(session({
-  secret: 'soktom boktom', 
-  saveUninitialized: true, 
-  resave: false, 
-  cookie:{
+  secret: 'soktom boktom', saveUninitialized: false, resave: true, cookie: {
     sameSite: true,
-    expires: false,
-    secure: true,
-    maxAge:60000
+    secure: false,
+    expires: false
   }
-  
 }));
-
-app.use(function(req,res,next){
-  if(!req.session){
-      return next(new Error('Oh no')) //handle error
-  }
-  next() //otherwise continue
-  });
 //bodyParser setup
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
