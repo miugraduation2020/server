@@ -36,6 +36,10 @@ mongoose.Promise = global.Promise;
 
 // Session 
 app.use(session({
+  cookie: {
+    secure: true,
+    maxAge: 60000
+  },
   secret: 'soktom boktom', saveUninitialized: false, resave: true, cookie: {
     sameSite: true,
     secure: false,
