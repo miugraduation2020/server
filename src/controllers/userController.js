@@ -11,7 +11,7 @@ const { generateToken } = require('./sessionController')
 const dotenv = require("dotenv");
 const bcrypt = require('bcrypt');
 const { ObjectID } = require('bson');
-const {assignPatients} = require("../controllers/pathologistController")
+const { assignPatients } = require("../controllers/pathologistController")
 
 
 dotenv.config();
@@ -187,7 +187,7 @@ exports.signIn = async (req, res, next) => {
         if (errors.email.length ||
             errors.password.length
         ) {
-            return res.render('PatientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
+            return res.render('patientsLogin', { errors: errors, inputEmail: email, inputPassword: password, message: "Forgot Password?" })
         } else {
 
             // user.generateAuthToken();
