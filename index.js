@@ -22,6 +22,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
+var MemoryStore = require('memorystore')(session)
 const jwt = require("jsonwebtoken");
 var cookieParser = require('cookie-parser');
 
@@ -39,12 +40,10 @@ app.use(session({
   secret: 'soktom boktom',
   saveUninitialized: true,
   resave: false,
-  cookie: {
-    secure: true,
-    // sameSite: true,
-    // secure: false,
-    // expires: false
-  }
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
 }));
 //bodyParser setup
 app.use(bodyParser.urlencoded({ extended: false }));
