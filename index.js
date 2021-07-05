@@ -41,9 +41,9 @@ app.use(session({
   resave: false,
   cookie: {
     secure: true,
-    sameSite: true,
-    secure: false,
-    expires: false
+    // sameSite: true,
+    // secure: false,
+    // expires: false
   }
 }));
 //bodyParser setup
