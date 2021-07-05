@@ -36,7 +36,11 @@ mongoose.Promise = global.Promise;
 
 // Session 
 app.use(session({
-  secret: 'soktom boktom', saveUninitialized: false, resave: true, cookie: {
+  secret: 'soktom boktom',
+  saveUninitialized: true,
+  resave: false,
+  cookie: {
+    secure: true,
     sameSite: true,
     secure: false,
     expires: false
