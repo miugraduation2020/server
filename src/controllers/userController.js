@@ -20,7 +20,7 @@ var sess;
 
 /* Add New User */
 
-exports.addUser = async (req, res) => {
+exports.addUsers = async (req, res) => {
     const email = req.body.email;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
@@ -79,7 +79,7 @@ exports.addUser = async (req, res) => {
             errors.confPassword.length
         ) {
 
-            return res.render('AddUser', {
+            return res.render('addUserss', {
                 errors: errors,
                 inputEmail: email,
                 inputFName: firstName,
@@ -144,7 +144,7 @@ exports.addUser = async (req, res) => {
             from: "miu.graduation2020@gmail.com",
         });
 
-        res.render('AddUser')
+        res.render('addUsers')
 
     } catch (err) {
         console.log(`${res.status(406).send({ error: err.message })}`);

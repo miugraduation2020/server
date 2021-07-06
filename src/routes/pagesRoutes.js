@@ -10,9 +10,9 @@ const { getPathRepProfile } = require('../controllers/reportController')
 
 
 
-router.get('/addUser',
+router.get('/addUsers',
     (req, res) => {
-        res.render('addUser')
+        res.render('addUsers')
     }
 );
 router.get('', loggedIn,
