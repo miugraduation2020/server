@@ -8,7 +8,7 @@ const router = new express.Router()
 
 
 router.get('/user', (req, res) => {
-    res.render('addUser')
+    res.render('addUsers')
 });
 router.get('/adminPatientsList', auth, notAdminRedirectProfile, getPatients);
 router.get('/adminPathologistsList', auth, notAdminRedirectProfile, getPathologists);
@@ -23,7 +23,7 @@ router.post('/addReview', auth, addReview)
 
 
 
-router.post('/report',auth, genReport);
+router.post('/report', auth, genReport);
 
 // splite or remove sidebar menu
 
@@ -44,12 +44,12 @@ router.get('/adminFAQ', auth, notAdminRedirectProfile, getAllFAQ)
 router.post('/addfaq', auth, notAdminRedirectProfile, addFAQ)
 router.post('/adminFAQ', auth, notAdminRedirectProfile, deleteFAQ)
 router.post('/editFAQ', editFAQ)
-router.post('/adminFAQ',deleteFAQ)
+router.post('/adminFAQ', deleteFAQ)
 
 
-router.post('/profile', auth,deletePatient);
+router.post('/profile', auth, deletePatient);
 router.post('/adminPathologistsList', auth, notAdminRedirectProfile, deletePathologist)
-router.post('/editPat', auth,editPatient)
-router.post('/editPath',auth, editPathologist)
+router.post('/editPat', auth, editPatient)
+router.post('/editPath', auth, editPathologist)
 
 module.exports = router;

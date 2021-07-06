@@ -20,7 +20,7 @@ var sess;
 
 /* Add New User */
 
-exports.addUsers = async (req, res) => {
+exports.addUser = async (req, res) => {
     const email = req.body.email;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
@@ -79,7 +79,7 @@ exports.addUsers = async (req, res) => {
             errors.confPassword.length
         ) {
 
-            return res.render('addUserss', {
+            return res.render('addUsers', {
                 errors: errors,
                 inputEmail: email,
                 inputFName: firstName,
