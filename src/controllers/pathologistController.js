@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const { UserSchema } = require('../models/userModel');
 const User = mongoose.model('User', UserSchema);
+const sendEmail = require("send-email");
 
 const { PathologistSchema } = require('../models/pathologistModel');
 const Pathologist = mongoose.model("Pathologist", PathologistSchema);
@@ -17,9 +18,9 @@ exports.getPathologistsPatients = async (req, res) => {
     const pathologistReq = await Pathologist.findOne({ 'userId': pathologist });
     const pathologistData = await User.findById(pathologist);
 
-    
+
     //Pathologist Data
-    const pathologistName= `Dr. ${pathologistData.firstName} ${pathologistData.lastName}`
+    const pathologistName = `Dr. ${pathologistData.firstName} ${pathologistData.lastName}`
 
 
     //Get Patients assigned for the Pathologist + their data
@@ -33,9 +34,9 @@ exports.getPathologistsPatients = async (req, res) => {
 
     return res.render("adminAssign", {
 
-        assigned: patientsList, 
-        unassigned: unassignedPatients, 
-        pathologistID: pathologist, 
+        assigned: patientsList,
+        unassigned: unassignedPatients,
+        pathologistID: pathologist,
         pathologistName: pathologistName
 
     });
@@ -52,10 +53,23 @@ exports.assignPatients = async (req, res) => {
     const pp = req.body.patientsToAssign;
 
     // Updating the Pathologist's recored in the 'pathologist' collection by adding the new patients to the assignedPatients list
+    // const getPathologist = await Pathologist.findOne({ 'userId': pathologist });
+    // const pathologistUId = getPathologist.userId;
+    const pathDetails = await User.findOne({ _id: pathologist });
     await Pathologist.updateOne({ 'userId': pathologist }, { $push: { assignedPatients: pp } })
-        // console.log("done1")
+    // console.log("done1")
 
-    
+    console.log(" test   " + pathDetails);
+    sendEmail({
+        to: pathDetails.email,
+        subject: "You've been assigned ",
+        html: `<div>
+          <h2>Hi there!</h2>
+          <h3>Please open your account to check your patient.</h3>
+     
+        </div>`,
+        from: "miu.graduation2020@gmail.com",
+    });
     // Updating Patients Records From Unassigned to assigned
     // Making sure if we are receiveing the multiple unassigned patients (Array) or only one (String)
     if (Array.isArray(pp)) {
@@ -63,17 +77,17 @@ exports.assignPatients = async (req, res) => {
             const element = pp[index];
             await assigning(element);
         }
-    } else { 
-        await assigning(pp) 
+    } else {
+        await assigning(pp)
     }
 
-        // console.log("CheckPath#1: "+newPatients);
-        // console.log("CheckPath#2: "+pathologist);
-        // console.log("CheckPath#3: "+pp)
+    // console.log("CheckPath#1: "+newPatients);
+    // console.log("CheckPath#2: "+pathologist);
+    // console.log("CheckPath#3: "+pp)
 
     return res.render('assigningConfirmation', {
 
-        pathologist: pathologist, 
+        pathologist: pathologist,
         newPatients: pathologist
     })
 }
@@ -94,7 +108,7 @@ async function assigning(patEmail) {
 async function getAssignedPatient(patients) {
 
     const patientData = [];
-    
+
     for (let index = 0; index < patients.length; index++) {
 
         const element = patients[index];
@@ -102,7 +116,7 @@ async function getAssignedPatient(patients) {
         patientData.push(p);
     }
 
-        //console.log("CheckPath#4: "+ patientData);
+    //console.log("CheckPath#4: "+ patientData);
 
     return patientData;
 }
@@ -127,10 +141,10 @@ exports.getMyPatients = async (req, res) => {
         const patients = pathologistReq.assignedPatients;
         const myPatientsList = await getAssignedPatient(patients);
 
-            // console.log("CheckPath#5: "+"id" + pathologist)
-            // console.log("CheckPath#6: "+ 'path' + pathologistReq)
+        // console.log("CheckPath#5: "+"id" + pathologist)
+        // console.log("CheckPath#6: "+ 'path' + pathologistReq)
 
-        return res.render('pathPatientsList', { myPatients: myPatientsList,user: req.user  });
+        return res.render('pathPatientsList', { myPatients: myPatientsList, user: req.user });
 
     }
 }
@@ -139,9 +153,9 @@ exports.getMyPatients = async (req, res) => {
 
 async function getUnassigned() {
 
-    const patients = await User.find({ type: 'Patient', isAssigned:false});
+    const patients = await User.find({ type: 'Patient', isAssigned: false });
 
-        //console.log("CheckPath#7: "+ patients)
+    //console.log("CheckPath#7: "+ patients)
 
     return patients
 
@@ -151,13 +165,13 @@ async function getUnassigned() {
 
 exports.getPatAndPath = async (req, res) => {
 
-    const patientId = req.body.patient;    
+    const patientId = req.body.patient;
     const Path = req.user
 
     const patientData = await User.findById(patientId)
 
-        // console.log("Check#8: PathologistEmail"+ Path.email)
-        // console.log("CheckPath#9: "+" patient ID: " + patientId);
+    // console.log("Check#8: PathologistEmail"+ Path.email)
+    // console.log("CheckPath#9: "+" patient ID: " + patientId);
 
     return res.render("pathGenReport", { patient: patientData, user: Path });
 
