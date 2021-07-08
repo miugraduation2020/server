@@ -30,6 +30,10 @@ const ReportSchema = new Schema({
         require: true
 
     },
+    approved:{
+        type:Boolean
+        
+    },
     pathComments:{
         type:String
     }
