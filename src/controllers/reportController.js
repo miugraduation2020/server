@@ -44,7 +44,7 @@ exports.genReport = async (req, res) => {
 
 }
 
-exports.addNewReport = async (patientID, pathologistID, tumorID, imageID) => {
+exports.addNewReport = async (patientID, pathologistID, tumorID, imageID,approved) => {
 
     const genDate = Date.now();
     const newReport =
@@ -55,6 +55,7 @@ exports.addNewReport = async (patientID, pathologistID, tumorID, imageID) => {
                 pathologistID,
                 tumorID,
                 imageID,
+                approved
             }
         )
     await newReport.save().then(newReport => console.log("new Report add:" + newReport._id));
@@ -62,7 +63,7 @@ exports.addNewReport = async (patientID, pathologistID, tumorID, imageID) => {
         patientID + ' &$% ' +
         pathologistID + ' &$% ' +
         tumorID + ' &$% ' +
-        imageID)
+        imageID+ '&$%' + approved)
 
 
 }
@@ -125,13 +126,22 @@ exports.getUserReports = async (ID, userType) => {
 /* Get Pathologist Reports*/
 
 exports.getPateReports = async (req, res) => {
+    var approvedreports=[];
     userID = req.user._id;
     userType = req.user.type;
     console.log(' check #1:' + userID + ' check #2:' + userType)
     const reports = await this.getUserReports(userID, userType)
-    console.log("check #3: " + reports[0])
-    return res.render("patientReportsList", { reports: reports, user: req.user });
-}
+    console.log("check #3: " + reports[7].approved)
+        reports.forEach(element => {
+            console.log(element.approved);
+            if(element.approved==true){
+            approvedreports.push(element)
+            }
+          });   
+          console.log(approvedreports);
+          return res.render("patientReportsList", { reports: approvedreports, user: req.user });
+
+        }
 
 exports.getPathPatientRep = async (req, res) => {
     userID = req.body.patient;
@@ -183,6 +193,26 @@ exports.addReview = async (req, res) => {
     const report = await Report.findByIdAndUpdate(reportID, { pathComments: comments })
     return res.redirect('pathReportsList')
 }
+
+
+exports.approveReport = async (req, res) => {
+
+    pathologistID = req.user._id;
+    reportID = req.body.repID;
+    aprv = req.body.aprvbtn;
+
+  
+    
+    if (aprv == "Approve"){
+    const report = await Report.findByIdAndUpdate(reportID, { approved: true })
+
+}
+    else{
+    const report = await Report.findByIdAndUpdate(reportID, { approved: false })}
+    userID = req.body.patID;
+    userType = 'Patient';
+    const reports = await this.getUserReports(userID, userType)
+    return res.render("pathPatientsReports", { reports: reports ,user:req.user});}
 
 //get all reports
 //get a report
