@@ -2,7 +2,7 @@ const express = require('express');
 const { addUser, signIn, verifyEmail, forgotPassword, changePassword, getUsersData, getPatients, getPathologists, searchPatient, deletePatient, deletePathologist, editPathologist, editPatient } = require('../controllers/userController');
 const { destroySession, auth, notAdminRedirectProfile } = require('../controllers/sessionController')
 const { addFAQ, getAllFAQ, deleteFAQ, editFAQ } = require("../controllers/FAQcontroller")
-const { getAllReports, genReport, getPathReports, getPateReports, getPathRepProfile, getPathPatientRep, addReview, reportReview } = require("../controllers/reportController")
+const { getAllReports, genReport, getPathReports, getPateReports, getPathRepProfile, getPathPatientRep, addReview, reportReview,approveReport } = require("../controllers/reportController")
 
 const router = new express.Router()
 
@@ -51,5 +51,7 @@ router.post('/profile', auth, deletePatient);
 router.post('/adminPathologistsList', auth, notAdminRedirectProfile, deletePathologist)
 router.post('/editPat', auth, editPatient)
 router.post('/editPath', auth, editPathologist)
+
+router.post('/approvereport',auth, approveReport )
 
 module.exports = router;
