@@ -107,6 +107,28 @@ exports.loggedInUser = async (req, res, next) => {
 }
 
 
+exports.getUserEmail = async (req, res, next) => {
+
+    try {
+        const userId = req.user._id;
+        const user = await User.findOne({ _id: userId });
+        console.log("The user  " + user.type);
+
+        if (user.type == 'Pathologist') {
+            res.render('settings', { user: user })
+        }
+        else if (user.type == 'Patient') {
+
+            res.render('settings', { user: user })
+        }
+        else if (user.type == 'Admin') {
+            res.render('settings', { user: user })
+        }
+        else { next() }
+    } catch (error) {
+
+    }
+}
 
 //logout destroy session
 exports.destroySession = async (req, res, next) => {

@@ -57,14 +57,14 @@ nav.innerHTML = `<div class="scroll-sidebar">
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="blank.html"
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
                 aria-expanded="false">
                 <i class="fa fa-comments" aria-hidden="true"></i>
                 <span class="hide-menu">Notification</span>
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="404"
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="settings"
                 aria-expanded="false">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 <span class="hide-menu">Settings</span>

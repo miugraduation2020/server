@@ -2,7 +2,8 @@ const express = require('express');
 const router = new express.Router();
 const jwt = require("jsonwebtoken");
 const session = require('express-session');
-const { notAdminRedirectProfile, patientRedirectProfile, loggedInUser, redirectIndex, destroySession, auth, loggedIn } = require('../controllers/sessionController');
+const { notAdminRedirectProfile, patientRedirectProfile, getUserEmail, loggedInUser, redirectIndex,
+    destroySession, auth, loggedIn } = require('../controllers/sessionController');
 const { getMyPatients, getPatAndPath } = require('../controllers/pathologistController');
 const { getPathRepProfile } = require('../controllers/reportController')
 
@@ -147,7 +148,7 @@ router.get('/pathPatientProfile', auth, patientRedirectProfile, (req, res) => {
     res.render('pathPatientProfile')
 });
 
-router.get('/settings', (req, res) => {
+router.get('/settings', auth, getUserEmail, (req, res) => {
     res.render('settings')
 });
 

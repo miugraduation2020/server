@@ -338,7 +338,7 @@ exports.updatePassword = async (req, res) => {
             .status(406)
             .send({ error: "User does not exists" });
     } try {
-        await user.comparePassword(currentPasswords);
+        await user.comparePassword(currentPassword);
     } catch (error) {
         errors.currentPassword.push("Invalid password");
     }
@@ -358,8 +358,10 @@ exports.updatePassword = async (req, res) => {
         errors.confPassword.length
     ) {
         return res
-            .status(406).render('changePassword', {
+            .status(406).render('settings', {
+                user: user,
                 email: email,
+                inputCurrentPassword: currentPassword,
                 inputPassword: password,
                 inputConfPassword: confPassword,
                 errors: errors
@@ -370,14 +372,14 @@ exports.updatePassword = async (req, res) => {
 
         await User.updateOne({ email }, { $set: { password } });
 
-        res.redirect('profile')
+        res.redirect('../profile')
         // res.send(user);
     } catch (error) {
         console.log(`${res.status(406).send({ error: error.message })}`);
     }
 
 
-    res.send({ response: "Password renewed successfully!" });
+    // res.send({ response: "Password renewed successfully!" });
 };
 /*Get Current User*/
 

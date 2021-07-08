@@ -12,12 +12,72 @@
     <meta name="robots" content="noindex,nofollow">
     <title> Settings</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
-    <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
-    <link href="css/style.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="20x20" href="/plugins/images/favi.png">
+    <link href="/css/style.min.css" rel="stylesheet">
     {{!--
     <link rel="stylesheet" href="/css/styleReg.css"> --}}
 
+    <style>
+        .newSwitch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
 
+        .newSwitch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .newSlider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .newSlider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.newSlider {
+            background-color: #5cb85c;
+        }
+
+        input:focus+.newSlider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.newSlider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .newSlider.roundd {
+            border-radius: 34px;
+        }
+
+        .newSlider.roundd:before {
+            border-radius: 50%;
+        }
+    </style>
 
 </head>
 <script>
@@ -53,9 +113,13 @@
         <header class="topbar" data-navbarbg="skin5">
 
         </header>
+        {{!-- <aside class="left-sidebar" data-sidebarbg="skin6">
+
+        </aside> --}}
         <aside class="left-sidebar" data-sidebarbg="skin6">
 
         </aside>
+
         <div class="page-wrapper">
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
@@ -73,6 +137,8 @@
                     </div>
                 </div>
             </div>
+
+
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
@@ -84,85 +150,103 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">Settings</h3>
-
-                            <div class="col-sm-12" id="changeBtn">
-                                <button class="btn btn-success" style="color: aliceblue;" onclick="hide()">Change
-                                    password
-                                </button>
-                            </div>
-
-                            <div class="col-sm-12" id="cancelBtn">
-                                <button class="btn btn-danger" style="color: aliceblue;" onclick="cancel()">cancel
-                                </button>
-                            </div>
-                            <div class="col-lg-8 col-xlg-9 col-md-12">
-                                <div class="card" id="changePass">
-                                    <div class="col-lg-8 col-xlg-9 col-md-12">
+                            <div class="white-box">
+                                <!-- Column -->
+                                <div class="col-lg-8 col-xlg-9 col-md-12">
+                                    <div class="card">
                                         <div class="card-body">
-                                            <form class="form-horizontal form-material" action="/user/update-password">
+                                            <form class="form-horizontal form-material" id="add-user" name="addUsers"
+                                                method="POST" action='/user/update-password'>
+
+
+                                                <input type="hidden" name="email" value={{user.email}}>
+
                                                 <div class="form-group mb-4">
-                                                    <label class="col-md-12 p-0">Your current password</label>
+                                                    <label class="col-md-12 p-0">Your Current Password</label>
                                                     <div class="col-md-12 border-bottom p-0">
-                                                        <input type="text" class="form-control p-0 border-0"
-                                                            placeholder="Enter old password">
+                                                        <span style="color: red;">{{errors.currentPassword}}</span>
+                                                        <input placeholder="pass*****" type="password"
+                                                            value="{{inputCurrentPassword}}"
+                                                            class="form-control p-0 border-0" name='currentPassword'
+                                                            id='new-password' <%=user[i].password; %>
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-4">
-                                                    <label class="col-md-12 p-0">Your new password</label>
+                                                    <label class="col-md-12 p-0">Your New Password</label>
                                                     <div class="col-md-12 border-bottom p-0">
-                                                        <input type="text" class="form-control p-0 border-0"
-                                                            placeholder="Enter old password">
+                                                        <span style="color: red;">{{errors.password}}</span>
+                                                        <input placeholder="newpass*****" type="password"
+                                                            value="{{inputPassword}}" class="form-control p-0 border-0"
+                                                            name='password' id='new-password' <%=user[i].password; %>
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-4">
-                                                    <label class="col-md-12 p-0">Confirm password</label>
+                                                    <label class="col-md-12 p-0">Confirm Password</label>
                                                     <div class="col-md-12 border-bottom p-0">
-                                                        <input type="text" class="form-control p-0 border-0"
-                                                            placeholder="Enter old password">
+                                                        <span style="color: red;">{{errors.confPassword}}</span>
+                                                        <input placeholder="newpass*****" type="password"
+                                                            value="{{inputConfPassword}}"
+                                                            class="form-control p-0 border-0" id='confPassword'
+                                                            name="confPassword" <%=user[i].confPassword; %>
                                                     </div>
                                                 </div>
+
+
                                                 <div class="form-group mb-4">
                                                     <div class="col-sm-12">
-                                                        <button class="btn btn-success">Save</button>
+                                                        <button type="submit" id='subnewuser'
+                                                            class="btn btn-success">Change password</button>
+                                                        <!-- <input type="submit" type="button" class="btn btn-success" id="submitUser" onclick="addUsers"/> -->
                                                     </div>
                                                 </div>
                                             </form>
+                                            <h5> Get Notified by email</h5>
+
+                                            <label class="newSwitch">
+                                                <input type="checkbox" checked>
+                                                <span class="newSlider roundd "></span>
+                                            </label>
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
+
+                    <!-- ============================================================== -->
+                    <!-- End Container fluid  -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- footer -->
+                    <!-- ============================================================== -->
+
+                    <!-- ============================================================== -->
+                    <!-- End footer -->
+                    <!-- ============================================================== -->
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Container fluid  -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- footer -->
-                <!-- ============================================================== -->
-                <footer class="footer text-center"> 2021 © BCBD Using Deep Learning
-                </footer>
-                <!-- ============================================================== -->
-                <!-- End footer -->
-                <!-- ============================================================== -->
             </div>
+            <footer class="footer text-center"> 2021 © BCBD Using Deep Learning
+            </footer>
         </div>
-        <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap tether Core JavaScript -->
-        <script src="plugins/bower_components/popper.js/dist/umd/popper.min.js"></script>
-        <script src="bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="js/app-style-switcher.js"></script>
-        <!--Wave Effects -->
-        <script src="js/waves.js"></script>
-        <!--Menu sidebar -->
-        <script src="js/sidebarmenuPath.js"></script>
-        <!--Custom JavaScript -->
-        <script src="js/custom.js"></script>
-        <!--Header -->
-        <script src="js/top-bar.js"></script>
-        <script src="/vendor/jquery/jquery.min.js"></script>
-        <script src="/js/main.js"></script>
+    </div>
+
+    <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/plugins/bower_components/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/js/app-style-switcher.js"></script>
+    <!--Wave Effects -->
+    <script src="/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.js"></script>
+    <!--Header -->
+    <script src="js/top-bar.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
 
 </body>
 

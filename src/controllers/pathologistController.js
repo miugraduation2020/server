@@ -53,8 +53,7 @@ exports.assignPatients = async (req, res) => {
     const pp = req.body.patientsToAssign;
 
     // Updating the Pathologist's recored in the 'pathologist' collection by adding the new patients to the assignedPatients list
-    // const getPathologist = await Pathologist.findOne({ 'userId': pathologist });
-    // const pathologistUId = getPathologist.userId;
+
     const pathDetails = await User.findOne({ _id: pathologist });
     await Pathologist.updateOne({ 'userId': pathologist }, { $push: { assignedPatients: pp } })
     // console.log("done1")
