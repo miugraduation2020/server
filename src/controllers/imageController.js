@@ -39,10 +39,11 @@ const { addNewReport } = require('./reportController')
                     tumorID
                 }
             )
-        image.save().then(image => { addNewReport(patientID,
-            pathologistID,
-            tumorID,
-            image._id) }, console.log(image._id +'iJBSR'+ uploadDate+'SNB'+patientID));
+            image.save().then(image => { addNewReport(patientID,
+                pathologistID,
+                tumorID,
+                image._id,
+                false) }, console.log(image._id +'iJBSR'+ uploadDate+'SNB'+patientID));
 
  
 
