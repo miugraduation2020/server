@@ -19,6 +19,7 @@
     <!-- <script src="scss/custom.scss"></script> -->
 
     <link href="css/style.min.css" rel="stylesheet">
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -26,7 +27,29 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
     <script src="js/top-bar.js"></script>
+<style>
+.loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #F33155;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  display: none;
+}
 
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
 </head>
 
 <body>
@@ -103,9 +126,8 @@
                             <form id="file-upload-form" class="uploader" method="POST" action="/upload" enctype="multipart/form-data">
                                 <input value="{{user._id}}" name="pathologist"hidden>
                                 <input value="{{patient._id}}" name="patient"hidden>
-                                <input id="file-upload" type="file" name="file" accept="file/*" onchange="readSingleFile(this.files)"/>
+                                <input id="file-upload" type="file" name="file" accept="file/*" />
                                 <label for="file-upload" id="file-drag">
-                                    <img id="file-image" src="" alt="Preview" class="hidden">
                                     <div id="start">
                                         <i class="fa fa-download" aria-hidden="true"></i>
                                         <div>Select a file or drag here</div>
@@ -114,17 +136,13 @@
                                     </div>
                                     <div id="response" class="hidden">
                                         <div id="messages"></div>
-                                        <p id="path"></p>
-                                        <div id="imgPath">
-                                            <input type='text'  name='imgPath'  value='D:\\MIU\\Graduation Project\\ICIAR2018_BACH_Challenge\\Photos\\Invasive\\iv035.tif'>
-                                        </div>
+                                     <div class="loader" id="loader"></div>
 
-                                        <progress class="progress" id="file-progress" value="">
-                                            <span></span>%
-                                        </progress>
+
+                                         
                                     </div>
                                 </label>
-                                <button type='submit' id='submit-button' value="Make Diagnosis"
+                                <button type='submit' id='submit-button'  onclick="showDiv()" value="Make Diagnosis"
                                     class='btn btn-primary white-text'>Make Dianosis</button>
 
                             </form>
@@ -161,6 +179,11 @@
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
     </div>
+    <script>
+        function showDiv() {
+        document.getElementById('loader').style.display = "block";
+        }
+    </script>    
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -181,12 +204,7 @@
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
     <script src="js/fileUpload.js"></script>
-   <script>
-		function readSingleFile(e) {
-			const name = e[0].name;
-			document.getElementById("file-drag").textContent = name;
-		}
-	</script>
+ 
 
 </body>
 
