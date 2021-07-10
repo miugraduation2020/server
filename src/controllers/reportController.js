@@ -36,6 +36,7 @@ exports.genReport = async (req, res) => {
             date: report.genDate,
             pathologistNote: report.pathComments,
             user: req.user,
+            imageurl:report.imageName
         }
     );
 
@@ -46,7 +47,8 @@ exports.genReport = async (req, res) => {
 
 }
 
-exports.addNewReport = async (patientID, pathologistID, tumorID, imageID, approved) => {
+
+exports.addNewReport = async (patientID, pathologistID, tumorID, imageID,approved,imageName) => {
 
     const genDate = Date.now();
     const newReport =
@@ -57,7 +59,9 @@ exports.addNewReport = async (patientID, pathologistID, tumorID, imageID, approv
                 pathologistID,
                 tumorID,
                 imageID,
-                approved
+                approved,
+                imageName
+
             }
         )
     await newReport.save().then(newReport => console.log("new Report add:" + newReport._id));
@@ -65,7 +69,7 @@ exports.addNewReport = async (patientID, pathologistID, tumorID, imageID, approv
         patientID + ' &$% ' +
         pathologistID + ' &$% ' +
         tumorID + ' &$% ' +
-        imageID + '&$%' + approved)
+        imageID+ '&$%' + approved + '&$%' + imageName)
 
 
 }
