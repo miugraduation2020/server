@@ -201,8 +201,8 @@ imgPath=sys.argv[1]
 img,imagename=load_image(imgPath)
 img_norm = normalization('src\\models\\pythonModel\\b022.tif',img,imagename)
 imgd=segmentation(img_norm,img,imagename)
-Labels=CNN(imgd)
-send_message_back = str(Labels)
+Lab=CNN(imgd)
+send_message_back = str(Lab)
 
 
 print(json.dumps(send_message_back))

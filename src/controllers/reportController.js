@@ -20,7 +20,9 @@ exports.genReport = async (req, res) => {
     const pathologist = await User.findById(report.pathologistID)
     const image = await Image.findById(report.imageID)
     const diagnosis = await Tumor.findOne().where("tumorClassNumber").equals(report.tumorID);
-    // console.log("check:" + diagnosis.tumorName)
+    console.log("checkoo:" + diagnosis.tumorName)
+    console.log("checkoscqfo:" + report.tumorID)
+
 
     return res.render(
         "report",
@@ -44,7 +46,7 @@ exports.genReport = async (req, res) => {
 
 }
 
-exports.addNewReport = async (patientID, pathologistID, tumorID, imageID,approved) => {
+exports.addNewReport = async (patientID, pathologistID, tumorID, imageID, approved) => {
 
     const genDate = Date.now();
     const newReport =
@@ -63,7 +65,7 @@ exports.addNewReport = async (patientID, pathologistID, tumorID, imageID,approve
         patientID + ' &$% ' +
         pathologistID + ' &$% ' +
         tumorID + ' &$% ' +
-        imageID+ '&$%' + approved)
+        imageID + '&$%' + approved)
 
 
 }
@@ -91,9 +93,9 @@ exports.getReports = async (req, res) => {
 exports.getAllReports = async (req, res) => {
 
     const allRep = await Report.find({})
-    //console.log("check1: " + allRep[0]);
-    return res.render("adminReportsList", { reports: allRep,user:req.user });
+    return res.render("adminReportsList", { reports: allRep, user: req.user });
 }
+
 
 /* Get Pathologist Reports*/
 
@@ -126,22 +128,22 @@ exports.getUserReports = async (ID, userType) => {
 /* Get Pathologist Reports*/
 
 exports.getPateReports = async (req, res) => {
-    var approvedreports=[];
+    var approvedreports = [];
     userID = req.user._id;
     userType = req.user.type;
     console.log(' check #1:' + userID + ' check #2:' + userType)
     const reports = await this.getUserReports(userID, userType)
     console.log("check #3: " + reports[7].approved)
-        reports.forEach(element => {
-            console.log(element.approved);
-            if(element.approved==true){
+    reports.forEach(element => {
+        console.log(element.approved);
+        if (element.approved == true) {
             approvedreports.push(element)
-            }
-          });   
-          console.log(approvedreports);
-          return res.render("patientReportsList", { reports: approvedreports, user: req.user });
-
         }
+    });
+    console.log(approvedreports);
+    return res.render("patientReportsList", { reports: approvedreports, user: req.user });
+
+}
 
 exports.getPathPatientRep = async (req, res) => {
     userID = req.body.patient;
@@ -149,7 +151,7 @@ exports.getPathPatientRep = async (req, res) => {
     console.log(' check #1:' + userID + ' check #2:' + userType)
     const reports = await this.getUserReports(userID, userType)
     console.log("check #3: " + reports[0])
-    return res.render("pathPatientsReports", { reports: reports ,user:req.user});
+    return res.render("pathPatientsReports", { reports: reports, user: req.user });
 
 }
 
@@ -173,7 +175,7 @@ exports.reportReview = async (req, res) => {
             date: report.genDate,
             pathologistNote: report.pathComments,
             reportID: reportID,
-            user:req.user
+            user: req.user
         }
     );
 
@@ -201,18 +203,20 @@ exports.approveReport = async (req, res) => {
     reportID = req.body.repID;
     aprv = req.body.aprvbtn;
 
-  
-    
-    if (aprv == "Approve"){
-    const report = await Report.findByIdAndUpdate(reportID, { approved: true })
 
-}
-    else{
-    const report = await Report.findByIdAndUpdate(reportID, { approved: false })}
+
+    if (aprv == "Approve") {
+        const report = await Report.findByIdAndUpdate(reportID, { approved: true })
+
+    }
+    else {
+        const report = await Report.findByIdAndUpdate(reportID, { approved: false })
+    }
     userID = req.body.patID;
     userType = 'Patient';
     const reports = await this.getUserReports(userID, userType)
-    return res.render("pathPatientsReports", { reports: reports ,user:req.user});}
+    return res.render("pathPatientsReports", { reports: reports, user: req.user });
+}
 
 //get all reports
 //get a report

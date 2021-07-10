@@ -72,7 +72,7 @@ var tumor;
           diagnosis="0"
         }
           if(myString=='"1"'){          
-            diagnosis=" 1"
+            diagnosis="1"
                 }
           if(myString=='"2"'){          
           diagnosis="2"

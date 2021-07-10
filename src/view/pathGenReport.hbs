@@ -19,7 +19,7 @@
     <!-- <script src="scss/custom.scss"></script> -->
 
     <link href="css/style.min.css" rel="stylesheet">
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,29 +27,42 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
     <script src="js/top-bar.js"></script>
-<style>
-.loader {
-  border: 5px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 5px solid #F33155;
-  width: 40px;
-  height: 40px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-  display: none;
-}
+    <style>
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #F33155;
+            width: 40px;
+            height: 40px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+            display: none;
+        }
+        #response{
+            align-items: center;
+        }
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
 
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -70,7 +83,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-  <header class="topbar" data-navbarbg="skin5">
+        <header class="topbar" data-navbarbg="skin5">
             {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -123,9 +136,10 @@
                             <h2>Dr.{{user.firstName}} Upload</h2>
                             <p class="lead">{{patient.firstName}} {{patient.lastName}}'s <b>Biopsy Test Image</b></p>
                             <!-- Upload  -->
-                            <form id="file-upload-form" class="uploader" method="POST" action="/upload" enctype="multipart/form-data">
-                                <input value="{{user._id}}" name="pathologist"hidden>
-                                <input value="{{patient._id}}" name="patient"hidden>
+                            <form id="file-upload-form" class="uploader" method="POST" action="/upload"
+                                enctype="multipart/form-data">
+                                <input value="{{user._id}}" name="pathologist" hidden>
+                                <input value="{{patient._id}}" name="patient" hidden>
                                 <input id="file-upload" type="file" name="file" accept="file/*" />
                                 <label for="file-upload" id="file-drag">
                                     <div id="start">
@@ -136,13 +150,15 @@
                                     </div>
                                     <div id="response" class="hidden">
                                         <div id="messages"></div>
-                                     <div class="loader" id="loader"></div>
+                                        <div class="loader" id="loader">
+
+                                        </div>
 
 
-                                         
+
                                     </div>
                                 </label>
-                                <button type='submit' id='submit-button'  onclick="showDiv()" value="Make Diagnosis"
+                                <button type='submit' id='submit-button' onclick="showDiv()" value="Make Diagnosis"
                                     class='btn btn-primary white-text'>Make Dianosis</button>
 
                             </form>
@@ -181,9 +197,9 @@
     </div>
     <script>
         function showDiv() {
-        document.getElementById('loader').style.display = "block";
+            document.getElementById('loader').style.display = "block";
         }
-    </script>    
+    </script>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -199,12 +215,12 @@
     <script src="js/waves.js"></script>
     <!--Menu sidebar -->
     <script src="js/sidebarmenuPath.js"></script>
-    <script src="js/top-bar.js"></script>
+  <script src="partials/topBar.hbs"></script>
 
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
     <script src="js/fileUpload.js"></script>
- 
+
 
 </body>
 

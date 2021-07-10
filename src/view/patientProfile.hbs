@@ -24,7 +24,7 @@
 <![endif]-->
 </head>
 
-<body>
+<body  onload="limitTableRows();">
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -223,8 +223,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2020 © Ample Admin brought to you by <a
-                    href="https://www.wrappixel.com/">wrappixel.com</a>
+             <footer class="footer text-center"> 2021 © BCBD Using Deep Learning
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -253,6 +252,53 @@
     <script src="/js/custom.js"></script>
     <!--Header -->
     <script src="/js/topbar-pate.js"></script>
+     <script type="text/javascript">
+        function limitTableRows() {
+            // Constant retrieved from server-side via JSP
+            var maxRows = 4;
+
+            var table = document.getElementById('myReports');
+            var wrapper = table.parentNode;
+            var rowsInTable = table.rows.length;
+            var height = 0;
+
+            if (rowsInTable > maxRows) {
+                for (var i = 0; i < maxRows; i++) {
+                    height += table.rows[i].clientHeight;
+                }
+                wrapper.style.height = height + "px";
+            }
+        }
+    </script>
+    <script>
+        var numShown = 5; // Initial rows shown & index
+        var numMore = 5;  // Increment
+
+        var $table = $('table').find('tbody');  // tbody containing all the rows
+        var numRows = $table.find('tr').length; // Total # rows
+
+        $(function () {
+            // Hide rows and add clickable div
+            $table.find('tr:gt(' + (numShown - 1) + ')').hide().end()
+                .after('<tbody id="more"><tr><td colspan="' +
+                    $table.find('tr:first td').length + '"><div>Show <span>' +
+                    numMore + '</span> More</div</tbody></td></tr>');
+
+            $('#more').click(function () {
+                numShown = numShown + numMore;
+                // no more "show more" if done
+                if (numShown >= numRows) {
+                    $('#more').remove();
+                }
+                // change rows remaining if less than increment
+                if (numRows - numShown < numMore) {
+                    $('#more span').html(numRows - numShown);
+                }
+                $table.find('tr:lt(' + numShown + ')').show();
+            });
+
+        });
+    </script>
 </body>
 
 </html>

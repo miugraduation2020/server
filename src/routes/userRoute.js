@@ -1,5 +1,9 @@
 const express = require('express');
-const { addUser, signIn, verifyEmail, forgotPassword, changePassword, updatePassword, getUsersData, getPatients, getPathologists, searchPatient, deletePatient, deletePathologist, editPathologist, editPatient,dashboard } = require('../controllers/userController');
+const { addUser, signIn, verifyEmail, forgotPassword, changePassword,
+    updatePassword, getUsersData, getPatients, getPathologists,
+    searchPatient, deletePatient, deletePathologist, editPathologist,
+    editPatient, dashboard } = require('../controllers/userController');
+
 const { destroySession, auth, notAdminRedirectProfile, loggedInUser = async (req, res, next) => {
 
     try {
@@ -26,7 +30,7 @@ const { destroySession, auth, notAdminRedirectProfile, loggedInUser = async (req
 }
 } = require('../controllers/sessionController')
 const { addFAQ, getAllFAQ, deleteFAQ, editFAQ } = require("../controllers/FAQcontroller")
-const { getAllReports, genReport, getPathReports, getPateReports, getPathRepProfile, getPathPatientRep, addReview, reportReview,approveReport } = require("../controllers/reportController")
+const { getAllReports, genReport, getPathReports, getPateReports, getPathRepProfile, getPathPatientRep, addReview, reportReview, approveReport } = require("../controllers/reportController")
 
 const router = new express.Router()
 
@@ -36,6 +40,7 @@ router.get('/user', (req, res) => {
 });
 router.get('/adminPatientsList', auth, notAdminRedirectProfile, getPatients);
 router.get('/dashboard', auth, notAdminRedirectProfile, dashboard);
+
 router.get('/adminPathologistsList', auth, notAdminRedirectProfile, getPathologists);
 router.get('/adminReportsList', auth, notAdminRedirectProfile, getAllReports);
 
@@ -78,6 +83,6 @@ router.post('/adminPathologistsList', auth, notAdminRedirectProfile, deletePatho
 router.post('/editPat', auth, editPatient)
 router.post('/editPath', auth, editPathologist)
 
-router.post('/approvereport',auth, approveReport )
+router.post('/approvereport', auth, approveReport)
 
 module.exports = router;

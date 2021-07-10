@@ -452,33 +452,7 @@ exports.getPatients = async (req, res) => {
 
 }
 
-exports.dashboard = async (req,res)=>{
 
-    const patients = await User.countDocuments({ type: 'Patient' }, function (err, count) {
-        console.log("patiIN"+count);
-        return count
-
-      });        
-      console.log("pati"+patients);
-
-      const pathologists = await Pathologist.countDocuments( function (err, count) {
-        console.log("pathIN"+count);
-        return count
-
-      });        
-      console.log("path"+pathologists);
-
-      const reports = await Report.countDocuments(function (err, count) {
-        console.log("repIN"+ count);
-        return count
-
-      });        
-      console.log("Report"+reports);
-
-      return res.render("dashboard", { patients:patients, pathologists:pathologists,reports:reports });
-    
-
-}
 
 /*Search in Patients List*/
 
@@ -609,3 +583,36 @@ exports.editPatient = async (req, res) => {
 
     res.redirect('adminPatientsList');
 };
+
+// Dashboard Counter
+
+exports.dashboard = async (req,res)=>{
+
+    const patients = await User.countDocuments({ type: 'Patient' }, function (err, count) {
+        console.log("patiIN"+count);
+        return count
+
+      });        
+      console.log("pati"+patients);
+
+      const pathologists = await Pathologist.countDocuments( function (err, count) {
+        console.log("pathIN"+count);
+        return count
+
+      });        
+      console.log("path"+pathologists);
+
+      const reports = await Report.countDocuments(function (err, count) {
+        console.log("repIN"+ count);
+        return count
+
+      });        
+      console.log("Report"+reports);
+
+      const reportsList = await Report.find({});
+      console.log("Reportlist"+reportsList[0]);
+
+      return res.render("dashboard", { patients:patients, pathologists:pathologists,reports:reports, reportsList:reportsList });
+    
+
+}

@@ -12,7 +12,6 @@
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Profile</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="20x20" href="/plugins/images/favi.png">
     <!-- Custom CSS -->
@@ -129,15 +128,16 @@
                                             <td>{{this.patientID}}</td>
                                             <td style="text-align:center;"> <i class=" fas fa-download "></td>
                                         </tr>
-                                    
+
                                         {{/each}}
-                                    
+
 
                                     </tbody>
 
 
                                 </table>
-                                <button style="background-color: gray; color: honeydew;" class="btn btn-block"><a class="text-white" href="pathReportsList">View All Reports</a></button>
+                                <button style="background-color: gray; color: honeydew;" class="btn btn-block"><a
+                                        class="text-white" href="pathReportsList">View All Reports</a></button>
                             </div>
                         </div>
 
@@ -266,6 +266,7 @@
             var wrapper = table.parentNode;
             var rowsInTable = table.rows.length;
             var height = 0;
+
             if (rowsInTable > maxRows) {
                 for (var i = 0; i < maxRows; i++) {
                     height += table.rows[i].clientHeight;
@@ -273,6 +274,35 @@
                 wrapper.style.height = height + "px";
             }
         }
+    </script>
+    <script>
+        var numShown = 5; // Initial rows shown & index
+        var numMore = 5;  // Increment
+
+        var $table = $('table').find('tbody');  // tbody containing all the rows
+        var numRows = $table.find('tr').length; // Total # rows
+
+        $(function () {
+            // Hide rows and add clickable div
+            $table.find('tr:gt(' + (numShown - 1) + ')').hide().end()
+                .after('<tbody id="more"><tr><td colspan="' +
+                    $table.find('tr:first td').length + '"><div>Show <span>' +
+                    numMore + '</span> More</div</tbody></td></tr>');
+
+            $('#more').click(function () {
+                numShown = numShown + numMore;
+                // no more "show more" if done
+                if (numShown >= numRows) {
+                    $('#more').remove();
+                }
+                // change rows remaining if less than increment
+                if (numRows - numShown < numMore) {
+                    $('#more span').html(numRows - numShown);
+                }
+                $table.find('tr:lt(' + numShown + ')').show();
+            });
+
+        });
     </script>
 </body>
 
