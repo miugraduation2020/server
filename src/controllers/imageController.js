@@ -1,5 +1,7 @@
 const express = require("express");
 const session = require("express-session")
+const Jimp = require("jimp")
+
 const mongoose = require('mongoose');
 const { UserSchema } = require('../models/userModel');
 const User = mongoose.model('User', UserSchema);
@@ -14,13 +16,14 @@ const { addNewReport } = require('./reportController')
 
     exports.addImage = async (filename,Ipatientid,Ipathologistid,fileId,gfs) => {
 
-   
+        
     const imgPath = "src\\models\\DiagnosisImages\\"+filename
     const pathologistID = Ipathologistid;
     const patientID = Ipatientid;
     console.log('pathologist' + pathologistID)
     console.log('patientId' + patientID)
     console.log(imgPath + '  rhw')
+    var imgrname= filename.substr(0, filename.indexOf('.')); 
 
     const patient = await User.findById(patientID);
     var uploadDate = Date.now();
@@ -43,7 +46,18 @@ const { addNewReport } = require('./reportController')
                 pathologistID,
                 tumorID,
                 image._id,
-                false) }, console.log(image._id +'iJBSR'+ uploadDate+'SNB'+patientID));
+                false,
+                imgrname) }, 
+                Jimp.read("src\\models\\DiagnosisImages\\"+filename, function (err, file) {
+                    if (err) {
+                      console.log(err)
+                    } else {
+
+                      file.write("src\\view\\plugins\\reportsImages\\"+imgrname+".jpg")
+                    }
+                  })
+                ,fs.unlinkSync(imgPath),
+                console.log(image._id +'iJBSR'+ uploadDate+'SNB'+patientID));
 
  
 
