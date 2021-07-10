@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require("express-session")
 const Jimp = require("jimp")
+var fs = require('fs');
 
 const mongoose = require('mongoose');
 const { UserSchema } = require('../models/userModel');
