@@ -34,6 +34,11 @@ const ReportSchema = new Schema({
         type:Boolean
         
     },
+    imageName:{
+        type:String,
+        require: true
+
+    },
     pathComments:{
         type:String
     }
