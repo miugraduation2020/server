@@ -3,9 +3,11 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 const session = require('express-session');
 const { UserSchema } = require('../models/userModel');
+const { ReportSchema } = require('../models/reportModel');
 const { PathologistSchema } = require('../models/pathologistModel');
 const sendEmail = require("send-email");
 const User = mongoose.model('User', UserSchema);
+const Report = mongoose.model('Report', ReportSchema);
 const Pathologist = mongoose.model('Pathologist', PathologistSchema);
 const { generateToken } = require('./sessionController')
 const dotenv = require("dotenv");
@@ -450,6 +452,33 @@ exports.getPatients = async (req, res) => {
 
 }
 
+exports.dashboard = async (req,res)=>{
+
+    const patients = await User.countDocuments({ type: 'Patient' }, function (err, count) {
+        console.log("patiIN"+count);
+        return count
+
+      });        
+      console.log("pati"+patients);
+
+      const pathologists = await Pathologist.countDocuments( function (err, count) {
+        console.log("pathIN"+count);
+        return count
+
+      });        
+      console.log("path"+pathologists);
+
+      const reports = await Report.countDocuments(function (err, count) {
+        console.log("repIN"+ count);
+        return count
+
+      });        
+      console.log("Report"+reports);
+
+      return res.render("dashboard", { patients:patients, pathologists:pathologists,reports:reports });
+    
+
+}
 
 /*Search in Patients List*/
 

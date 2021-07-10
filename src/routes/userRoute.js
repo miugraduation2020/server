@@ -1,5 +1,5 @@
 const express = require('express');
-const { addUser, signIn, verifyEmail, forgotPassword, changePassword, updatePassword, getUsersData, getPatients, getPathologists, searchPatient, deletePatient, deletePathologist, editPathologist, editPatient } = require('../controllers/userController');
+const { addUser, signIn, verifyEmail, forgotPassword, changePassword, updatePassword, getUsersData, getPatients, getPathologists, searchPatient, deletePatient, deletePathologist, editPathologist, editPatient,dashboard } = require('../controllers/userController');
 const { destroySession, auth, notAdminRedirectProfile, loggedInUser = async (req, res, next) => {
 
     try {
@@ -35,6 +35,7 @@ router.get('/user', (req, res) => {
     res.render('addUsers')
 });
 router.get('/adminPatientsList', auth, notAdminRedirectProfile, getPatients);
+router.get('/dashboard', auth, notAdminRedirectProfile, dashboard);
 router.get('/adminPathologistsList', auth, notAdminRedirectProfile, getPathologists);
 router.get('/adminReportsList', auth, notAdminRedirectProfile, getAllReports);
 
