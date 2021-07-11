@@ -18,6 +18,7 @@
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
+    "ember-truth-helpers": "^3.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "fs": "0.0.2",

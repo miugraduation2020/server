@@ -81,24 +81,44 @@
 
 </head>
 <script>
-    window.onload = function () {
-        document.getElementById('changePass').style.display = 'none';
-        document.getElementById('cancelBtn').style.display = 'none';
-        document.getElementById('changeBtn').style.display = 'block';
-    };
-    function hide() {
-        document.getElementById('changePass').style.display = 'block';
-        document.getElementById('cancelBtn').style.display = 'block';
-        document.getElementById('changeBtn').style.display = 'none';
-    };
-    function cancel() {
-        document.getElementById('changePass').style.display = 'none';
-        document.getElementById('cancelBtn').style.display = 'none';
-        document.getElementById('changeBtn').style.display = 'block';
-    }
+    window.addEventListener("load", function () {
+        if (document.getElementById("type").value == "Pathologist") {
+
+            var sc = document.createElement('script');
+            sc.src = "js/sidebarmenuPath.js";
+            sc.type = 'text/javascript';
+            if (typeof sc['async'] !== 'undefined') {
+                sc.async = true;
+            }
+            document.getElementsByTagName('head')[0].appendChild(sc);
+        }
+        else if (document.getElementById("type").value == "Admin") {
+
+            var sc = document.createElement('script');
+            sc.src = "js/sidebarmenu.js";
+            sc.type = 'text/javascript';
+            if (typeof sc['async'] !== 'undefined') {
+                sc.async = true;
+            }
+            document.getElementsByTagName('head')[0].appendChild(sc);
+        }
+        else {
+            var sc = document.createElement('script');
+            sc.src = "js/sidebarmenuPate.js";
+            sc.type = 'text/javascript';
+            if (typeof sc['async'] !== 'undefined') {
+                sc.async = true;
+            }
+            document.getElementsByTagName('head')[0].appendChild(sc);
+        }
+
+    });
 </script>
 
+
 <body>
+
+    <input type="hidden" name="type" value={{user.type}} id="type">
     <!-- ============================================================== -->
     <div class="preloader">
         <div class="lds-ripple">
@@ -147,6 +167,7 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
+
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">Settings</h3>
@@ -159,7 +180,7 @@
                                                 method="POST" action='/user/update-password'>
 
 
-                                                <input type="hidden" name="email" value={{user.email}}>
+                                                <input type="hidden" name="email" value={{user.email}} id="email">
 
                                                 <div class="form-group mb-4">
                                                     <label class="col-md-12 p-0">Your Current Password</label>
@@ -230,6 +251,9 @@
             <footer class="footer text-center"> 2021 © BCBD Using Deep Learning
             </footer>
         </div>
+        <script>
+
+        </script>
     </div>
 
     <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
@@ -240,7 +264,26 @@
     <!--Wave Effects -->
     <script src="/js/waves.js"></script>
     <!--Menu sidebar -->
+
+
+    {{!-- {{#if user.type "Pathologist" }}
     <script src="js/sidebarmenu.js"></script>
+    {{else}}
+
+    <script src="js/sidebarmenu.js"></script>
+    {{/if}} --}}
+
+    <script>
+        var theUser = "Pathologist";
+        if (document.getElementById("type").value == "Pathologist") {
+            <script src="js/sidebarmenu.js"></script>
+    }else{
+    {{!--
+    <script src="js/sidebarmenu.js"></script> --}}
+    }
+
+    </script>
+
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
     <!--Header -->
