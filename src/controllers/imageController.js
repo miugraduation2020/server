@@ -15,56 +15,58 @@ const model = require('./modelController')
 const { addNewReport } = require('./reportController')
 
 
-    exports.addImage = async (filename,Ipatientid,Ipathologistid,fileId,gfs) => {
-
-        
-    const imgPath = "src\\models\\DiagnosisImages\\"+filename
-    const pathologistID = Ipathologistid;
-    const patientID = Ipatientid;
-    console.log('pathologist' + pathologistID)
-    console.log('patientId' + patientID)
-    console.log(imgPath + '  rhw')
-    var imgrname= filename.substr(0, filename.indexOf('.')); 
-
-    const patient = await User.findById(patientID);
-    var uploadDate = Date.now();
-    const imgName = `${uploadDate}-${patient.firstName} ${patient.firstName}-ID:${patient.id}`
-    tumorID = ''
-    model(imgPath, function (tumorID) {
-        console.log("The tumorID is " + tumorID);
-        const image =
-            new Image(
-                {
-                    imgPath,
-                    imgName,
-                    uploadDate,
-                    patientID,
-                    pathologistID,
-                    tumorID
-                }
-            )
-            image.save().then(image => { addNewReport(patientID,
-                pathologistID,
-                tumorID,
-                image._id,
-                false,
-                imgrname) }, 
-                Jimp.read("src\\models\\DiagnosisImages\\"+filename, function (err, file) {
-                    if (err) {
-                      console.log(err)
-                    } else {
-
-                      file.write("src\\view\\plugins\\reportsImages\\"+imgrname+".jpg")
-                    }
-                  })
-                ,fs.unlinkSync(imgPath),
-                console.log(image._id +'iJBSR'+ uploadDate+'SNB'+patientID));
-
- 
+exports.addImage = async (filename, Ipatientid, Ipathologistid, fileId, gfs) => {
 
 
-    });
-    
+  const imgPath = "src\\models\\DiagnosisImages\\" + filename
+  const pathologistID = Ipathologistid;
+  const patientID = Ipatientid;
+  console.log('pathologist' + pathologistID)
+  console.log('patientId' + patientID)
+  console.log(imgPath + '  rhw')
+  var imgrname = filename.substr(0, filename.indexOf('.'));
+
+  const patient = await User.findById(patientID);
+  var uploadDate = Date.now();
+  const imgName = `${uploadDate}-${patient.firstName} ${patient.firstName}-ID:${patient.id}`
+  tumorID = ''
+  model(imgPath, function (tumorID) {
+    console.log("The tumorID is " + tumorID);
+    const image =
+      new Image(
+        {
+          imgPath,
+          imgName,
+          uploadDate,
+          patientID,
+          pathologistID,
+          tumorID
+        }
+      )
+    image.save().then(image => {
+      addNewReport(patientID,
+        pathologistID,
+        tumorID,
+        image._id,
+        false,
+        imgrname)
+    },
+      Jimp.read("src\\models\\DiagnosisImages\\" + filename, function (err, file) {
+        if (err) {
+          console.log(err)
+        } else {
+
+          file.write("src\\view\\plugins\\reportsImages\\" + imgrname + ".jpg")
+        }
+      })
+      , fs.unlinkSync(imgPath),
+      console.log(image._id + 'iJBSR' + uploadDate + 'SNB' + patientID));
+
+
+
+
+  });
+
 
 }
 
