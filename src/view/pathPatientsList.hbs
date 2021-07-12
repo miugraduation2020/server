@@ -57,7 +57,45 @@
     </style> --}}
 </head>
 
+<script>
+    window.addEventListener("load", function () {
+        if (document.getElementById("type").value == "Pathologist") {
+
+            var sc = document.createElement('script');
+            sc.src = "js/sidebarmenuPath.js";
+            sc.type = 'text/javascript';
+            if (typeof sc['async'] !== 'undefined') {
+                sc.async = true;
+            }
+            document.getElementsByTagName('head')[0].appendChild(sc);
+        }
+        else if (document.getElementById("type").value == "Admin") {
+
+            var sc = document.createElement('script');
+            sc.src = "js/sidebarmenu.js";
+            sc.type = 'text/javascript';
+            if (typeof sc['async'] !== 'undefined') {
+                sc.async = true;
+            }
+            document.getElementsByTagName('head')[0].appendChild(sc);
+        }
+        else {
+            var sc = document.createElement('script');
+            sc.src = "js/sidebarmenuPate.js";
+            sc.type = 'text/javascript';
+            if (typeof sc['async'] !== 'undefined') {
+                sc.async = true;
+            }
+            document.getElementsByTagName('head')[0].appendChild(sc);
+        }
+
+    });
+</script>
+
+
 <body>
+
+    <input type="hidden" name="type" value={{user.type}} id="type">
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -75,7 +113,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-  <header class="topbar" data-navbarbg="skin5">
+        <header class="topbar" data-navbarbg="skin5">
             {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -156,7 +194,7 @@
                                             <th class="border-top-0">Phone</th>
                                             <th class="border-top-0">DoB</th>
                                             <th class="border-top-0">Reports</th>
-                                            <th class="border-top-0" >Diagnose</th>
+                                            <th class="border-top-0">Diagnose</th>
 
 
                                             <th class="border-top-0"></th>
@@ -180,13 +218,12 @@
                                                         class="btn btn-success text-white">
                                                 </form>
                                             </td>
-                                        
+
                                             <td>
                                                 <form action="/pathGenReport" method="POST">
                                                     <input type="text" hidden name="patient" value="{{this.id}}">
 
-                                                    <input type="submit" value="ADD"
-                                                        class="btn btn-danger text-white">
+                                                    <input type="submit" value="ADD" class="btn btn-danger text-white">
                                                 </form>
                                             </td>
                                         </tr>
