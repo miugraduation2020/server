@@ -10,7 +10,7 @@ const Tumor = mongoose.model('Tumor', TumorSchema)
 const { UserSchema } = require('../models/userModel');
 const { getMyPatients } = require('./pathologistController');
 const User = mongoose.model('User', UserSchema);
-
+const sendEmail = require("send-email");
 
 exports.genReport = async (req, res) => {
 
@@ -36,7 +36,7 @@ exports.genReport = async (req, res) => {
             date: report.genDate,
             pathologistNote: report.pathComments,
             user: req.user,
-            imageurl:report.imageName
+            imageurl: report.imageName
         }
     );
 
@@ -48,7 +48,7 @@ exports.genReport = async (req, res) => {
 }
 
 
-exports.addNewReport = async (patientID, pathologistID, tumorID, imageID,approved,imageName) => {
+exports.addNewReport = async (patientID, pathologistID, tumorID, imageID, approved, imageName) => {
 
     const genDate = Date.now();
     const newReport =
@@ -69,7 +69,7 @@ exports.addNewReport = async (patientID, pathologistID, tumorID, imageID,approve
         patientID + ' &$% ' +
         pathologistID + ' &$% ' +
         tumorID + ' &$% ' +
-        imageID+ '&$%' + approved + '&$%' + imageName)
+        imageID + '&$%' + approved + '&$%' + imageName)
 
 
 }
@@ -202,7 +202,7 @@ exports.addReview = async (req, res) => {
 
 
 exports.approveReport = async (req, res) => {
-
+    patientId = req.body.patID;
     pathologistID = req.user._id;
     reportID = req.body.repID;
     aprv = req.body.aprvbtn;
@@ -211,6 +211,20 @@ exports.approveReport = async (req, res) => {
 
     if (aprv == "Approve") {
         const report = await Report.findByIdAndUpdate(reportID, { approved: true })
+
+        const patient = await User.findOne({ _id: patientId });
+        console.log("Patient" + patientId)
+
+        sendEmail({
+            to: patient.email,
+            subject: "Test results",
+            html: `<div>
+              <h2>Hi there!</h2>
+              <h3>Your test results are now ready.</h3>
+         
+            </div>`,
+            from: "miu.graduation2020@gmail.com",
+        });
 
     }
     else {

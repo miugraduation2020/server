@@ -17,7 +17,7 @@
     <link rel="icon" type="image/png" sizes="20x20" href="plugins/images/favi.png">
     <!-- Custom CSS -->
     <link href="css/style.min.css" rel="stylesheet">
-        <link href="css/confirmformstyle.css" rel="stylesheet">
+    <link href="css/confirmformstyle.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,7 +45,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-  <header class="topbar" data-navbarbg="skin5">
+        <header class="topbar" data-navbarbg="skin5">
             {{>topBar}} </header>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
@@ -117,30 +117,37 @@
                                         <tr>
                                             <td>{{this.genDate}}</td>
                                             <td>{{this.tumorID}}</td>
-                                        
+
 
 
                                             <form action="report" method="POST">
                                                 <td style="text-align:left; align-items: left;">
-                                                    <input type="hidden" value="{{this.id}}"
-                                                        name="viewreport"><button type="submit" value="view" class="btn btn-success text-white">view</button>
+                                                    <input type="hidden" value="{{this.id}}" name="viewreport"><button
+                                                        type="submit" value="view"
+                                                        class="btn btn-success text-white">view</button>
                                                 </td>
                                             </form>
                                             <form action="addReportReview" method="POST">
                                                 <td style="text-align:left; align-items: left;">
-                                                    <input type="hidden" value="{{this.id}}"
-                                                        name="repID"><button type="submit" value="review" class="btn btn-success text-white">add</button>
+                                                    <input type="hidden" value="{{this.id}}" name="repID"><button
+                                                        type="submit" value="review"
+                                                        class="btn btn-success text-white">add</button>
                                                 </td>
                                             </form>
-                                                <td style="text-align:left; align-items: left;">
+                                            <td style="text-align:left; align-items: left;">
 
-                                                    {{#if this.approved}}
-                                                        <input type="submit" name="aprvbtn"  id="aprvbtn" value="Sent" class="btn btn-success text-white" >
-                                                    {{else}}
-                                                    <input type="submit" name="aprvbtn" id="aprvbtn" value="Approve"  onclick='checkapprove("{{this.id}}","{{this.patientID}}")' class="btn btn-danger text-white">
-                                                    {{/if}}
+                                                {{#if this.approved}}
+                                                <input type="submit" name="aprvbtn" id="aprvbtn" value="Sent"
+                                                    class="btn btn-success text-white">
+                                                <input type="hidden" name="patientId" id="patientId"
+                                                    value={{this.patientID}}>
+                                                {{else}}
+                                                <input type="submit" name="aprvbtn" id="aprvbtn" value="Approve"
+                                                    onclick='checkapprove("{{this.id}}","{{this.patientID}}")'
+                                                    class="btn btn-danger text-white">
+                                                {{/if}}
 
-                                                </td>
+                                            </td>
                                         </tr>
                                         {{/each}}
                                     </tbody>
@@ -177,35 +184,36 @@
         <!-- ============================================================== -->
     </div>
     <div class="editPopup">
-                <div class="formPopup" id="popupForm">
-                <form id="checkform" action="approvereport"  class="formContainer" method="POST">
+        <div class="formPopup" id="popupForm">
+            <form id="checkform" action="approvereport" class="formContainer" method="POST">
 
-                        <h2>Are you sure you want to approve this report?</h2>
-                        <input type="hidden" id= "thisrepid" name="repID" >
-                        <input type="hidden" id= "thispatientid" name="patID" >
+                <h2>Are you sure you want to approve this report?</h2>
+                <input type="hidden" id="thisrepid" name="repID">
+                <input type="hidden" id="thispatientid" name="patID">
 
-                        <input type="submit" name="aprvbtn" id="aprvbtn" value="Approve"   class="btn btn-success text-white">
-                        <input type="submit" name="aprvbtn" id="aprvbtn" value="Decline"  onclick="closeForm()" class="btn btn-danger text-white">
+                <input type="submit" name="aprvbtn" id="aprvbtn" value="Approve" class="btn btn-success text-white">
+                <input type="submit" name="aprvbtn" id="aprvbtn" value="Decline" onclick="closeForm()"
+                    class="btn btn-danger text-white">
 
-                    </form>
+            </form>
 
-                </div>
-            </div>
-       <script>
+        </div>
+    </div>
+    <script>
 
-                function closeForm() {
-                    document.getElementById("popupForm").style.display = "none";
-                }
+        function closeForm() {
+            document.getElementById("popupForm").style.display = "none";
+        }
 
-                function checkapprove(id,pid) {
-                    document.getElementById("thisrepid").value = id;
-                    document.getElementById("thispatientid").value = pid;
+        function checkapprove(id, pid) {
+            document.getElementById("thisrepid").value = id;
+            document.getElementById("thispatientid").value = pid;
 
-                    document.getElementById("popupForm").style.display = "block";
+            document.getElementById("popupForm").style.display = "block";
 
-                }
+        }
 
-            </script>
+    </script>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
