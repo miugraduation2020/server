@@ -49,3 +49,4 @@
 *.bc filter=lfs diff=lfs merge=lfs -text
 *.png binary
 *.jpg binary
+*.scpt diff=scpt
