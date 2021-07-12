@@ -36,7 +36,6 @@ const PORT = 4000;
 mongoose.Promise = global.Promise;
 
 // Session 
-app.set('trust proxy', 1);
 
 app.use(session({
   secret: 'soktom boktom',
