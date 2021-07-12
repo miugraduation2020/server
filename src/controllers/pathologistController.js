@@ -59,16 +59,19 @@ exports.assignPatients = async (req, res) => {
     // console.log("done1")
 
     console.log(" test   " + pathDetails);
-    sendEmail({
-        to: pathDetails.email,
-        subject: "You've been assigned ",
-        html: `<div>
+    if (pathDetails.getEmail) {
+        sendEmail({
+            to: pathDetails.email,
+            subject: "You've been assigned ",
+            html: `<div>
           <h2>Hi there!</h2>
           <h3>Please open your account to check your patient.</h3>
      
         </div>`,
-        from: "miu.graduation2020@gmail.com",
-    });
+            from: "miu.graduation2020@gmail.com",
+        });
+    }
+
     // Updating Patients Records From Unassigned to assigned
     // Making sure if we are receiveing the multiple unassigned patients (Array) or only one (String)
     if (Array.isArray(pp)) {

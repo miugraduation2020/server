@@ -2,7 +2,7 @@ const express = require('express');
 const { addUser, signIn, verifyEmail, forgotPassword, changePassword,
     updatePassword, getUsersData, getPatients, getPathologists,
     searchPatient, deletePatient, deletePathologist, editPathologist,
-    editPatient, dashboard } = require('../controllers/userController');
+    editPatient, dashboard, getMail } = require('../controllers/userController');
 
 const { destroySession, auth, notAdminRedirectProfile, loggedInUser = async (req, res, next) => {
 
@@ -67,6 +67,8 @@ router.post('/user/forgot-password', forgotPassword);
 router.post('/user/update-password', updatePassword);
 router.post('/user/change-password', changePassword);
 router.get('/user/logout', auth, destroySession);
+
+router.post('/getMail', getMail);
 
 router.post('/adminPatientsList', searchPatient);
 

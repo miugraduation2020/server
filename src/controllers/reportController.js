@@ -214,17 +214,19 @@ exports.approveReport = async (req, res) => {
 
         const patient = await User.findOne({ _id: patientId });
         console.log("Patient" + patientId)
-
-        sendEmail({
-            to: patient.email,
-            subject: "Test results",
-            html: `<div>
+        if (patient.getEmail) {
+            sendEmail({
+                to: patient.email,
+                subject: "Test results",
+                html: `<div>
               <h2>Hi there!</h2>
               <h3>Your test results are now ready.</h3>
          
             </div>`,
-            from: "miu.graduation2020@gmail.com",
-        });
+                from: "miu.graduation2020@gmail.com",
+            });
+        }
+
 
     }
     else {

@@ -583,6 +583,21 @@ exports.editPatient = async (req, res) => {
 
     res.redirect('adminPatientsList');
 };
+exports.getMail = async (req, res) => {
+    const { notify, userId } = req.body;
+
+
+    const updateuser = await User.findByIdAndUpdate({ _id: new Object(userId) }, {
+        getEmail: this.getEmail ? false : true,
+
+    });
+    if (!updateuser) {
+        console.log("error");
+    }
+
+
+    res.redirect('profile');
+};
 
 // Dashboard Counter
 
